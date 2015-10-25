@@ -1,0 +1,12 @@
+.title{
+	background-color:black;
+    color:white;
+    text-align:center;
+    padding:5px;
+}
+
+.search{
+	margin:15px;
+	text-align:center;
+	font-size: 25px;
+}
