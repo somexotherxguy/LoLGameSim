@@ -8,21 +8,62 @@
 <body>
 
 <div id="header" class="title">
-<h1>LoL Game Simulator</h1>
+	<!--<img src="images/titlebanner.png">-->
+	<h1>LoL Game Simulator</h1>
+
 </div>
 
 <form>
-	<div class="search">
-		Search for a champion:
-		<input type="text">
-	</div>	
+	<div id="searchbar">
+		<div class="search">
+			Search for a champion<br />
+		</div>	
+		<div class="bar">
+			<input type="text">
+		</div>
+	</div>
 </form>
 
-<div class="stats">
+<div class="icon">
 	<img src="images/Lulu_icon.jpg" alt="Champ Icon">
 </div>
+<div>	
+	<table id="statstable">
+		<!-- stats -->
+		
+		<tr >
+			<td></td>
+			<td>Health</td>
+			<td>Health Regen</td>
+			<td>Mana</td>	
+			<td>Mana Regen</td>
+		
+		</tr>
+		<tr>
+			<td></td>
+			<td>Attack Range</td>
+			<td>Attack Damage</td>
+			<td>Attack Speed</td>
+			<td>Armor</td>
+			<td>Magic Res</td>
+		
+		</tr>
+		<tr>
+			<td>Move Speed</td>
+			<td>Ability Power</td>
+			<td>Cooldown Reduction</td>
+			<td>Critical Chance</td>
+		</tr>
+		<tr>
+			<td>Armor Pen</td>
+			<td>% Armor pen</td>
+			<td>Magic Pen</td>
+			<td>% Magic Pen</td>
+		</tr>
+	</table>
+</div>
 
-<p>Enter in game data and simulate league games to test builds quickly.</p>
+<p id="test">Enter in game data and simulate league games to test builds quickly.</p>
 
 </body>
 </html>

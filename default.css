@@ -1,12 +1,63 @@
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+	/*background-image: url("images/no-one-lives-fallback.jpg");
+	background-size: 100%;*/
+	background-color:#002200;
+}
+
 .title{
-	background-color:black;
-    color:white;
-    text-align:center;
-    padding:5px;
+    padding:0px;
+	background-image: url("images/titlebanner.png");
+	height:64px;
+	border-style: solid;
+	border-color: black;
+	text-align: center; 
+}
+
+h1{
+	color:#003B00;
+    padding:0px;
+	position: relative; 
+    bottom: 5px; 
+    right: 35px; 
 }
 
 .search{
 	margin:15px;
-	text-align:center;
+	position: relative;
+	left: 740px;
 	font-size: 25px;
+	color: white;
+}
+
+.bar{
+	position: relative;
+	left: 780px;
+	font-size: 25px;
+}
+
+#searchbar{
+	margin: 50px;
+}
+
+#test{
+	color:white;
+}
+
+th, td {
+    padding: 25px;
+}
+
+#statstable{
+	margin-left: 550px;
+	border-spacing:5px;
+	color: white;
+}
+
+.icon{
+	position: relative;
+	left: 550px;
+	top: 120px;
 }
