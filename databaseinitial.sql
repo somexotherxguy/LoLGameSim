@@ -36,8 +36,8 @@ create table Champs_Stats(
 );
 
 create table Item_Stats(
-    item_id varchar(10),
-    health integer,
+        item_id varchar(10),
+        health integer,
 	health_regen numeric(3,2),
 	mana integer,
 	mana_regen numeric(3,2),
@@ -62,17 +62,17 @@ create table Rune_Page_Stats(
 );
 
 create table Dragon_Buff_Stats(
-    dragon_num integer,
-    bonus_attack_damage numeric(1,2),
-    bonus_ability_power numeric(1,2),
-    bonus_movement_speed numeric(1,2)
+        dragon_num integer,
+        bonus_attack_damage numeric(1,2),
+        bonus_ability_power numeric(1,2),
+        bonus_movement_speed numeric(1,2)
 );
 
 create table Current_Stats(
 );
 
 create table Inventory(
-    item_name varchar(30),
-    item_id varchar(10) references Item_Stats(item_id),
-    inventory_num integer
+        item_name varchar(30),
+        item_id varchar(10) references Item_Stats(item_id),
+        inventory_num integer
 );
