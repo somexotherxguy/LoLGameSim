@@ -2,9 +2,9 @@
 html, body {
     max-width: 100%;
     overflow-x: hidden;
-	/*background-image: url("images/no-one-lives-fallback.jpg");
-	background-size: 100%;*/
-	background-color:#002200;
+	background-image: url("images/act-2-world-layer-base.jpg");
+	background-size: 100%;
+	/*background-color:#FFFFFF;*/
 }
 
 .title{
@@ -13,27 +13,33 @@ html, body {
 	height:64px;
 	border-style: solid;
 	border-color: black;
-	text-align: center; 
+	text-align: center;	
+}
+
+#wrapper{
+	margin-left:auto;
+    margin-right:auto;
+    width:960px;
+	background-color: #E5FFEE;
 }
 
 h1{
-	color:#003B00;
+	color:#FFFFFF;
     padding:0px;
-	position: relative; 
-    bottom: 5px; 
-    right: 35px; 
+	text-align: left; 
+
 }
 
 .search{
 	margin:15px;
-	position: relative;
+	text-align: center;
 	left: 740px;
 	font-size: 25px;
-	color: white;
+	color: black;
 }
 
 .bar{
-	position: relative;
+	text-align: center;
 	left: 780px;
 	font-size: 25px;
 }
@@ -43,21 +49,25 @@ h1{
 }
 
 #test{
-	color:white;
+	color:black;
 }
 
 th, td {
     padding: 25px;
 }
 
+#sectionone{
+	
+}
+
 #statstable{
-	margin-left: 550px;
+	margin-left: 50px;
 	border-spacing:5px;
-	color: white;
+	color: black;
 }
 
 .icon{
 	position: relative;
-	left: 550px;
+	left: 50px;
 	top: 120px;
 }
