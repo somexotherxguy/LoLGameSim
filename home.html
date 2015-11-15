@@ -88,6 +88,7 @@
 		
 		<p id="abilitytext">This is the passive it does passive things</p>
 		
+		<!-- changes the ability description -->
 		<script>
 			function changePassive(){
 				document.getElementById("abilitytext").innerHTML = "This is the passive it does passive things!";
@@ -109,31 +110,489 @@
 		
 	</div>
 	<div>
+		<!-- get ready for an abomination of a table for the runes -->
 		<h2>Runes</h2>
+		
+		<p> Now it is time for you to choose the rune page you will be using. Please pick 9 Marks, 9 Seals, 9 Glyphs, and 3 Quints.</p>
+		
 		<table id="runetable">
 			<tr>
-				<th>Marks</th> <th></th> <th>Seals</th> <th></th> <th>Glyphs</th> <th></th> <th>Quintesences</th> <th></th>
+				<th>Marks</th> 
+				<th>Seals</th> 
+				<th>Glyphs</th> 
+				<th>Quintesences</th> 
 			</tr>
 			<tr>
-				<td>Armor Pen</td> <td></td> <td>Armor</td> <td></td> <td>Ability Power</td> <td></td> <td>Ability Power</td> <td></td> <td>Mana Regen</td> <td></td>
+				<td id="runecells">Armor Pen	
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select></td> 
+				<td id="runecells">Armor
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td>
+				<td id="runecells">Ability Power
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+
+				<td id="runecells">Ability Power
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+
+				<td id="runecells">Mana Regen
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+
 			</tr>
 			<tr>
-				<td>Attack Damage</td> <td></td> <td>Energy Regen</td> <td></td> <td>Cooldown Reduction</td> <td></td> <td>Armor</td> <td></td> <td>% Health</td> <td></td>
+				<td id="runecells">Attack Damage
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+
+				<td id="runecells">Energy Regen
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+
+				<td id="runecells">Cooldown Reduction
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+
+				<td id="runecells">Armor
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+
+				<td id="runecells">% Health
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+
 			</tr>
 			<tr>
-				<td>Attack Speed</td> <td></td> <td>Health</td> <td></td> <td>Energy</td> <td></td> <td>Cooldown Reduction</td> <td></td> <td>Experiance</td> <td></td>
+				<td id="runecells">Attack Speed
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+				<td id="runecells">Health
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+				<td id="runecells">Energy
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+				<td id="runecells">Cooldown Reduction
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+				<td id="runecells">Experiance
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
 			</tr>
 			<tr>
-				<td>Critical Chance</td> <td></td> <td>Health Regen</td> <td></td> <td>Mana</td> <td></td> <td>Gold</td> <td></td> <td>Life Steal</td> <td></td>
+				<td id="runecells">Critical Chance
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+				<td id="runecells">Health Regen
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+				<td id="runecells">Mana
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+				<td id="runecells">Gold
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+				<td id="runecells">Life Steal
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
 			</tr>
 			<tr>
-				<td>Critical Damage</td> <td></td> <td>Mana Regen</td> <td></td> <td>Magic Resist</td> <td></td> <td>Health</td> <td></td> <td>Movespeed</td> <td></td>
+				<td id="runecells">Critical Damage
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+				<td id="runecells">Mana Regen
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+				<td id="runecells">Magic Resist
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+				<td id="runecells">Health
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+				<td id="runecells">Movespeed
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
 			</tr>
 			<tr>
-				<td>Hybrid Pen</td> <td></td> <td>% Health</td> <td></td> <td></td> <td></td> <td>Health Regen</td> <td></td> <td>Revival</td> <td></td>
+				<td id="runecells">Hybrid Pen
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+				<td id="runecells">% Health
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+				<td></td> 
+				<td id="runecells">Health Regen
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+				<td id="runecells">Revival
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
 			</tr>
 			<tr>
-				<td>Magic Pen</td> <td></td> <td></td> <td></td> <td></td> <td></td> <td>Mana</td> <td></td> <td>Spell Vamp</td> <td></td>
+				<td id="runecells">Magic Pen
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+				<td></td> 
+				<td></td> 
+				<td id="runecells">Mana
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
+				<td id="runecells">Spell Vamp
+					<select> 
+					<option value="0">0</option> 
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					</select>
+				</td> 
 			</tr>
 		</table>
 	</div>
