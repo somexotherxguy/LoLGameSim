@@ -29,6 +29,8 @@
 		</div>
 		</form>
 	</div>
+	
+	<p id="test">Enter in game data and simulate league games to test builds quickly.</p>
 
 
 	<div id="sectionone">
@@ -71,10 +73,44 @@
 		</table>
 		</div>
 	</div>
-
-	<p id="test">Enter in game data and simulate league games to test builds quickly.</p>
-
-	<p>This is the change that i have made<p>
+	
+	<div>
+		<h2>Abilities</h2>
+		<table id="abilitytable">
+			<tr> 
+				<td><img onclick="changePassive()" src="images/Pix_Faerie_Companion.png" id="passive" width="64" height="64"></td>
+				<td><img onclick="changeAbilityOne()" src="images/Glitterlance.png" id="abilityone"></td>
+				<td><img onclick="changeAbilityTwo()" src="images/Whimsy.png" id="abilitytwo"></td>
+				<td><img onclick="changeAbilityThree()" src="images/Help_Pix!.png" id="abilitythree"></td>
+				<td><img onclick="changeAbilityFour()" src="images/Wild_Growth.png" id="abilityfour"></td>
+			</tr>
+		</table>
+		
+		<p id="abilitytext">This is the passive it does passive things</p>
+		
+		<script>
+			function changePassive(){
+				document.getElementById("abilitytext").innerHTML = "This is the passive it does passive things!";
+			}
+			function changeAbilityOne(){
+				document.getElementById("abilitytext").innerHTML = "This is ability one it does ability one things!";
+			}	
+			function changeAbilityTwo(){
+				document.getElementById("abilitytext").innerHTML = "This is ability two it does ability two things!";
+			}	
+			function changeAbilityThree(){
+				document.getElementById("abilitytext").innerHTML = "This is ability three it does ability three things!";
+			}	
+			function changeAbilityFour(){
+				document.getElementById("abilitytext").innerHTML = "This is ability four it does ability four things!";
+			}	
+		
+		</script>
+		
+	</div>
+	<div>
+		<h2>Runes</h2>
+	</div>
 
 </div>
 </body>

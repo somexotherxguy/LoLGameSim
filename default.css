@@ -1,19 +1,20 @@
 
-html, body {
+body {
     max-width: 100%;
     overflow-x: hidden;
 	background-image: url("images/act-2-world-layer-base.jpg");
 	background-size: 100%;
 	/*background-color:#FFFFFF;*/
+	overflow-x: scroll;
 }
 
 .title{
     padding:0px;
 	background-image: url("images/titlebanner.png");
 	height:64px;
-	border-style: solid;
-	border-color: black;
 	text-align: center;	
+	position:relative;
+	bottom: 22px;
 }
 
 #wrapper{
@@ -21,13 +22,23 @@ html, body {
     margin-right:auto;
     width:960px;
 	background-color: #E5FFEE;
+	border-style: solid;
+	border-color: black;
 }
 
 h1{
-	color:#FFFFFF;
+	color:#E5FFEE;
     padding:0px;
 	text-align: left; 
+	position: relative;
+	top: 10px;
 
+}
+
+h2{
+	color:black;
+	padding: 0px;
+	text-align: center;
 }
 
 .search{
@@ -70,4 +81,17 @@ th, td {
 	position: relative;
 	left: 50px;
 	top: 120px;
+}
+
+#abilitytable{
+	margin-left: 175px;
+}
+
+#passive, #abilityone, #abilitytwo, #abilitythree, #abilityfour{
+	border-style: solid;
+	border-color: black;
+}
+
+#abilitytext{
+	text-align: center;
 }
