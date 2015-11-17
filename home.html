@@ -107,8 +107,7 @@
 			}	
 			function changeAbilityFour(){
 				document.getElementById("abilitytext").innerHTML = "This is ability four it does ability four things!";
-			}	
-		
+			}
 		</script>
 		
 	</div>
@@ -128,61 +127,61 @@
 			<tr>
 				<td id="runecells">Armor Pen	
 					<select> 
-					<option value="0">0</option> 
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
+						<option value="0">0</option> 
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
 					</select></td> 
 				<td id="runecells">Armor
 					<select> 
-					<option value="0">0</option> 
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
+						<option value="0">0</option> 
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
 					</select>
 				</td>
 				<td id="runecells">Ability Power
 					<select> 
-					<option value="0">0</option> 
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
+						<option value="0">0</option> 
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
 					</select>
 				</td> 
 
 				<td id="runecells">Ability Power
 					<select> 
-					<option value="0">0</option> 
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
+						<option value="0">0</option> 
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
 					</select>
 				</td> 
 
 				<td id="runecells">Mana Regen
 					<select> 
-					<option value="0">0</option> 
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
+						<option value="0">0</option> 
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
 					</select>
 				</td> 
 
@@ -190,16 +189,16 @@
 			<tr>
 				<td id="runecells">Attack Damage
 					<select> 
-					<option value="0">0</option> 
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-					<option value="8">8</option>
-					<option value="9">9</option>
+						<option value="0">0</option> 
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
 					</select>
 				</td> 
 
@@ -578,19 +577,32 @@
 	<br>
 	<br>
 	<br>
-	<div>
+	<div style="padding: 10px; float: left;">
+		<h2>Shop</h2>
+		<h3>Filter</h3>
 		Defense
-		<ul>
-			<li>Health</li>
-			<li>Magic Resist</li>
-			<li>Armor</li>
+		<ul class="filter">
+			<li><input type="radio">Health</li>
+			<li><input type="radio">Magic Resist</li>
+			<li><input type="radio">Armor</li>
 		</ul>	
 		Attack
-		<ul>
-			<li>Damage</li>
-			<li>Attack Speed</li>
-			<li>Critical Chance</li>
-			<li>Lifesteal</li>
+		<ul class="filter">
+			<li><input type="radio">Damage</li>
+			<li><input type="radio">Attack Speed</li>
+			<li><input type="radio">Critical Chance</li>
+			<li><input type="radio">Lifesteal</li>
+		</ul>
+		Magic
+		<ul class="filter">
+			<li><input type="radio">Ability Power</li>
+			<li><input type="radio">Cooldown Reduction</li>
+			<li><input type="radio">Mana</li>
+			<li><input type="radio">Mana Regen</li>
+		</ul>
+		Movement
+		<ul class="filter">
+			<li><input type="radio">Movespeed</li>
 		</ul>
 	</div>
 

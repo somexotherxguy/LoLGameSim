@@ -140,6 +140,6 @@ li {
 	padding:10px;
 }
 
-#listtwo{
-	
-}
+.filter{
+	list-style-type: none;
+}	
