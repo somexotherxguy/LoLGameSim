@@ -110,4 +110,36 @@ th, td {
 	white-space: nowrap;
 	text-align: right;
 }
+
+#gametable{
+	white-space: nowrap;
+	margin-left: 0px;
+}
+
+.gamedetails{
+	padding:10px;
+	list-style-type: none;
+	float: left;
+	text-align: right;
+}
+
+.gameinputs{
+	padding:10px;
+	list-style-type: none;
+	float: left;
+	text-align: left;
+}
+
+.gameinputsnot{
+	padding:10px;
+	list-style-type: none;
+	text-align: left;
+}
+
+li {
+	padding:10px;
+}
+
+#listtwo{
 	
+}
