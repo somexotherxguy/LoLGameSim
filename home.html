@@ -27,7 +27,10 @@
 				<!--Search for a champion<br /> -->
 			</div>	
 			<div class="bar">
-				<input type="text" placeholder="Search for a Champion...">
+				<form>
+					<input id="search" type="text" placeholder="Search for a Champion..." name="champ_name"><br>
+					<button onclick="change_icon()" type="button">Search</button>
+				</form>	
 			</div>
 		</div>
 		</form>
@@ -38,7 +41,36 @@
 
 	<div id="sectionone">
 		<div class="icon">
-			<img src="images/Lulu_icon.jpg" alt="Champ Icon">
+			<img id="champ_icon" src="images/Lulu_icon.jpg" alt="Champ Icon">
+			
+			<!-- api testing 
+			<script type="text/javascript">
+				
+				var xmlhttp = new XMLHttpRequest();
+					
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						var icon = document.getElementById('champ_icon');
+						obj = JSON.parse(xmlhttp.responseText);
+						icon.src = "http://ddragon.leagueoflegends.com/cdn/5.22.1/img/champion/Thresh.png";
+					}
+				};			
+				xmlhttp.open( "GET", "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=image&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184", false ); // false for synchronous request
+				xmlhttp.send( null ); 
+					
+			</script>
+			-->
+			<script type="text/javascript">
+				function change_icon(){
+					var champname = document.getElementById('search');
+					var name = champname.value;
+					var icon = document.getElementById('champ_icon');
+					var url = "http://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/";
+					var almost = name.concat(".png")
+					icon.src = url.concat(almost);
+					console.log(icon.src);
+				}
+			</script>
 		</div>
 		<div>
 		<table id="statstable">
@@ -581,6 +613,7 @@
 		<h2>Shop</h2>
 		
 		<div id="shopicons">
+			<!-- shows 80 item icons -->
 			<img src="images/Rabadon's_Deathcap_Item.png">
 			<img src="images/Rabadon's_Deathcap_Item.png">
 			<img src="images/Rabadon's_Deathcap_Item.png">
@@ -591,6 +624,7 @@
 			<img src="images/Rabadon's_Deathcap_Item.png">
 			<img src="images/Rabadon's_Deathcap_Item.png">
 			<img src="images/Rabadon's_Deathcap_Item.png">
+			
 			<img src="images/Rabadon's_Deathcap_Item.png">
 			<img src="images/Rabadon's_Deathcap_Item.png">
 			<img src="images/Rabadon's_Deathcap_Item.png">
@@ -601,6 +635,7 @@
 			<img src="images/Rabadon's_Deathcap_Item.png">
 			<img src="images/Rabadon's_Deathcap_Item.png">
 			<img src="images/Rabadon's_Deathcap_Item.png">
+			
 			<img src="images/Rabadon's_Deathcap_Item.png">
 			<img src="images/Rabadon's_Deathcap_Item.png">
 			<img src="images/Rabadon's_Deathcap_Item.png">
@@ -611,6 +646,7 @@
 			<img src="images/Rabadon's_Deathcap_Item.png">
 			<img src="images/Rabadon's_Deathcap_Item.png">
 			<img src="images/Rabadon's_Deathcap_Item.png">
+			
 			<img src="images/Rabadon's_Deathcap_Item.png">
 			<img src="images/Rabadon's_Deathcap_Item.png">
 			<img src="images/Rabadon's_Deathcap_Item.png">
@@ -621,6 +657,7 @@
 			<img src="images/Rabadon's_Deathcap_Item.png">
 			<img src="images/Rabadon's_Deathcap_Item.png">
 			<img src="images/Rabadon's_Deathcap_Item.png">
+			
 			<img src="images/Rabadon's_Deathcap_Item.png">
 			<img src="images/Rabadon's_Deathcap_Item.png">
 			<img src="images/Rabadon's_Deathcap_Item.png">
