@@ -79,6 +79,7 @@ th, td {
 }
 
 #statstable{
+	text-align: right;
 	margin-left: 50px;
 	border-spacing:5px;
 	color: black;

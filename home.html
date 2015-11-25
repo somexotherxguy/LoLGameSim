@@ -28,8 +28,8 @@
 			</div>	
 			<div class="bar">
 				<form>
-					<input id="search" type="text" placeholder="Search for a Champion..." name="champ_name"><br>
-					<button onclick="change_icon()" type="button">Search</button>
+					<input id="search" type="text" placeholder="Search for a Champion..." name="champ_name">
+					<button onclick="on_search(), change_passive()" type="button">Search</button>
 				</form>	
 			</div>
 		</div>
@@ -57,19 +57,71 @@
 				};			
 				xmlhttp.open( "GET", "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=image&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184", false ); // false for synchronous request
 				xmlhttp.send( null ); 
+				
+					var almost2 = name.concat(".json");
+					var champ_url = "http://ddragon.leagueoflegends.com/cdn/5.23.1/data/en_US/champion/";
+					var champ_between = champ_url.concat(almost2);
+					var champ_json = champ_url.concat(almost2);
+					var parsed_json = JSON.parse(JSON.stringify(champ_json));
+					var ability_array = ["pass", "q", "w", "e", "r"];
+					for (i=0; i<ability_array.length; i++){
+						console.log(parsed_json.data.Aatrox.spells[i].name);
+						ability_array[i]= parsed_json.data.spells[i].name;
+						console.log(ability_array[i]);
+					};
+					var passive = docuemnt.getElementByID('passive');
+					
 					
 			</script>
 			-->
 			<script type="text/javascript">
-				function change_icon(){
+				function on_search(){
 					var champname = document.getElementById('search');
 					var name = champname.value;
 					var icon = document.getElementById('champ_icon');
-					var url = "http://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/";
-					var almost = name.concat(".png")
-					icon.src = url.concat(almost);
-					console.log(icon.src);
+					var icon_url = "http://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/";
+					var almost = name.concat(".png");
+					
+					icon.src = icon_url.concat(almost);
+					
+					
+					
 				}
+			</script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+			<script>
+				function change_passive(){
+					var champ_name = "";
+					champ_name = $("#search").val();
+					if(champ_name !== ""){
+					
+						$.ajax({
+							url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=passive&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+							type: 'GET',
+							dataType: 'json',
+							data: {
+
+							},
+							success: function (json) {
+								var champ_name_nospaces = champ_name.replace(" ", "");
+
+								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+								
+								
+								
+								pass = json.data[champ_name].passive.name;
+								
+
+								console.log(pass);
+
+							},
+							error: function (XMLHttpRequest, textStatus, errorThrown) {
+								alert("error getting Summoner data!");
+							}
+						});
+					}	
+				}
+				
 			</script>
 		</div>
 		<div>
@@ -79,30 +131,39 @@
 			<tr >
 				<td></td>
 				<td>Health</td>
-				<td>Health Regen</td>
 				<td>Mana</td>	
-				<td>Mana Regen</td>
-			
-			</tr>
-			<tr>
-				<td></td>
-				<td>Attack Range</td>
-				<td>Attack Damage</td>
-				<td>Attack Speed</td>
-				<td>Armor</td>
+				<td>Ability Power</td>
 				<td>Magic Res</td>
 			
 			</tr>
 			<tr>
-				<td>Move Speed</td>
-				<td>Ability Power</td>
+				<td></td>
+				<td>Health Regen</td>
+				<td>Mana Regen</td>
 				<td>Cooldown Reduction</td>
-				<td>Critical Chance</td>
+				
+				<td>Armor</td>
+				
+			
 			</tr>
 			<tr>
-				<td>Armor Pen</td>
-				<td>% Armor pen</td>
+				<td>Attack Damage</td>
+				
+				
+				<td>Attack Speed</td>
+				<td>Critical Chance</td>
 				<td>Magic Pen</td>
+				<td>Attack Range</td>
+				
+		
+			</tr>
+			<tr>
+				<td>Move Speed</td>
+				
+				
+				<td>Armor Pen</td>
+				
+				<td>% Armor pen</td>
 				<td>% Magic Pen</td>
 			</tr>
 		</table>
@@ -709,12 +770,12 @@
 		</div>
 		<div id="inventory">
 			<h4>Inventory</h4>
-			<img src="images/Sorcerer's_Shoes_Item.png">
-			<img src="images/Athene's_Unholy_Grail_Item.png">
-			<img src="images/Zhonya's_Hourglass_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Luden's_Echo_Item.png">
-			<img src="images/Void_Staff_Item.png">
+			<img id="inventory_items" src="images/Sorcerer's_Shoes_Item.png">
+			<img id="inventory_items" src="images/Athene's_Unholy_Grail_Item.png">
+			<img id="inventory_items" src="images/Zhonya's_Hourglass_Item.png">
+			<img id="inventory_items" src="images/Rabadon's_Deathcap_Item.png">
+			<img id="inventory_items" src="images/Luden's_Echo_Item.png">
+			<img id="inventory_items" src="images/Void_Staff_Item.png">
 		</div>
 		
 		<div class="filterlist">
