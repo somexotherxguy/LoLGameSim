@@ -2,11 +2,14 @@
 body {
     max-width: 100%;
     overflow-x: hidden;
-	background-image: url("images/act-2-world-layer-base.jpg");
-	background-size: 100%;
 	/*background-color:#FFFFFF;*/
 	overflow-x: scroll;
+	background-image: url("images/act-2-world-layer-base.jpg");
+	background-size: 100%;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
 }
+
 
 .title{
     padding:0px;
