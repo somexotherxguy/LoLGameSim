@@ -41,13 +41,15 @@ h1{
 	text-align: center; 
 	position: relative;
 	top: 10px;
-	text-shadow: 4px black;
+	text-shadow: 4px #20603f;
+	text-shadow: 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f;
 }
 
 h2{
 	color: #E5FFEE;
 	padding: 0px;
 	text-align: center;
+
 }
 
 .search{
@@ -184,6 +186,7 @@ li {
 	border-bottom: solid #20603f;
 	background-color: #00e673;
 	width:1000px;
+	text-shadow: 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f;
 }	
 
 

@@ -27,9 +27,9 @@
 				<!--Search for a champion<br /> -->
 			</div>	
 			<div class="bar">
-				<form onsubmit="return false;">
+				<form>
 					<input id="search" type="text" placeholder="Search for a Champion..." name="champ_name" onkeypress="on_search_two(event)"/>
-					<button onclick="on_search(), change_passive()" type="button">Search</button>
+					<button onclick="on_search(), change_passive(), change_abilities()" type="button">Search</button>
 				</form>
 			</div>
 		</div>
@@ -73,7 +73,7 @@
 					};
 					var passive = docuemnt.getElementByID('passive');
 					
-					
+					document.getElementById("searchform").submit(function
 			</script>
 			-->
 			<script type="text/javascript">
@@ -100,7 +100,7 @@
 					return false;
 				}	
 				
-				document.getElementById("searchform").submit(function
+				
 			</script>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 			<script>
@@ -118,22 +118,76 @@
 							},
 							success: function (json) {
 								var champ_name_nospaces = champ_name.replace(" ", "");
-
 								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
 								
-								
-								
-								pass = json.data[champ_name].passive.name;
-								
-
+								<!-- changing passive icon -->
+								pass = json.data[champ_name].passive.image.full;
 								console.log(pass);
-
+								
+								var passive = document.getElementById('passive');
+								
+								var passive_url = "http://ddragon.leagueoflegends.com/cdn/5.23.1/img/passive/";
+								var almost_two = pass.concat(".png");
+								passive.src = passive_url.concat(pass);
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
 								alert("error getting Summoner data!");
 							}
 						});
-					}	
+					}
+					
+						
+				}
+				
+				function change_abilities(){
+					var champ_name = "";
+					champ_name = $("#search").val();
+					if(champ_name !== ""){
+					
+						$.ajax({
+							url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+							type: 'GET',
+							dataType: 'json',
+							data: {
+
+							},
+							success: function (json) {
+								var champ_name_nospaces = champ_name.replace(" ", "");
+								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+								
+								
+								var abilities= ["", "", "", ""];
+								for(i=0; i<4; i++){
+						
+									abilities[i] = json.data[champ_name].spells[i].image.full;
+									console.log(abilities[i]);
+								}
+								
+								var ability_url = "http://ddragon.leagueoflegends.com/cdn/5.23.1/img/spell/"
+								var ab_one = document.getElementById('abilityone');
+								var ab_two = document.getElementById('abilitytwo');
+								var ab_three = document.getElementById('abilitythree');
+								var ab_four = document.getElementById('abilityfour');
+								for(j=0; j<4; j++){
+									if(j==0){
+										ab_one.src = ability_url.concat(abilities[j]);
+									}
+									if(j==1){
+										ab_two.src = ability_url.concat(abilities[j]);
+									}
+									if(j==2){
+										ab_three.src = ability_url.concat(abilities[j]);
+									}
+									if(j==3){
+										ab_four.src = ability_url.concat(abilities[j]);
+									}
+								}
+							},
+							error: function (XMLHttpRequest, textStatus, errorThrown) {
+								alert("error getting Summoner data!");
+							}
+						});
+					}
 				}
 				
 			</script>
