@@ -11,10 +11,11 @@ body {
 .title{
     padding:0px;
 	background-image: url("images/titlebanner.png");
-	height:75px;
+	height:74px;
 	text-align: center;	
 	position:relative;
 	bottom: 22px;
+	border-bottom: solid #20603f;
 }
 
 #wrapper{
@@ -25,6 +26,7 @@ body {
 	background-color: #E5FFEE;
 	border-style: solid;
 	border-color: black;
+	font-family: "verdana"
 }
 
 #icon{
@@ -39,11 +41,11 @@ h1{
 	text-align: center; 
 	position: relative;
 	top: 10px;
-
+	text-shadow: 4px black;
 }
 
 h2{
-	color:black;
+	color: #E5FFEE;
 	padding: 0px;
 	text-align: center;
 }
@@ -106,6 +108,7 @@ th, td {
 
 #runetable{
 	margin-right: 0px;
+	font-size: 13px;
 }
 
 #runecells{
@@ -155,14 +158,14 @@ li {
 #gold{
 	text-align:center;
 	position:relative;
-	bottom: 484px;
+	bottom: 500px;
 	right: 50px;
 }
 
 #inventory{
 	text-align: right;
 	position: relative;
-	bottom: 624px;
+	bottom: 630px;
 	padding: 10px;
 }
 
@@ -170,10 +173,17 @@ li {
 	position: relative;
 	top: 175px;
 	left: 250px;
-	width: 69%;
+	width: 71%;
 	padding: 10px;
 	border: solid;
 	border-color: black;
 }
+
+.section_headers{
+	border-top: solid #20603f;
+	border-bottom: solid #20603f;
+	background-color: #00e673;
+	width:1000px;
+}	
 
 

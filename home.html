@@ -27,10 +27,10 @@
 				<!--Search for a champion<br /> -->
 			</div>	
 			<div class="bar">
-				<form>
-					<input id="search" type="text" placeholder="Search for a Champion..." name="champ_name">
+				<form onsubmit="return false;">
+					<input id="search" type="text" placeholder="Search for a Champion..." name="champ_name" onkeypress="on_search_two(event)"/>
 					<button onclick="on_search(), change_passive()" type="button">Search</button>
-				</form>	
+				</form>
 			</div>
 		</div>
 		</form>
@@ -40,7 +40,9 @@
 
 
 	<div id="sectionone">
+		
 		<div class="icon">
+			<h2 class="section_headers" style="position: relative; right: 50px;">Stats</h2>
 			<img id="champ_icon" src="images/Lulu_icon.jpg" alt="Champ Icon">
 			
 			<!-- api testing 
@@ -83,10 +85,22 @@
 					var almost = name.concat(".png");
 					
 					icon.src = icon_url.concat(almost);
-					
-					
-					
+					console.log("searching has been done");
 				}
+				
+				function on_search_two(e){
+					
+					if(e.keycode === 13){
+						console.log("it got here");
+						e.preventDefault();
+						on_search();
+						
+					}
+					console.log("two is being called");
+					return false;
+				}	
+				
+				document.getElementById("searchform").submit(function
 			</script>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 			<script>
@@ -171,7 +185,7 @@
 	</div>
 	
 	<div>
-		<h2>Abilities</h2>
+		<h2 class="section_headers">Abilities</h2>
 		<table id="abilitytable">
 			<tr> 
 				<td><img onclick="changePassive()" src="images/Pix_Faerie_Companion.png" id="passive" width="64" height="64"></td>
@@ -206,7 +220,7 @@
 	</div>
 	<div>
 		<!-- get ready for an abomination of a table for the runes -->
-		<h2>Runes</h2>
+		<h2 class="section_headers">Runes</h2>
 		
 		<p> Now it is time for you to choose the rune page you will be using. Please pick 9 Marks, 9 Seals, 9 Glyphs, and 3 Quints.</p>
 		
@@ -610,7 +624,7 @@
 	
 	<div>
 		
-		<h2>Game Details</h2>
+		<h2 class="section_headers">Game Details</h2>
 		<div class="gamedetails">
 			<ul class="gamedetails">
 				<li style="padding: 11px">Level </li>
@@ -671,7 +685,7 @@
 	<br>
 	<br>
 	<div style="padding: 10px;">
-		<h2>Shop</h2>
+		<h2 class="section_headers" style="position: relative; right: 10px;">Shop</h2>
 		
 		<div id="shopicons">
 			<!-- shows 80 item icons -->
@@ -813,6 +827,7 @@
 	<script>
 		
 	</script>
+	
 	
 	<div>
 		<h2>End of Page</h2>
