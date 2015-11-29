@@ -130,6 +130,10 @@
 								var passive_url = "http://ddragon.leagueoflegends.com/cdn/5.23.1/img/passive/";
 								var almost_two = pass.concat(".png");
 								passive.src = passive_url.concat(pass);
+								
+								<!-- passive description -->
+								var pass_text = document.getElementById('abilitytext');
+								pass_text.innerHTML = json.data[champ_name].passive.description;
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
 								alert("error getting Summoner data!");
@@ -256,7 +260,31 @@
 		<!-- changes the ability description -->
 		<script>
 			function changePassive(){
-				document.getElementById("abilitytext").innerHTML = "This is the passive it does passive things!";
+					var champ_name = "";
+					champ_name = $("#search").val();
+					if(champ_name !== ""){
+					
+						$.ajax({
+							url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=passive&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+							type: 'GET',
+							dataType: 'json',
+							data: {
+
+							},
+							success: function (json) {
+								var champ_name_nospaces = champ_name.replace(" ", "");
+								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+								
+								<!-- passive description -->
+								var pass_text = document.getElementById('abilitytext');
+								pass_text.innerHTML = json.data[champ_name].passive.description;
+							},
+							error: function (XMLHttpRequest, textStatus, errorThrown) {
+								alert("error getting Summoner data!");
+							}
+						});
+					}
+					
 			}
 			function changeAbilityOne(){
 				document.getElementById("abilitytext").innerHTML = "This is ability one it does ability one things!";
@@ -277,7 +305,7 @@
 		<!-- get ready for an abomination of a table for the runes -->
 		<h2 class="section_headers">Runes</h2>
 		
-		<p> Now it is time for you to choose the rune page you will be using. Please pick 9 Marks, 9 Seals, 9 Glyphs, and 3 Quints.</p>
+		<p style="text-align: center;"> Now it is time for you to choose the rune page you will be using. Please pick 9 Marks, 9 Seals, 9 Glyphs, and 3 Quints.</p>
 		
 		<table id="runetable">
 			<tr>
