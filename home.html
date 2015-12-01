@@ -28,10 +28,10 @@
 				<!--Search for a champion<br /> -->
 			</div>	
 			<div class="bar">
-				<form>
+				
 					<input id="search" type="text" placeholder="Search for a Champion..." name="champ_name" onkeypress="on_search_two(event)"/>
 					<button onclick="on_search(), change_passive(), change_abilities()" type="button">Search</button>
-				</form>
+				
 			</div>
 		</div>
 		</form>
@@ -92,8 +92,6 @@
 				function on_search_two(e){
 					
 					if(e.keycode === 13){
-						console.log("it got here");
-						e.preventDefault();
 						on_search();
 						
 					}
@@ -287,16 +285,108 @@
 					
 			}
 			function changeAbilityOne(){
-				document.getElementById("abilitytext").innerHTML = "This is ability one it does ability one things!";
+					var champ_name = "";
+					champ_name = $("#search").val();
+					if(champ_name !== ""){
+					
+						$.ajax({
+							url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+							type: 'GET',
+							dataType: 'json',
+							data: {
+
+							},
+							success: function (json) {
+								var champ_name_nospaces = champ_name.replace(" ", "");
+								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+								
+								<!-- passive description -->
+								var ab_one_text = document.getElementById('abilitytext');
+								ab_one_text.innerHTML = json.data[champ_name].spells[0].tooltip;
+							},
+							error: function (XMLHttpRequest, textStatus, errorThrown) {
+								alert("error getting Summoner data!");
+							}
+						});
+					}
 			}	
 			function changeAbilityTwo(){
-				document.getElementById("abilitytext").innerHTML = "This is ability two it does ability two things!";
+				var champ_name = "";
+					champ_name = $("#search").val();
+					if(champ_name !== ""){
+					
+						$.ajax({
+							url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+							type: 'GET',
+							dataType: 'json',
+							data: {
+
+							},
+							success: function (json) {
+								var champ_name_nospaces = champ_name.replace(" ", "");
+								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+								
+								<!-- passive description -->
+								var ab_two_text = document.getElementById('abilitytext');
+								ab_two_text.innerHTML = json.data[champ_name].spells[1].tooltip;
+							},
+							error: function (XMLHttpRequest, textStatus, errorThrown) {
+								alert("error getting Summoner data!");
+							}
+						});
+					}
 			}	
 			function changeAbilityThree(){
-				document.getElementById("abilitytext").innerHTML = "This is ability three it does ability three things!";
+				var champ_name = "";
+					champ_name = $("#search").val();
+					if(champ_name !== ""){
+					
+						$.ajax({
+							url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+							type: 'GET',
+							dataType: 'json',
+							data: {
+
+							},
+							success: function (json) {
+								var champ_name_nospaces = champ_name.replace(" ", "");
+								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+								
+								<!-- passive description -->
+								var ab_three_text = document.getElementById('abilitytext');
+								ab_three_text.innerHTML = json.data[champ_name].spells[2].tooltip;
+							},
+							error: function (XMLHttpRequest, textStatus, errorThrown) {
+								alert("error getting Summoner data!");
+							}
+						});
+					}
 			}	
 			function changeAbilityFour(){
-				document.getElementById("abilitytext").innerHTML = "This is ability four it does ability four things!";
+				var champ_name = "";
+					champ_name = $("#search").val();
+					if(champ_name !== ""){
+					
+						$.ajax({
+							url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+							type: 'GET',
+							dataType: 'json',
+							data: {
+
+							},
+							success: function (json) {
+								var champ_name_nospaces = champ_name.replace(" ", "");
+								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+								
+								<!-- passive description -->
+								var ab_four_text = document.getElementById('abilitytext');
+								ab_four_text.innerHTML = json.data[champ_name].spells[3].tooltip;
+							},
+							error: function (XMLHttpRequest, textStatus, errorThrown) {
+								alert("error getting Summoner data!");
+							}
+						});
+					}
 			}
 		</script>
 		
