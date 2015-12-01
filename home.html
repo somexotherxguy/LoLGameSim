@@ -21,7 +21,7 @@
 	
 	
 	<div>
-		<form>
+		
 		<div id="searchbar">
 			
 			<div class="search">
@@ -34,7 +34,7 @@
 				
 			</div>
 		</div>
-		</form>
+		
 	</div>
 	
 	<p id="test">Enter in game data and simulate league games to test builds quickly.</p>
@@ -87,20 +87,24 @@
 					
 					icon.src = icon_url.concat(almost);
 					console.log("searching has been done");
+					var placeholder = document.getElementById('championname');
+					placeholder.innerHTML = name;
 				}
 				
 				function on_search_two(e){
-					
-					if(e.keycode === 13){
+					var code = (e.keyCode ? e.keyCode : e.which);
+					if(code == 13){
 						on_search();
-						
+						change_passive();
+						change_abilities();
 					}
-					console.log("two is being called");
+
 					return false;
 				}	
 				
 				
 			</script>
+			
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 			<script>
 				function change_passive(){
@@ -199,6 +203,7 @@
 			</script>
 		</div>
 		<div>
+			<h3 style="text-align: center;" id="championname">Champ Name</h3>
 		<table id="statstable">
 			<!-- stats -->
 			

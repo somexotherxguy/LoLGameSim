@@ -45,7 +45,7 @@ h1{
 	position: relative;
 	top: 10px;
 	text-shadow: 4px #20603f;
-	text-shadow: 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f;
+	text-shadow: 0 0 4px #e600e5, 0 0 4px #e600e5, 0 0 4px #e600e5, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f;
 }
 
 h2{
@@ -186,10 +186,10 @@ li {
 
 .section_headers{
 	border-top: solid #20603f;
-	border-bottom: solid #20603f;
+	border-bottom: solid #20603f; 
 	background-color: #33c481;
 	width:1000px;
-	text-shadow: 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f;
+	text-shadow: 0 0 4px #e600e5, 0 0 4px #e600e5, 0 0 4px #e600e5, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f;
 }	
 
 
