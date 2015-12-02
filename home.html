@@ -132,6 +132,9 @@
 								<!-- passive description -->
 								var pass_text = document.getElementById('abilitytext');
 								pass_text.innerHTML = json.data[champ_name].passive.description;
+								
+								var pass_title = document.getElementById('abilityname');
+								pass_title.innerHTML = json.data[champ_name].passive.name;
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
 								alert("error getting Summoner data!");
@@ -253,6 +256,8 @@
 			</tr>
 		</table>
 		
+		<h3 style="text-align: center;" id="abilityname">This is Something</h3>
+		
 		<p id="abilitytext">This is the passive it does passive things</p>
 		
 		<!-- changes the ability description -->
@@ -276,6 +281,9 @@
 								<!-- passive description -->
 								var pass_text = document.getElementById('abilitytext');
 								pass_text.innerHTML = json.data[champ_name].passive.description;
+								
+								var pass_title = document.getElementById('abilityname');
+								pass_title.innerHTML = json.data[champ_name].passive.name;
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
 								alert("error getting Summoner data!");
@@ -300,9 +308,12 @@
 								var champ_name_nospaces = champ_name.replace(" ", "");
 								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
 								
-								<!-- passive description -->
+								<!-- ability description -->
 								var ab_one_text = document.getElementById('abilitytext');
 								ab_one_text.innerHTML = json.data[champ_name].spells[0].tooltip;
+								
+								var ab_one_title = document.getElementById('abilityname');
+								ab_one_title.innerHTML = json.data[champ_name].spells[0].name;
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
 								alert("error getting Summoner data!");
@@ -329,6 +340,9 @@
 								<!-- passive description -->
 								var ab_two_text = document.getElementById('abilitytext');
 								ab_two_text.innerHTML = json.data[champ_name].spells[1].tooltip;
+								
+								var ab_two_title = document.getElementById('abilityname');
+								ab_two_title.innerHTML = json.data[champ_name].spells[1].name;
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
 								alert("error getting Summoner data!");
@@ -355,6 +369,9 @@
 								<!-- passive description -->
 								var ab_three_text = document.getElementById('abilitytext');
 								ab_three_text.innerHTML = json.data[champ_name].spells[2].tooltip;
+								
+								var ab_three_title = document.getElementById('abilityname');
+								ab_three_title.innerHTML = json.data[champ_name].spells[2].name;
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
 								alert("error getting Summoner data!");
@@ -381,6 +398,9 @@
 								<!-- passive description -->
 								var ab_four_text = document.getElementById('abilitytext');
 								ab_four_text.innerHTML = json.data[champ_name].spells[3].tooltip;
+								
+								var ab_four_title = document.getElementById('abilityname');
+								ab_four_title.innerHTML = json.data[champ_name].spells[3].name;
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
 								alert("error getting Summoner data!");
