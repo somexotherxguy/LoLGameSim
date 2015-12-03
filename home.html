@@ -13,7 +13,7 @@
 <div id="wrapper">
 	<div id="header" class="title">
 		
-		<h1>LoL Game Simulator</h1>
+		<h1>Pix's LoL Sim</h1>
 		
 		<img id="icon" 	align="left" src="images/Pix Icon.png">
 			
@@ -315,26 +315,58 @@
 								var champ_name_nospaces = champ_name.replace(" ", "");
 								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
 								
-								var str = "/Ban Tom {Breaking The Rules} 5";
-								
-								
 								
 								<!-- ability description -->
-								var str = json.data[champ_name].spells[0].tooltip;
-								
-								<!-- testing code    split option [e][0-9]{1}ig -->
-								
-								var e_array = str.match(/[e][0-9]/ig);
-								
-								for(i=0; i < 0; i++){
-									console.log(myarray[i]);
-								}
 								
 								var ab_one_text = document.getElementById('abilitytext');
-								ab_one_text.innerHTML = newStr;
+								
 								
 								var ab_one_title = document.getElementById('abilityname');
 								ab_one_title.innerHTML = json.data[champ_name].spells[0].name;
+								
+								<!-- testing code    split option [e][0-9]{1}ig -->
+								
+								<!-- replacing placeholder values with real data -->
+								var str = json.data[champ_name].spells[0].tooltip;
+								
+								str = str.replace(/{/g, '').replace(/}/g, '');
+								
+								var e_array = str.match(/[e][0-9]/g);
+								var f_array = str.match(/[f][0-9]/g);
+								var a_array = str.match(/[a][0-9]/g);
+								
+								if(e_array != null){
+									for(i=0; i < e_array.length; i++){
+										console.log(e_array[i]);
+										var e_array_two = [""];
+										e_array_two[i] = e_array[i].replace(/\D/g, '');
+										e_array_two[i] = Number(e_array_two[i]);
+										str = str.replace(e_array[i] , json.data[champ_name].spells[0].effectBurn[e_array_two[i]]);
+									}
+								}
+								
+								
+								if(f_array != null){
+									for(j=0; j < f_array.length; j++){
+										console.log(f_array[j]);
+										var f_array_two = [""];
+										f_array_two[j] = f_array[j].replace(/\D/g, '');
+										f_array_two[j] = Number(f_array_two[j]);
+										str = str.replace(f_array[j] , json.data[champ_name].spells[0].effectBurn[f_array_two[j]]);
+									}
+								}
+								
+								if(a_array != null){
+									for(k=0; k < a_array.length; k++){
+										console.log(a_array[k]);
+										var a_array_two = [""];
+										a_array_two[k] = a_array[k].replace(/\D/g, '');
+										a_array_two[k] = Number(a_array_two[k]);
+										str = str.replace(a_array[k] , json.data[champ_name].spells[0].effectBurn[a_array_two[k]]);
+									}
+								}
+								ab_one_text.innerHTML = str;
+								
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
 								alert("error getting Summoner data!");
@@ -357,6 +389,31 @@
 							success: function (json) {
 								var champ_name_nospaces = champ_name.replace(" ", "");
 								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+								
+								
+								<!-- replacing placeholder values with real data -->
+								var str = json.data[champ_name].spells[1].tooltip;
+								
+								var e_array = str.match(/[e][0-9]/g);
+								var f_array = str.match(/[f][0-9]/g);
+								var a_array = str.match(/[a][0-9]/g);
+								
+								if(e_array != null){
+									for(i=0; i < e_array.length; i++){
+										console.log(e_array[i]);
+									}
+								}
+								if(f_array != null){
+									for(j=0; j < f_array.length; j++){
+										console.log(f_array[j]);
+									}
+								}
+								
+								if(a_array != null){
+									for(k=0; k < a_array.length; k++){
+										console.log(a_array[k]);
+									}
+								}
 								
 								<!-- passive description -->
 								var ab_two_text = document.getElementById('abilitytext');
@@ -387,6 +444,30 @@
 								var champ_name_nospaces = champ_name.replace(" ", "");
 								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
 								
+								<!-- replacing placeholder values with real data -->
+								var str = json.data[champ_name].spells[2].tooltip;
+								
+								var e_array = str.match(/[e][0-9]/g);
+								var f_array = str.match(/[f][0-9]/g);
+								var a_array = str.match(/[a][0-9]/g);
+								
+								if(e_array != null){
+									for(i=0; i < e_array.length; i++){
+										console.log(e_array[i]);
+									}
+								}
+								if(f_array != null){
+									for(j=0; j < f_array.length; j++){
+										console.log(f_array[j]);
+									}
+								}
+								
+								if(a_array != null){
+									for(k=0; k < a_array.length; k++){
+										console.log(a_array[k]);
+									}
+								}
+								
 								<!-- passive description -->
 								var ab_three_text = document.getElementById('abilitytext');
 								ab_three_text.innerHTML = json.data[champ_name].spells[2].tooltip;
@@ -415,6 +496,30 @@
 							success: function (json) {
 								var champ_name_nospaces = champ_name.replace(" ", "");
 								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+								
+								<!-- replacing placeholder values with real data -->
+								var str = json.data[champ_name].spells[3].tooltip;
+								
+								var e_array = str.match(/[e][0-9]/g);
+								var f_array = str.match(/[f][0-9]/g);
+								var a_array = str.match(/[a][0-9]/g);
+								
+								if(e_array != null){
+									for(i=0; i < e_array.length; i++){
+										console.log(e_array[i]);
+									}
+								}
+								if(f_array != null){
+									for(j=0; j < f_array.length; j++){
+										console.log(f_array[j]);
+									}
+								}
+								
+								if(a_array != null){
+									for(k=0; k < a_array.length; k++){
+										console.log(a_array[k]);
+									}
+								}
 								
 								<!-- passive description -->
 								var ab_four_text = document.getElementById('abilitytext');
