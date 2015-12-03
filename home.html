@@ -352,7 +352,11 @@
 										var f_array_two = [""];
 										f_array_two[j] = f_array[j].replace(/\D/g, '');
 										f_array_two[j] = Number(f_array_two[j]);
-										str = str.replace(f_array[j] , json.data[champ_name].spells[0].effectBurn[f_array_two[j]]);
+										for(h=0; h < f_array.length; h++){
+											if(json.data[champ_name].spells[0].vars[h].key == f_array[j]){
+												str = str.replace(f_array[j] , json.data[champ_name].spells[0].vars[h].coeff);
+											}
+										}
 									}
 								}
 								
@@ -362,7 +366,12 @@
 										var a_array_two = [""];
 										a_array_two[k] = a_array[k].replace(/\D/g, '');
 										a_array_two[k] = Number(a_array_two[k]);
-										str = str.replace(a_array[k] , json.data[champ_name].spells[0].effectBurn[a_array_two[k]]);
+										for(g=0; g < a_array.length; g++){
+											if(json.data[champ_name].spells[0].vars[g].key == a_array[k]){
+												str = str.replace(a_array[k] , json.data[champ_name].spells[0].vars[g].coeff);
+											}
+										}
+										
 									}
 								}
 								ab_one_text.innerHTML = str;
@@ -390,9 +399,17 @@
 								var champ_name_nospaces = champ_name.replace(" ", "");
 								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
 								
+								<!-- passive description -->
+								var ab_two_text = document.getElementById('abilitytext');
+								
+								var ab_two_title = document.getElementById('abilityname');
+								ab_two_title.innerHTML = json.data[champ_name].spells[1].name;
+								
 								
 								<!-- replacing placeholder values with real data -->
 								var str = json.data[champ_name].spells[1].tooltip;
+								
+								str = str.replace(/{/g, '').replace(/}/g, '');
 								
 								var e_array = str.match(/[e][0-9]/g);
 								var f_array = str.match(/[f][0-9]/g);
@@ -401,26 +418,45 @@
 								if(e_array != null){
 									for(i=0; i < e_array.length; i++){
 										console.log(e_array[i]);
+										var e_array_two = [""];
+										e_array_two[i] = e_array[i].replace(/\D/g, '');
+										e_array_two[i] = Number(e_array_two[i]);
+										str = str.replace(e_array[i] , json.data[champ_name].spells[1].effectBurn[e_array_two[i]]);
 									}
 								}
+								
+								
 								if(f_array != null){
 									for(j=0; j < f_array.length; j++){
 										console.log(f_array[j]);
+										var f_array_two = [""];
+										f_array_two[j] = f_array[j].replace(/\D/g, '');
+										f_array_two[j] = Number(f_array_two[j]);
+										for(h=0; h < f_array.length; h++){
+											if(json.data[champ_name].spells[1].vars[h].key == f_array[j]){
+												str = str.replace(f_array[j] , json.data[champ_name].spells[1].vars[h].coeff);
+											}
+										}
 									}
 								}
 								
 								if(a_array != null){
 									for(k=0; k < a_array.length; k++){
 										console.log(a_array[k]);
+										var a_array_two = [""];
+										a_array_two[k] = a_array[k].replace(/\D/g, '');
+										a_array_two[k] = Number(a_array_two[k]);
+										for(g=0; g < a_array.length; g++){
+											if(json.data[champ_name].spells[1].vars[g].key == a_array[k]){
+												str = str.replace(a_array[k] , json.data[champ_name].spells[1].vars[g].coeff);
+											}
+										}
+										
 									}
 								}
+								ab_two_text.innerHTML = str;
 								
-								<!-- passive description -->
-								var ab_two_text = document.getElementById('abilitytext');
-								ab_two_text.innerHTML = json.data[champ_name].spells[1].tooltip;
 								
-								var ab_two_title = document.getElementById('abilityname');
-								ab_two_title.innerHTML = json.data[champ_name].spells[1].name;
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
 								alert("error getting Summoner data!");
@@ -444,8 +480,16 @@
 								var champ_name_nospaces = champ_name.replace(" ", "");
 								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
 								
+								<!-- passive description -->
+								var ab_three_text = document.getElementById('abilitytext');
+								
+								var ab_three_title = document.getElementById('abilityname');
+								ab_three_title.innerHTML = json.data[champ_name].spells[2].name;
+								
 								<!-- replacing placeholder values with real data -->
 								var str = json.data[champ_name].spells[2].tooltip;
+								
+								str = str.replace(/{/g, '').replace(/}/g, '');
 								
 								var e_array = str.match(/[e][0-9]/g);
 								var f_array = str.match(/[f][0-9]/g);
@@ -454,26 +498,45 @@
 								if(e_array != null){
 									for(i=0; i < e_array.length; i++){
 										console.log(e_array[i]);
+										var e_array_two = [""];
+										e_array_two[i] = e_array[i].replace(/\D/g, '');
+										e_array_two[i] = Number(e_array_two[i]);
+										str = str.replace(e_array[i] , json.data[champ_name].spells[2].effectBurn[e_array_two[i]]);
 									}
 								}
+								
+								
 								if(f_array != null){
 									for(j=0; j < f_array.length; j++){
 										console.log(f_array[j]);
+										var f_array_two = [""];
+										f_array_two[j] = f_array[j].replace(/\D/g, '');
+										f_array_two[j] = Number(f_array_two[j]);
+										for(h=0; h < f_array.length; h++){
+											if(json.data[champ_name].spells[2].vars[h].key == f_array[j]){
+												str = str.replace(f_array[j] , json.data[champ_name].spells[2].vars[h].coeff);
+											}
+										}
 									}
 								}
 								
 								if(a_array != null){
 									for(k=0; k < a_array.length; k++){
 										console.log(a_array[k]);
+										var a_array_two = [""];
+										a_array_two[k] = a_array[k].replace(/\D/g, '');
+										a_array_two[k] = Number(a_array_two[k]);
+										for(g=0; g < a_array.length; g++){
+											if(json.data[champ_name].spells[2].vars[g].key == a_array[k]){
+												str = str.replace(a_array[k] , json.data[champ_name].spells[2].vars[g].coeff);
+											}
+										}
+										
 									}
 								}
+								ab_three_text.innerHTML = str;
 								
-								<!-- passive description -->
-								var ab_three_text = document.getElementById('abilitytext');
-								ab_three_text.innerHTML = json.data[champ_name].spells[2].tooltip;
 								
-								var ab_three_title = document.getElementById('abilityname');
-								ab_three_title.innerHTML = json.data[champ_name].spells[2].name;
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
 								alert("error getting Summoner data!");
@@ -497,8 +560,16 @@
 								var champ_name_nospaces = champ_name.replace(" ", "");
 								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
 								
+								<!-- passive description -->
+								var ab_four_text = document.getElementById('abilitytext');
+								
+								var ab_four_title = document.getElementById('abilityname');
+								ab_four_title.innerHTML = json.data[champ_name].spells[3].name;
+								
 								<!-- replacing placeholder values with real data -->
 								var str = json.data[champ_name].spells[3].tooltip;
+								
+								str = str.replace(/{/g, '').replace(/}/g, '');
 								
 								var e_array = str.match(/[e][0-9]/g);
 								var f_array = str.match(/[f][0-9]/g);
@@ -507,26 +578,45 @@
 								if(e_array != null){
 									for(i=0; i < e_array.length; i++){
 										console.log(e_array[i]);
+										var e_array_two = [""];
+										e_array_two[i] = e_array[i].replace(/\D/g, '');
+										e_array_two[i] = Number(e_array_two[i]);
+										str = str.replace(e_array[i] , json.data[champ_name].spells[3].effectBurn[e_array_two[i]]);
 									}
 								}
+								
+								
 								if(f_array != null){
 									for(j=0; j < f_array.length; j++){
 										console.log(f_array[j]);
+										var f_array_two = [""];
+										f_array_two[j] = f_array[j].replace(/\D/g, '');
+										f_array_two[j] = Number(f_array_two[j]);
+										for(h=0; h < f_array.length; h++){
+											if(json.data[champ_name].spells[3].vars[h].key == f_array[j]){
+												str = str.replace(f_array[j] , json.data[champ_name].spells[3].vars[h].coeff);
+											}
+										}
 									}
 								}
 								
 								if(a_array != null){
 									for(k=0; k < a_array.length; k++){
 										console.log(a_array[k]);
+										var a_array_two = [""];
+										a_array_two[k] = a_array[k].replace(/\D/g, '');
+										a_array_two[k] = Number(a_array_two[k]);
+										for(g=0; g < a_array.length; g++){
+											if(json.data[champ_name].spells[3].vars[g].key == a_array[k]){
+												str = str.replace(a_array[k] , json.data[champ_name].spells[3].vars[g].coeff);
+											}
+										}
+										
 									}
 								}
+								ab_four_text.innerHTML = str;
 								
-								<!-- passive description -->
-								var ab_four_text = document.getElementById('abilitytext');
-								ab_four_text.innerHTML = json.data[champ_name].spells[3].tooltip;
 								
-								var ab_four_title = document.getElementById('abilityname');
-								ab_four_title.innerHTML = json.data[champ_name].spells[3].name;
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
 								alert("error getting Summoner data!");
