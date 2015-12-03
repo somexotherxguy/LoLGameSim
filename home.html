@@ -321,14 +321,11 @@
 								
 								<!-- ability description -->
 								var str = json.data[champ_name].spells[0].tooltip;
-								var place_holder = json.data[champ_name].spells[0].effectBurn[1];
-								var newStr = str.replace("{{", "").replace("}}", "").replace("e1", place_holder);
 								
-								<!-- testing code    [e][0-9]{1}ig -->
+								<!-- testing code    split option [e][0-9]{1}ig -->
 								
-								var testing_regex = new RegExp("[e][0-9]{1}ig");
-								var myarray = testing_regex.exec(json.data[champ_name].spells[0].tooltip);
-								console.log(myarray);
+								var e_array = str.match(/[e][0-9]/ig);
+								
 								for(i=0; i < 0; i++){
 									console.log(myarray[i]);
 								}
