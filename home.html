@@ -299,6 +299,7 @@
 					}
 					
 			}
+			
 			function changeAbilityOne(){
 					var champ_name = "";
 					champ_name = $("#search").val();
@@ -335,9 +336,23 @@
 								var f_array = str.match(/[f][0-9]/g);
 								var a_array = str.match(/[a][0-9]/g);
 								
+								var varslength;
+								
+								if(f_array != null && a_array != null){
+									varslength = f_array.length + a_array.length;
+								}
+								if(f_array == null && a_array != null){
+									varslength = a_array.length;
+								}
+								if(a_array == null && f_array != null){
+									varslength = f_array.length;
+								}
+								if(f_array == null && a_array == null){
+									varslength = 0;
+								}	
+								
 								if(e_array != null){
 									for(i=0; i < e_array.length; i++){
-										console.log(e_array[i]);
 										var e_array_two = [""];
 										e_array_two[i] = e_array[i].replace(/\D/g, '');
 										e_array_two[i] = Number(e_array_two[i]);
@@ -348,27 +363,27 @@
 								
 								if(f_array != null){
 									for(j=0; j < f_array.length; j++){
-										console.log(f_array[j]);
-										var f_array_two = [""];
-										f_array_two[j] = f_array[j].replace(/\D/g, '');
-										f_array_two[j] = Number(f_array_two[j]);
-										for(h=0; h < f_array.length; h++){
-											if(json.data[champ_name].spells[0].vars[h].key == f_array[j]){
-												str = str.replace(f_array[j] , json.data[champ_name].spells[0].vars[h].coeff);
+										for(h=0; h < varslength; h++){
+											if(json.data[champ_name].spells[0].vars[h] != undefined){
+												if(json.data[champ_name].spells[0].vars[h].key == f_array[j]){
+													str = str.replace(f_array[j] , json.data[champ_name].spells[0].vars[h].coeff);
+												}
 											}
 										}
 									}
 								}
 								
+
+								
 								if(a_array != null){
+									
 									for(k=0; k < a_array.length; k++){
-										console.log(a_array[k]);
-										var a_array_two = [""];
-										a_array_two[k] = a_array[k].replace(/\D/g, '');
-										a_array_two[k] = Number(a_array_two[k]);
-										for(g=0; g < a_array.length; g++){
-											if(json.data[champ_name].spells[0].vars[g].key == a_array[k]){
-												str = str.replace(a_array[k] , json.data[champ_name].spells[0].vars[g].coeff);
+										for(g=0; g < varslength; g++){
+											console.log(varslength);
+											if(json.data[champ_name].spells[0].vars[g] != undefined){
+												if(json.data[champ_name].spells[0].vars[g].key == a_array[k]){
+													str = str.replace(a_array[k] , json.data[champ_name].spells[0].vars[g].coeff);
+												}
 											}
 										}
 										
@@ -415,6 +430,21 @@
 								var f_array = str.match(/[f][0-9]/g);
 								var a_array = str.match(/[a][0-9]/g);
 								
+								var varslength;
+								
+								if(f_array != null && a_array != null){
+									varslength = f_array.length + a_array.length;
+								}
+								if(f_array == null && a_array != null){
+									varslength = a_array.length;
+								}
+								if(a_array == null && f_array != null){
+									varslength = f_array.length;
+								}
+								if(f_array == null && a_array == null){
+									varslength = 0;
+								}	
+								
 								if(e_array != null){
 									for(i=0; i < e_array.length; i++){
 										console.log(e_array[i]);
@@ -428,27 +458,24 @@
 								
 								if(f_array != null){
 									for(j=0; j < f_array.length; j++){
-										console.log(f_array[j]);
-										var f_array_two = [""];
-										f_array_two[j] = f_array[j].replace(/\D/g, '');
-										f_array_two[j] = Number(f_array_two[j]);
-										for(h=0; h < f_array.length; h++){
-											if(json.data[champ_name].spells[1].vars[h].key == f_array[j]){
-												str = str.replace(f_array[j] , json.data[champ_name].spells[1].vars[h].coeff);
+										for(h=0; h < varslength; h++){
+											if(json.data[champ_name].spells[1].vars[h] != undefined){
+												if(json.data[champ_name].spells[1].vars[h].key == f_array[j]){
+													str = str.replace(f_array[j] , json.data[champ_name].spells[1].vars[h].coeff);
+												}
 											}
 										}
 									}
 								}
 								
 								if(a_array != null){
+									
 									for(k=0; k < a_array.length; k++){
-										console.log(a_array[k]);
-										var a_array_two = [""];
-										a_array_two[k] = a_array[k].replace(/\D/g, '');
-										a_array_two[k] = Number(a_array_two[k]);
-										for(g=0; g < a_array.length; g++){
-											if(json.data[champ_name].spells[1].vars[g].key == a_array[k]){
-												str = str.replace(a_array[k] , json.data[champ_name].spells[1].vars[g].coeff);
+										for(g=0; g < varslength; g++){
+											if(json.data[champ_name].spells[1].vars[g] != undefined){
+												if(json.data[champ_name].spells[1].vars[g].key == a_array[k]){
+													str = str.replace(a_array[k] , json.data[champ_name].spells[1].vars[g].coeff);
+												}
 											}
 										}
 										
@@ -495,9 +522,24 @@
 								var f_array = str.match(/[f][0-9]/g);
 								var a_array = str.match(/[a][0-9]/g);
 								
+								var varslength;
+								
+								if(f_array != null && a_array != null){
+									varslength = f_array.length + a_array.length;
+								}
+								if(f_array == null && a_array != null){
+									varslength = a_array.length;
+								}
+								if(a_array == null && f_array != null){
+									varslength = f_array.length;
+								}
+								if(f_array == null && a_array == null){
+									varslength = 0;
+								}	
+								
 								if(e_array != null){
 									for(i=0; i < e_array.length; i++){
-										console.log(e_array[i]);
+
 										var e_array_two = [""];
 										e_array_two[i] = e_array[i].replace(/\D/g, '');
 										e_array_two[i] = Number(e_array_two[i]);
@@ -508,27 +550,25 @@
 								
 								if(f_array != null){
 									for(j=0; j < f_array.length; j++){
-										console.log(f_array[j]);
-										var f_array_two = [""];
-										f_array_two[j] = f_array[j].replace(/\D/g, '');
-										f_array_two[j] = Number(f_array_two[j]);
-										for(h=0; h < f_array.length; h++){
-											if(json.data[champ_name].spells[2].vars[h].key == f_array[j]){
-												str = str.replace(f_array[j] , json.data[champ_name].spells[2].vars[h].coeff);
+										for(h=0; h < varslength; h++){
+											if(json.data[champ_name].spells[2].vars[h] != undefined){
+												if(json.data[champ_name].spells[2].vars[h].key == f_array[j]){
+													str = str.replace(f_array[j] , json.data[champ_name].spells[2].vars[h].coeff);
+												}
 											}
 										}
 									}
 								}
 								
 								if(a_array != null){
+									
 									for(k=0; k < a_array.length; k++){
-										console.log(a_array[k]);
-										var a_array_two = [""];
-										a_array_two[k] = a_array[k].replace(/\D/g, '');
-										a_array_two[k] = Number(a_array_two[k]);
-										for(g=0; g < a_array.length; g++){
-											if(json.data[champ_name].spells[2].vars[g].key == a_array[k]){
-												str = str.replace(a_array[k] , json.data[champ_name].spells[2].vars[g].coeff);
+										for(g=0; g < varslength; g++){
+											console.log(json.data[champ_name].spells[2].vars[g].key);
+											if(json.data[champ_name].spells[2].vars[g] != undefined){
+												if(json.data[champ_name].spells[2].vars[g].key == a_array[k]){
+													str = str.replace(a_array[k] , json.data[champ_name].spells[2].vars[g].coeff);
+												}
 											}
 										}
 										
@@ -575,6 +615,21 @@
 								var f_array = str.match(/[f][0-9]/g);
 								var a_array = str.match(/[a][0-9]/g);
 								
+								var varslength;
+								
+								if(f_array != null && a_array != null){
+									varslength = f_array.length + a_array.length;
+								}
+								if(f_array == null && a_array != null){
+									varslength = a_array.length;
+								}
+								if(a_array == null && f_array != null){
+									varslength = f_array.length;
+								}
+								if(f_array == null && a_array == null){
+									varslength = 0;
+								}	
+								
 								if(e_array != null){
 									for(i=0; i < e_array.length; i++){
 										console.log(e_array[i]);
@@ -588,27 +643,24 @@
 								
 								if(f_array != null){
 									for(j=0; j < f_array.length; j++){
-										console.log(f_array[j]);
-										var f_array_two = [""];
-										f_array_two[j] = f_array[j].replace(/\D/g, '');
-										f_array_two[j] = Number(f_array_two[j]);
-										for(h=0; h < f_array.length; h++){
-											if(json.data[champ_name].spells[3].vars[h].key == f_array[j]){
-												str = str.replace(f_array[j] , json.data[champ_name].spells[3].vars[h].coeff);
+										for(h=0; h < varslength; h++){
+											if(json.data[champ_name].spells[3].vars[h] != undefined){
+												if(json.data[champ_name].spells[3].vars[h].key == f_array[j]){
+													str = str.replace(f_array[j] , json.data[champ_name].spells[3].vars[h].coeff);
+												}
 											}
 										}
 									}
 								}
 								
 								if(a_array != null){
+									
 									for(k=0; k < a_array.length; k++){
-										console.log(a_array[k]);
-										var a_array_two = [""];
-										a_array_two[k] = a_array[k].replace(/\D/g, '');
-										a_array_two[k] = Number(a_array_two[k]);
-										for(g=0; g < a_array.length; g++){
-											if(json.data[champ_name].spells[3].vars[g].key == a_array[k]){
-												str = str.replace(a_array[k] , json.data[champ_name].spells[3].vars[g].coeff);
+										for(g=0; g < varslength; g++){
+											if(json.data[champ_name].spells[3].vars[g] != undefined){
+												if(json.data[champ_name].spells[3].vars[g].key == a_array[k]){
+													str = str.replace(a_array[k] , json.data[champ_name].spells[3].vars[g].coeff);
+												}
 											}
 										}
 										
@@ -1029,6 +1081,7 @@
 				</td> 
 			</tr>
 		</table>
+		<button style="margin-left: 30px;" type="button">Update Runes</button>
 	</div>
 	
 	<div>
@@ -1037,7 +1090,6 @@
 		<div class="gamedetails">
 			<ul class="gamedetails">
 				<li style="padding: 11px">Level </li>
-				<li style="padding: 11px">Ability Sequence</li>
 				<li style="padding: 11px">Kills</li>
 				<li style="padding: 11px">Assists</li>
 				<li style="padding: 11px">Creep Score</li>
@@ -1067,9 +1119,7 @@
 					<option value="18">18</option>
 					</select>
 				</li>
-				<li><input style="width: 50px;" type="number"></li>
-				<li><input style="width: 50px;" type="number"></li>
-				<li><input style="width: 50px;" type="number"></li>
+				<li><input style="width: 50px;" type="number"></li>				<li><input style="width: 50px;" type="number"></li>
 				<li><input style="width: 50px;" type="number"></li>
 			</ul>
 		</div>
@@ -1089,6 +1139,7 @@
 				<li><input style="width: 75px;" type="time"></li>
 			</ul>
 		</div>
+		<button style="margin-left: 30px;" type="button">Update Game Details</button>
 	</div>
 	<br>
 	<br>
