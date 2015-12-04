@@ -5,10 +5,54 @@
 <head>
 <title>LoL Game Simulator</title>
 </head>
-<body>
+<body onload="">
 
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script>
+      $(function () {
 
+    	//clear everything on refresh
+    	$(window).bind('beforeunload',function()
+    	{
+            $.ajax({
+            	type: 'post',
+            	url: 'clear.php',
+            	data: $('form').serialize()
+        	});
+    	});
 
+        $('#runetable').on('submit', function (e) {
+
+          e.preventDefault();
+
+          $.ajax({
+            type: 'post',
+            url: 'runepage.php',
+            data: $('form').serialize(),
+            success: function () {
+              alert('Rune Page updated!');
+            }
+          });
+
+        });
+
+        $('#gamedetails').on('submit', function (e) {
+
+            e.preventDefault();
+
+            $.ajax({
+              type: 'post',
+              url: 'gamedetails.php',
+              data: $('form').serialize(),
+              success: function () {
+                alert('Game Details updated!');
+              }
+            });
+
+          });
+
+      });
+    </script>
 
 <div id="wrapper">
 	<div id="header" class="title">
@@ -38,12 +82,20 @@
 	</div>
 	
 	<p id="test">Enter in game data and simulate league games to test builds quickly.</p>
+	
+	<ul class="navigationbar">
+		<li class="navigationbaritems" style="border-top: solid black; border-right: solid black; border-left: solid black; font-weight: bold;">Navigation Bar</li>
+		<li class="navigationbaritems" style="border-right: solid black; solid black; border-left: solid black;"><a href="#stats">Stats</a></li>
+		<li class="navigationbaritems" style="border-right: solid black; solid black; border-left: solid black;"><a href="#abilities">Abilities</a></li>
+		<li class="navigationbaritems" style="border-right: solid black; solid black; border-left: solid black;"><a href="#runeandgame">Runes and Game Details</a></li>
+		<li class="navigationbaritems" style="border-right: solid black; border-bottom: solid black; solid black; border-left: solid black;"><a href="#shop">Shop</a></li>
+	</ul>
 
 
 	<div id="sectionone">
 		
 		<div class="icon">
-			<h2 class="section_headers" style="position: relative; right: 50px;">Stats</h2>
+			<h2 class="section_headers" style="position: relative; right: 50px;" id="stats">Stats</h2>
 			<img id="champ_icon" src="images/Lulu_icon.jpg" alt="Champ Icon">
 			
 			<!-- api testing 
@@ -107,6 +159,41 @@
 			
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 			<script>
+				function update_shop(){
+					var champ_name = "";
+					champ_name = $("#search").val();
+					if(champ_name !== ""){
+					
+						$.ajax({
+							url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?itemListData=all&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+							type: 'GET',
+							dataType: 'json',
+							data: {
+
+							},
+							success: function (json) {
+								var champ_name_nospaces = champ_name.replace(" ", "");
+								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+								
+								var shop_array = [""];
+								
+								for(var key in json.data){
+									if(json.data.hasOwnProperty(key)){	
+										i=0;
+										shop_array[i] = key;
+										console.log(shop_array[i];
+										i++;
+									}
+								}
+								
+								
+							},
+							error: function (XMLHttpRequest, textStatus, errorThrown) {
+								alert("error getting Summoner data!");
+							}
+						});
+					}
+				}
 				function change_passive(){
 					var champ_name = "";
 					champ_name = $("#search").val();
@@ -252,7 +339,7 @@
 	</div>
 	
 	<div>
-		<h2 class="section_headers">Abilities</h2>
+		<h2 class="section_headers" id="abilities">Abilities</h2>
 		<table id="abilitytable">
 			<tr> 
 				<td><img onclick="changePassive()" src="images/Pix_Faerie_Companion.png" id="passive" width="64" height="64"></td>
@@ -681,10 +768,11 @@
 	</div>
 	<div>
 		<!-- get ready for an abomination of a table for the runes -->
-		<h2 class="section_headers">Runes</h2>
+		<h2 class="section_headers" id="runeandgame">Runes and Game Details</h2>
 		
 		<p style="text-align: center;"> Now it is time for you to choose the rune page you will be using. Please pick 9 Marks, 9 Seals, 9 Glyphs, and 3 Quints.</p>
 		
+		<form name="gamedetails" id="gamedetails" method="post">
 		<table id="runetable">
 			<tr>
 				<th>Marks</th> 
@@ -694,7 +782,7 @@
 			</tr>
 			<tr>
 				<td id="runecells">Armor Pen	
-					<select> 
+					<select id="armorpenmark" name="armorpenmark">
 						<option value="0">0</option> 
 						<option value="1">1</option>
 						<option value="2">2</option>
@@ -707,7 +795,7 @@
 						<option value="9">9</option>
 					</select></td> 
 				<td id="runecells">Armor
-					<select> 
+					<select id="armorseal" name="armorseal">
 						<option value="0">0</option> 
 						<option value="1">1</option>
 						<option value="2">2</option>
@@ -721,7 +809,7 @@
 					</select>
 				</td>
 				<td id="runecells">Ability Power
-					<select> 
+					<select id="apglyph" name="apglyph">
 						<option value="0">0</option> 
 						<option value="1">1</option>
 						<option value="2">2</option>
@@ -736,7 +824,7 @@
 				</td> 
 
 				<td id="runecells">Ability Power
-					<select> 
+					<select id="apquint" name="apquint">
 						<option value="0">0</option> 
 						<option value="1">1</option>
 						<option value="2">2</option>
@@ -745,7 +833,7 @@
 				</td> 
 
 				<td id="runecells">Mana Regen
-					<select> 
+					<select id="mregenquint" name="mregenquint">
 						<option value="0">0</option> 
 						<option value="1">1</option>
 						<option value="2">2</option>
@@ -756,7 +844,7 @@
 			</tr>
 			<tr>
 				<td id="runecells">Attack Damage
-					<select> 
+					<select id="attackdamagemark" name="attackdamagemark"> 
 						<option value="0">0</option> 
 						<option value="1">1</option>
 						<option value="2">2</option>
@@ -771,7 +859,7 @@
 				</td> 
 
 				<td id="runecells">Energy Regen
-					<select> 
+					<select id="energyregenseal" name="energyregenseal">
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -786,7 +874,7 @@
 				</td> 
 
 				<td id="runecells">Cooldown Reduction
-					<select> 
+					<select id="cdrglyph" name="cdrglyph">
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -801,7 +889,7 @@
 				</td> 
 
 				<td id="runecells">Armor
-					<select> 
+					<select id="armorquint" name="armorquint">
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -810,7 +898,7 @@
 				</td> 
 
 				<td id="runecells">% Health
-					<select> 
+					<select id="%healthquint" name="%healthquint">
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -821,7 +909,7 @@
 			</tr>
 			<tr>
 				<td id="runecells">Attack Speed
-					<select> 
+					<select id="attackspeedmark" name="attackspeedmark">
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -835,7 +923,7 @@
 					</select>
 				</td> 
 				<td id="runecells">Health
-					<select> 
+					<select id="healthseal" name="healthseal">
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -849,7 +937,7 @@
 					</select>
 				</td> 
 				<td id="runecells">Energy
-					<select> 
+					<select id="energyglyph" name="energyglyph">
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -863,15 +951,15 @@
 					</select>
 				</td> 
 				<td id="runecells">Cooldown Reduction
-					<select> 
+					<select id="cdrquint" name="cdrquint"> 
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
 					</select>
 				</td> 
-				<td id="runecells">Experiance
-					<select> 
+				<td id="runecells">Experience
+					<select id="experiencequint" name="experiencequint">
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -881,7 +969,7 @@
 			</tr>
 			<tr>
 				<td id="runecells">Critical Chance
-					<select> 
+					<select id="critchancemark" name="critchancemark"> 
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -895,7 +983,7 @@
 					</select>
 				</td> 
 				<td id="runecells">Health Regen
-					<select> 
+					<select id="hregenseal" name="hregenseal">
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -909,7 +997,7 @@
 					</select>
 				</td> 
 				<td id="runecells">Mana
-					<select> 
+					<select id="managlyph" name="managlyph"> 
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -923,7 +1011,7 @@
 					</select>
 				</td> 
 				<td id="runecells">Gold
-					<select> 
+					<select id="goldquint" name="goldquint">
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -931,7 +1019,7 @@
 					</select>
 				</td> 
 				<td id="runecells">Life Steal
-					<select> 
+					<select id="lifestealquint" name="lifestealquint"> 
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -941,7 +1029,7 @@
 			</tr>
 			<tr>
 				<td id="runecells">Critical Damage
-					<select> 
+					<select id="critdamagemark" name="critdamagemark">
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -955,7 +1043,7 @@
 					</select>
 				</td> 
 				<td id="runecells">Mana Regen
-					<select> 
+					<select id="mregenseal" name="mregenseal">
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -969,7 +1057,7 @@
 					</select>
 				</td> 
 				<td id="runecells">Magic Resist
-					<select> 
+					<select id="mrglyph" name="mrglyph"> 
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -983,7 +1071,7 @@
 					</select>
 				</td> 
 				<td id="runecells">Health
-					<select> 
+					<select id="healthquint" name="healthquint">
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -991,7 +1079,7 @@
 					</select>
 				</td> 
 				<td id="runecells">Movespeed
-					<select> 
+					<select id="movespeedquint" name="movespeedquint">
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -1001,7 +1089,7 @@
 			</tr>
 			<tr>
 				<td id="runecells">Hybrid Pen
-					<select> 
+					<select id="hpenmark" name="hpenmark"> 
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -1015,7 +1103,7 @@
 					</select>
 				</td> 
 				<td id="runecells">% Health
-					<select> 
+					<select id="%healthseal" name="%healthseal"> 
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -1030,7 +1118,7 @@
 				</td> 
 				<td></td> 
 				<td id="runecells">Health Regen
-					<select> 
+					<select id="hregenquint" name="hregenquint"> 
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -1038,7 +1126,7 @@
 					</select>
 				</td> 
 				<td id="runecells">Revival
-					<select> 
+					<select id="haha" name="haha"> 
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -1048,7 +1136,7 @@
 			</tr>
 			<tr>
 				<td id="runecells">Magic Pen
-					<select> 
+					<select id="mpenmark" name="mpenmark">
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -1064,7 +1152,7 @@
 				<td></td> 
 				<td></td> 
 				<td id="runecells">Mana
-					<select> 
+					<select id="manaquint" name="manaquint"> 
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -1072,7 +1160,7 @@
 					</select>
 				</td> 
 				<td id="runecells">Spell Vamp
-					<select> 
+					<select id="spellvampquint" name="spellvampquint"> 
 					<option value="0">0</option> 
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -1081,12 +1169,13 @@
 				</td> 
 			</tr>
 		</table>
-		<button style="margin-left: 30px;" type="button">Update Runes</button>
+		<!--<button style="margin-left: 30px;" type="button">Update Runes</button>-->
 	</div>
-	
+
 	<div>
 		
-		<h2 class="section_headers">Game Details</h2>
+
+
 		<div class="gamedetails">
 			<ul class="gamedetails">
 				<li style="padding: 11px">Level </li>
@@ -1098,7 +1187,7 @@
 		<div class="gameinputs">
 			<ul class="gameinputs">
 				<li>
-					<select> 
+					<select name="level"> 
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
@@ -1119,15 +1208,15 @@
 					<option value="18">18</option>
 					</select>
 				</li>
-				<li><input style="width: 50px;" type="number"></li>				<li><input style="width: 50px;" type="number"></li>
-				<li><input style="width: 50px;" type="number"></li>
+				<li><input style="width: 50px;" type="number" name ="kills"></li>				<li><input style="width: 50px;" type="number" name="assists"></li>
+				<li><input style="width: 50px;" type="number" name="cs"></li>
 			</ul>
 		</div>
 		<div class="gamedetails">
 			<ul class="gamedetails">
-				<li style="padding: 11px">Towers Taken</li>
-				<li style="padding: 11px">Dragon Kills</li>
-				<li style="padding: 11px">Baron Kills</li>
+				<li style="padding: 11px" name="towers">Towers Taken</li>
+				<li style="padding: 11px" name="dragons">Dragon Kills</li>
+				<li style="padding: 11px" name="barons">Baron Kills</li>
 				<li style="padding: 11px">Time</li>
 			</ul>
 		</div>
@@ -1139,103 +1228,106 @@
 				<li><input style="width: 75px;" type="time"></li>
 			</ul>
 		</div>
-		<button style="margin-left: 30px;" type="button">Update Game Details</button>
+		<!--<button style="margin-left: 30px;" type="button">Update Game Details</button> -->
+		<input style="margin-left: 30px;" type="submit" name="submit">
 	</div>
+	</form>
+	
 	<br>
 	<br>
 	<br>
 	<div style="padding: 10px;">
-		<h2 class="section_headers" style="position: relative; right: 10px;">Shop</h2>
+		<h2 class="section_headers" style="position: relative; right: 10px;" id="shop">Shop</h2>
 		
 		<div id="shopicons">
 			<!-- shows 80 item icons -->
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
 			
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
 			
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
 			
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
 			
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
 			
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
 			
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
 			
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
 			
 		</div>
 	
@@ -1244,12 +1336,12 @@
 		</div>
 		<div id="inventory">
 			<h4>Inventory</h4>
-			<img id="inventory_items" src="images/Sorcerer's_Shoes_Item.png">
-			<img id="inventory_items" src="images/Athene's_Unholy_Grail_Item.png">
-			<img id="inventory_items" src="images/Zhonya's_Hourglass_Item.png">
-			<img id="inventory_items" src="images/Rabadon's_Deathcap_Item.png">
-			<img id="inventory_items" src="images/Luden's_Echo_Item.png">
-			<img id="inventory_items" src="images/Void_Staff_Item.png">
+			<img id="inventory_items" src="images/EmptyIcon_Item.png">
+			<img id="inventory_items" src="images/EmptyIcon_Item.png">
+			<img id="inventory_items" src="images/EmptyIcon_Item.png">
+			<img id="inventory_items" src="images/EmptyIcon_Item.png">
+			<img id="inventory_items" src="images/EmptyIcon_Item.png">
+			<img id="inventory_items" src="images/EmptyIcon_Item.png">
 		</div>
 		
 		<div class="filterlist">

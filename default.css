@@ -48,6 +48,18 @@ h1{
 	text-shadow: 0 0 4px #e600e5, 0 0 4px #e600e5, 0 0 4px #e600e5, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f;
 }
 
+.navigationbar{
+	position: fixed;
+	left: 1220px;
+	width: 160px;
+	
+}
+
+.navigationbaritems{
+	list-style-type: none;
+	background-color: #E5FFEE;
+}
+
 h2{
 	color: #E5FFEE;
 	padding: 0px;

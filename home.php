@@ -1200,93 +1200,93 @@
 		
 		<div id="shopicons">
 			<!-- shows 80 item icons -->
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
+			img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
 			
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
 			
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
 			
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
 			
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
 			
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
 			
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
 			
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
 			
 		</div>
 	
@@ -1295,12 +1295,12 @@
 		</div>
 		<div id="inventory">
 			<h4>Inventory</h4>
-			<img id="inventory_items" src="images/Sorcerer's_Shoes_Item.png">
-			<img id="inventory_items" src="images/Athene's_Unholy_Grail_Item.png">
-			<img id="inventory_items" src="images/Zhonya's_Hourglass_Item.png">
-			<img id="inventory_items" src="images/Rabadon's_Deathcap_Item.png">
-			<img id="inventory_items" src="images/Luden's_Echo_Item.png">
-			<img id="inventory_items" src="images/Void_Staff_Item.png">
+			<img id="inventory_items" src="images/EmptyIcon_Item.png">
+			<img id="inventory_items" src="images/EmptyIcon_Item.png">
+			<img id="inventory_items" src="images/EmptyIcon_Item.png">
+			<img id="inventory_items" src="images/EmptyIcon_Item.png">
+			<img id="inventory_items" src="images/EmptyIcon_Item.png">
+			<img id="inventory_items" src="images/EmptyIcon_Item.png">
 		</div>
 		
 		<div class="filterlist">
