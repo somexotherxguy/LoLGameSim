@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <link href="default.css" rel="stylesheet" type="text/css" media="all" />
 
 <head>
@@ -8,39 +7,87 @@
 </head>
 <body>
 
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+    <script>
+      $(function () {
+
+    	//clear everything on refresh
+    	$(window).bind('beforeunload',function()
+    	{
+            $.ajax({
+            	type: 'post',
+            	url: 'clear.php',
+            	data: $('form').serialize()
+        	});
+    	});
+
+        $('#runetable').on('submit', function (e) {
+
+          e.preventDefault();
+
+          $.ajax({
+            type: 'post',
+            url: 'runepage.php',
+            data: $('form').serialize(),
+            success: function () {
+              alert('Rune Page updated!');
+            }
+          });
+
+        });
+
+        $('#gamedetails').on('submit', function (e) {
+
+            e.preventDefault();
+
+            $.ajax({
+              type: 'post',
+              url: 'gamedetails.php',
+              data: $('form').serialize(),
+              success: function () {
+                alert('Game Details updated!');
+              }
+            });
+
+          });
+
+      });
+    </script>
+
 <div id="wrapper">
 	<div id="header" class="title">
 		
-		<h1>LoL Game Simulator</h1>
+		<h1>Pix's LoL Sim</h1>
 		
 		<img id="icon" 	align="left" src="images/Pix Icon.png">
 			
 	</div>
 	
+	
 	<div>
-		<form>
+		
 		<div id="searchbar">
 			
 			<div class="search">
 				<!--Search for a champion<br /> -->
 			</div>	
 			<div class="bar">
-				<form name="champ_form" method="get" action="">
-					<input id="search" type="text" placeholder="Search for a Champion..." name="champ_name"><br>
-					
-					<!-- I think this needs to be a submit button but I don't know how to call change_icon() from PHP  -Zack -->					
-					<button onclick="change_icon()" type="button">Search</button>
-				</form>	
+				
+					<input id="search" type="text" placeholder="Search for a Champion..." name="champ_name" onkeypress="on_search_two(event)"/>
+					<button onclick="on_search(), change_passive(), change_abilities()" type="button">Search</button>
+				
 			</div>
 		</div>
-		</form>
+		
 	</div>
 	
 	<p id="test">Enter in game data and simulate league games to test builds quickly.</p>
 
 
 	<div id="sectionone">
+		
 		<div class="icon">
+			<h2 class="section_headers" style="position: relative; right: 50px;">Stats</h2>
 			<img id="champ_icon" src="images/Lulu_icon.jpg" alt="Champ Icon">
 			
 			<!-- api testing 
@@ -57,54 +104,191 @@
 				};			
 				xmlhttp.open( "GET", "https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=image&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184", false ); // false for synchronous request
 				xmlhttp.send( null ); 
+				
+					var almost2 = name.concat(".json");
+					var champ_url = "http://ddragon.leagueoflegends.com/cdn/5.23.1/data/en_US/champion/";
+					var champ_between = champ_url.concat(almost2);
+					var champ_json = champ_url.concat(almost2);
+					var parsed_json = JSON.parse(JSON.stringify(champ_json));
+					var ability_array = ["pass", "q", "w", "e", "r"];
+					for (i=0; i<ability_array.length; i++){
+						console.log(parsed_json.data.Aatrox.spells[i].name);
+						ability_array[i]= parsed_json.data.spells[i].name;
+						console.log(ability_array[i]);
+					};
+					var passive = docuemnt.getElementByID('passive');
 					
+					document.getElementById("searchform").submit(function
 			</script>
 			-->
-			
 			<script type="text/javascript">
-				function change_icon(){
+				function on_search(){
 					var champname = document.getElementById('search');
 					var name = champname.value;
 					var icon = document.getElementById('champ_icon');
-					var url = "http://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/";
-					var almost = name.concat(".png")
-					icon.src = url.concat(almost);
-					console.log(icon.src);
+					var icon_url = "http://ddragon.leagueoflegends.com/cdn/5.22.3/img/champion/";
+					var almost = name.concat(".png");
+					
+					icon.src = icon_url.concat(almost);
+					console.log("searching has been done");
+					var placeholder = document.getElementById('championname');
+					placeholder.innerHTML = name;
 				}
+				
+				function on_search_two(e){
+					var code = (e.keyCode ? e.keyCode : e.which);
+					if(code == 13){
+						on_search();
+						change_passive();
+						change_abilities();
+					}
+
+					return false;
+				}	
+				
+				
 			</script>
 			
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+			<script>
+				function change_passive(){
+					var champ_name = "";
+					champ_name = $("#search").val();
+					if(champ_name !== ""){
+					
+						$.ajax({
+							url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=passive&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+							type: 'GET',
+							dataType: 'json',
+							data: {
+
+							},
+							success: function (json) {
+								var champ_name_nospaces = champ_name.replace(" ", "");
+								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+								
+								<!-- changing passive icon -->
+								pass = json.data[champ_name].passive.image.full;
+								console.log(pass);
+								
+								var passive = document.getElementById('passive');
+								
+								var passive_url = "http://ddragon.leagueoflegends.com/cdn/5.23.1/img/passive/";
+								var almost_two = pass.concat(".png");
+								passive.src = passive_url.concat(pass);
+								
+								<!-- passive description -->
+								var pass_text = document.getElementById('abilitytext');
+								pass_text.innerHTML = json.data[champ_name].passive.description;
+								
+								var pass_title = document.getElementById('abilityname');
+								pass_title.innerHTML = json.data[champ_name].passive.name;
+							},
+							error: function (XMLHttpRequest, textStatus, errorThrown) {
+								alert("error getting Summoner data!");
+							}
+						});
+					}
+					
+						
+				}
+				
+				function change_abilities(){
+					var champ_name = "";
+					champ_name = $("#search").val();
+					if(champ_name !== ""){
+					
+						$.ajax({
+							url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+							type: 'GET',
+							dataType: 'json',
+							data: {
+
+							},
+							success: function (json) {
+								var champ_name_nospaces = champ_name.replace(" ", "");
+								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+								
+								
+								var abilities= ["", "", "", ""];
+								for(i=0; i<4; i++){
+						
+									abilities[i] = json.data[champ_name].spells[i].image.full;
+									console.log(abilities[i]);
+								}
+								
+								
+								
+								var ability_url = "http://ddragon.leagueoflegends.com/cdn/5.23.1/img/spell/"
+								var ab_one = document.getElementById('abilityone');
+								var ab_two = document.getElementById('abilitytwo');
+								var ab_three = document.getElementById('abilitythree');
+								var ab_four = document.getElementById('abilityfour');
+								for(j=0; j<4; j++){
+									if(j==0){
+										ab_one.src = ability_url.concat(abilities[j]);
+									}
+									if(j==1){
+										ab_two.src = ability_url.concat(abilities[j]);
+									}
+									if(j==2){
+										ab_three.src = ability_url.concat(abilities[j]);
+									}
+									if(j==3){
+										ab_four.src = ability_url.concat(abilities[j]);
+									}
+								}
+							},
+							error: function (XMLHttpRequest, textStatus, errorThrown) {
+								alert("error getting Summoner data!");
+							}
+						});
+					}
+				}
+				
+			</script>
 		</div>
 		<div>
+			<h3 style="text-align: center;" id="championname">Champ Name</h3>
 		<table id="statstable">
 			<!-- stats -->
 			
 			<tr >
 				<td></td>
 				<td>Health</td>
-				<td>Health Regen</td>
 				<td>Mana</td>	
-				<td>Mana Regen</td>
-			
-			</tr>
-			<tr>
-				<td></td>
-				<td>Attack Range</td>
-				<td>Attack Damage</td>
-				<td>Attack Speed</td>
-				<td>Armor</td>
+				<td>Ability Power</td>
 				<td>Magic Res</td>
 			
 			</tr>
 			<tr>
-				<td>Move Speed</td>
-				<td>Ability Power</td>
+				<td></td>
+				<td>Health Regen</td>
+				<td>Mana Regen</td>
 				<td>Cooldown Reduction</td>
-				<td>Critical Chance</td>
+				
+				<td>Armor</td>
+				
+			
 			</tr>
 			<tr>
-				<td>Armor Pen</td>
-				<td>% Armor pen</td>
+				<td>Attack Damage</td>
+				
+				
+				<td>Attack Speed</td>
+				<td>Critical Chance</td>
 				<td>Magic Pen</td>
+				<td>Attack Range</td>
+				
+		
+			</tr>
+			<tr>
+				<td>Move Speed</td>
+				
+				
+				<td>Armor Pen</td>
+				
+				<td>% Armor pen</td>
 				<td>% Magic Pen</td>
 			</tr>
 		</table>
@@ -112,7 +296,7 @@
 	</div>
 	
 	<div>
-		<h2>Abilities</h2>
+		<h2 class="section_headers">Abilities</h2>
 		<table id="abilitytable">
 			<tr> 
 				<td><img onclick="changePassive()" src="images/Pix_Faerie_Companion.png" id="passive" width="64" height="64"></td>
@@ -123,35 +307,429 @@
 			</tr>
 		</table>
 		
+		<h3 style="text-align: center;" id="abilityname">This is Something</h3>
+		
 		<p id="abilitytext">This is the passive it does passive things</p>
 		
 		<!-- changes the ability description -->
 		<script>
 			function changePassive(){
-				document.getElementById("abilitytext").innerHTML = "This is the passive it does passive things!";
+					var champ_name = "";
+					champ_name = $("#search").val();
+					if(champ_name !== ""){
+					
+						$.ajax({
+							url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=passive&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+							type: 'GET',
+							dataType: 'json',
+							data: {
+
+							},
+							success: function (json) {
+								var champ_name_nospaces = champ_name.replace(" ", "");
+								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+								
+								<!-- passive description -->
+								var pass_text = document.getElementById('abilitytext');
+								pass_text.innerHTML = json.data[champ_name].passive.description;
+								
+								var pass_title = document.getElementById('abilityname');
+								pass_title.innerHTML = json.data[champ_name].passive.name;
+							},
+							error: function (XMLHttpRequest, textStatus, errorThrown) {
+								alert("error getting Summoner data!");
+							}
+						});
+					}
+					
 			}
+			
 			function changeAbilityOne(){
-				document.getElementById("abilitytext").innerHTML = "This is ability one it does ability one things!";
+					var champ_name = "";
+					champ_name = $("#search").val();
+					if(champ_name !== ""){
+					
+						$.ajax({
+							url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+							type: 'GET',
+							dataType: 'json',
+							data: {
+
+							},
+							success: function (json) {
+								var champ_name_nospaces = champ_name.replace(" ", "");
+								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+								
+								
+								<!-- ability description -->
+								
+								var ab_one_text = document.getElementById('abilitytext');
+								
+								
+								var ab_one_title = document.getElementById('abilityname');
+								ab_one_title.innerHTML = json.data[champ_name].spells[0].name;
+								
+								<!-- testing code    split option [e][0-9]{1}ig -->
+								
+								<!-- replacing placeholder values with real data -->
+								var str = json.data[champ_name].spells[0].tooltip;
+								
+								str = str.replace(/{/g, '').replace(/}/g, '');
+								
+								var e_array = str.match(/[e][0-9]/g);
+								var f_array = str.match(/[f][0-9]/g);
+								var a_array = str.match(/[a][0-9]/g);
+								
+								var varslength;
+								
+								if(f_array != null && a_array != null){
+									varslength = f_array.length + a_array.length;
+								}
+								if(f_array == null && a_array != null){
+									varslength = a_array.length;
+								}
+								if(a_array == null && f_array != null){
+									varslength = f_array.length;
+								}
+								if(f_array == null && a_array == null){
+									varslength = 0;
+								}	
+								
+								if(e_array != null){
+									for(i=0; i < e_array.length; i++){
+										var e_array_two = [""];
+										e_array_two[i] = e_array[i].replace(/\D/g, '');
+										e_array_two[i] = Number(e_array_two[i]);
+										str = str.replace(e_array[i] , json.data[champ_name].spells[0].effectBurn[e_array_two[i]]);
+									}
+								}
+								
+								
+								if(f_array != null){
+									for(j=0; j < f_array.length; j++){
+										for(h=0; h < varslength; h++){
+											if(json.data[champ_name].spells[0].vars[h] != undefined){
+												if(json.data[champ_name].spells[0].vars[h].key == f_array[j]){
+													str = str.replace(f_array[j] , json.data[champ_name].spells[0].vars[h].coeff);
+												}
+											}
+										}
+									}
+								}
+								
+
+								
+								if(a_array != null){
+									
+									for(k=0; k < a_array.length; k++){
+										for(g=0; g < varslength; g++){
+											console.log(varslength);
+											if(json.data[champ_name].spells[0].vars[g] != undefined){
+												if(json.data[champ_name].spells[0].vars[g].key == a_array[k]){
+													str = str.replace(a_array[k] , json.data[champ_name].spells[0].vars[g].coeff);
+												}
+											}
+										}
+										
+									}
+								}
+								ab_one_text.innerHTML = str;
+								
+							},
+							error: function (XMLHttpRequest, textStatus, errorThrown) {
+								alert("error getting Summoner data!");
+							}
+						});
+					}
 			}	
 			function changeAbilityTwo(){
-				document.getElementById("abilitytext").innerHTML = "This is ability two it does ability two things!";
+				var champ_name = "";
+					champ_name = $("#search").val();
+					if(champ_name !== ""){
+					
+						$.ajax({
+							url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+							type: 'GET',
+							dataType: 'json',
+							data: {
+
+							},
+							success: function (json) {
+								var champ_name_nospaces = champ_name.replace(" ", "");
+								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+								
+								<!-- passive description -->
+								var ab_two_text = document.getElementById('abilitytext');
+								
+								var ab_two_title = document.getElementById('abilityname');
+								ab_two_title.innerHTML = json.data[champ_name].spells[1].name;
+								
+								
+								<!-- replacing placeholder values with real data -->
+								var str = json.data[champ_name].spells[1].tooltip;
+								
+								str = str.replace(/{/g, '').replace(/}/g, '');
+								
+								var e_array = str.match(/[e][0-9]/g);
+								var f_array = str.match(/[f][0-9]/g);
+								var a_array = str.match(/[a][0-9]/g);
+								
+								var varslength;
+								
+								if(f_array != null && a_array != null){
+									varslength = f_array.length + a_array.length;
+								}
+								if(f_array == null && a_array != null){
+									varslength = a_array.length;
+								}
+								if(a_array == null && f_array != null){
+									varslength = f_array.length;
+								}
+								if(f_array == null && a_array == null){
+									varslength = 0;
+								}	
+								
+								if(e_array != null){
+									for(i=0; i < e_array.length; i++){
+										console.log(e_array[i]);
+										var e_array_two = [""];
+										e_array_two[i] = e_array[i].replace(/\D/g, '');
+										e_array_two[i] = Number(e_array_two[i]);
+										str = str.replace(e_array[i] , json.data[champ_name].spells[1].effectBurn[e_array_two[i]]);
+									}
+								}
+								
+								
+								if(f_array != null){
+									for(j=0; j < f_array.length; j++){
+										for(h=0; h < varslength; h++){
+											if(json.data[champ_name].spells[1].vars[h] != undefined){
+												if(json.data[champ_name].spells[1].vars[h].key == f_array[j]){
+													str = str.replace(f_array[j] , json.data[champ_name].spells[1].vars[h].coeff);
+												}
+											}
+										}
+									}
+								}
+								
+								if(a_array != null){
+									
+									for(k=0; k < a_array.length; k++){
+										for(g=0; g < varslength; g++){
+											if(json.data[champ_name].spells[1].vars[g] != undefined){
+												if(json.data[champ_name].spells[1].vars[g].key == a_array[k]){
+													str = str.replace(a_array[k] , json.data[champ_name].spells[1].vars[g].coeff);
+												}
+											}
+										}
+										
+									}
+								}
+								ab_two_text.innerHTML = str;
+								
+								
+							},
+							error: function (XMLHttpRequest, textStatus, errorThrown) {
+								alert("error getting Summoner data!");
+							}
+						});
+					}
 			}	
 			function changeAbilityThree(){
-				document.getElementById("abilitytext").innerHTML = "This is ability three it does ability three things!";
+				var champ_name = "";
+					champ_name = $("#search").val();
+					if(champ_name !== ""){
+					
+						$.ajax({
+							url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+							type: 'GET',
+							dataType: 'json',
+							data: {
+
+							},
+							success: function (json) {
+								var champ_name_nospaces = champ_name.replace(" ", "");
+								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+								
+								<!-- passive description -->
+								var ab_three_text = document.getElementById('abilitytext');
+								
+								var ab_three_title = document.getElementById('abilityname');
+								ab_three_title.innerHTML = json.data[champ_name].spells[2].name;
+								
+								<!-- replacing placeholder values with real data -->
+								var str = json.data[champ_name].spells[2].tooltip;
+								
+								str = str.replace(/{/g, '').replace(/}/g, '');
+								
+								var e_array = str.match(/[e][0-9]/g);
+								var f_array = str.match(/[f][0-9]/g);
+								var a_array = str.match(/[a][0-9]/g);
+								
+								var varslength;
+								
+								if(f_array != null && a_array != null){
+									varslength = f_array.length + a_array.length;
+								}
+								if(f_array == null && a_array != null){
+									varslength = a_array.length;
+								}
+								if(a_array == null && f_array != null){
+									varslength = f_array.length;
+								}
+								if(f_array == null && a_array == null){
+									varslength = 0;
+								}	
+								
+								if(e_array != null){
+									for(i=0; i < e_array.length; i++){
+
+										var e_array_two = [""];
+										e_array_two[i] = e_array[i].replace(/\D/g, '');
+										e_array_two[i] = Number(e_array_two[i]);
+										str = str.replace(e_array[i] , json.data[champ_name].spells[2].effectBurn[e_array_two[i]]);
+									}
+								}
+								
+								
+								if(f_array != null){
+									for(j=0; j < f_array.length; j++){
+										for(h=0; h < varslength; h++){
+											if(json.data[champ_name].spells[2].vars[h] != undefined){
+												if(json.data[champ_name].spells[2].vars[h].key == f_array[j]){
+													str = str.replace(f_array[j] , json.data[champ_name].spells[2].vars[h].coeff);
+												}
+											}
+										}
+									}
+								}
+								
+								if(a_array != null){
+									
+									for(k=0; k < a_array.length; k++){
+										for(g=0; g < varslength; g++){
+											console.log(json.data[champ_name].spells[2].vars[g].key);
+											if(json.data[champ_name].spells[2].vars[g] != undefined){
+												if(json.data[champ_name].spells[2].vars[g].key == a_array[k]){
+													str = str.replace(a_array[k] , json.data[champ_name].spells[2].vars[g].coeff);
+												}
+											}
+										}
+										
+									}
+								}
+								ab_three_text.innerHTML = str;
+								
+								
+							},
+							error: function (XMLHttpRequest, textStatus, errorThrown) {
+								alert("error getting Summoner data!");
+							}
+						});
+					}
 			}	
 			function changeAbilityFour(){
-				document.getElementById("abilitytext").innerHTML = "This is ability four it does ability four things!";
+				var champ_name = "";
+					champ_name = $("#search").val();
+					if(champ_name !== ""){
+					
+						$.ajax({
+							url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=spells&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+							type: 'GET',
+							dataType: 'json',
+							data: {
+
+							},
+							success: function (json) {
+								var champ_name_nospaces = champ_name.replace(" ", "");
+								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+								
+								<!-- passive description -->
+								var ab_four_text = document.getElementById('abilitytext');
+								
+								var ab_four_title = document.getElementById('abilityname');
+								ab_four_title.innerHTML = json.data[champ_name].spells[3].name;
+								
+								<!-- replacing placeholder values with real data -->
+								var str = json.data[champ_name].spells[3].tooltip;
+								
+								str = str.replace(/{/g, '').replace(/}/g, '');
+								
+								var e_array = str.match(/[e][0-9]/g);
+								var f_array = str.match(/[f][0-9]/g);
+								var a_array = str.match(/[a][0-9]/g);
+								
+								var varslength;
+								
+								if(f_array != null && a_array != null){
+									varslength = f_array.length + a_array.length;
+								}
+								if(f_array == null && a_array != null){
+									varslength = a_array.length;
+								}
+								if(a_array == null && f_array != null){
+									varslength = f_array.length;
+								}
+								if(f_array == null && a_array == null){
+									varslength = 0;
+								}	
+								
+								if(e_array != null){
+									for(i=0; i < e_array.length; i++){
+										console.log(e_array[i]);
+										var e_array_two = [""];
+										e_array_two[i] = e_array[i].replace(/\D/g, '');
+										e_array_two[i] = Number(e_array_two[i]);
+										str = str.replace(e_array[i] , json.data[champ_name].spells[3].effectBurn[e_array_two[i]]);
+									}
+								}
+								
+								
+								if(f_array != null){
+									for(j=0; j < f_array.length; j++){
+										for(h=0; h < varslength; h++){
+											if(json.data[champ_name].spells[3].vars[h] != undefined){
+												if(json.data[champ_name].spells[3].vars[h].key == f_array[j]){
+													str = str.replace(f_array[j] , json.data[champ_name].spells[3].vars[h].coeff);
+												}
+											}
+										}
+									}
+								}
+								
+								if(a_array != null){
+									
+									for(k=0; k < a_array.length; k++){
+										for(g=0; g < varslength; g++){
+											if(json.data[champ_name].spells[3].vars[g] != undefined){
+												if(json.data[champ_name].spells[3].vars[g].key == a_array[k]){
+													str = str.replace(a_array[k] , json.data[champ_name].spells[3].vars[g].coeff);
+												}
+											}
+										}
+										
+									}
+								}
+								ab_four_text.innerHTML = str;
+								
+								
+							},
+							error: function (XMLHttpRequest, textStatus, errorThrown) {
+								alert("error getting Summoner data!");
+							}
+						});
+					}
 			}
 		</script>
 		
 	</div>
 	<div>
 		<!-- get ready for an abomination of a table for the runes -->
-		<h2>Runes</h2>
+		<h2 class="section_headers">Runes</h2>
 		
-		<p> Now it is time for you to choose the rune page you will be using. Please pick 9 Marks, 9 Seals, 9 Glyphs, and 3 Quints.</p>
+		<p style="text-align: center;"> Now it is time for you to choose the rune page you will be using. Please pick 9 Marks, 9 Seals, 9 Glyphs, and 3 Quints.</p>
 		
-		<form name="runetable" method="get" action="">
+		<form name="runetable" id="runetable" method="post">
 		<table id="runetable">
 			<tr>
 				<th>Marks</th> 
@@ -223,7 +801,7 @@
 			</tr>
 			<tr>
 				<td id="runecells">Attack Damage
-					<select id="attackdamagemark" name="attackdamgemark"> 
+					<select id="attackdamagemark" name="attackdamagemark"> 
 						<option value="0">0</option> 
 						<option value="1">1</option>
 						<option value="2">2</option>
@@ -548,495 +1126,18 @@
 				</td> 
 			</tr>
 		</table>
-		
-		<!-- Using PHP to read in rune amounts and store them in the database -->
-		<?php
-		
-			$servername="localhost";
-			$username="root";
-			$password="";
-			$databasename="lolgamesimulator";
-			
-			$connection=new PDO("mysql:host=$servername;dbname=$databasename", $username, $password);
-			
-			//make sure the user starts with an empty page;
-			//every time the submit button is pressed, the table is cleared and then
-			//we take in the new values
-			$sql = "delete from Rune_Page_Stats";
-			$connection->exec($sql);
-			
-			//aaaaahhhhhhhhHHHHHHHHHHHHHHHHHH
-			//every single type of rune (except revival, heh) gets its own if statement
-			//oh jesus
-			//i think i can put this in a separate .php file
-			if(isset($_GET['armorpenmark']) && $_GET['armorpenmark']>=1){
-				$armorpenmark=$_GET['armorpenmark'];
-				
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-						values ('Mark of Armor Penetration', '$armorpenmark', '0', '0', '1.28', '0',
-								'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
-				
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['armorseal']) && $_GET['armorseal']>=1){
-				$armorseal=$_GET['armorseal'];
-			
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Seal of Armor', '$armorseal', '0', '1', '0', '0',
-						'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
-			
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['apglyph']) && $_GET['apglyph']>=1){
-				$apglyph=$_GET['apglyph'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Glyph of Ability Power', '$apglyph', '1.19', '0', '0', '0',
-						'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['apquint']) && $_GET['apquint']>=1){
-				$apquint=$_GET['apquint'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Quintessence of Ability Power', '$apquint', '0', '4.95', '0', '0',
-				'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['mregenquint']) && $_GET['mregenquint']>=1){
-				$mregenquint=$_GET['mregenquint'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Quintessence of Mana Regeneration', '$mregenquint', '0', '0', '0', '0',
-						'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1.25', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['attackdamagemark']) && $_GET['attackdamagemark']>=1){
-				$attackdamagemark=$_GET['attackdamagemark'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Mark of Attack Damage', '$attackdamagemark', '0', '0', '0', '0',
-						'0', '0.95', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['energyregenseal']) && $_GET['energyregenseal']>=1){
-				$energyregenseal=$_GET['energyregenseal'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Seal of Energy Regeneration', '$energyregenseal', '0', '0', '0', '0',
-						'0', '0', '0', '0', '0', '0', '0', '0.63', '0', '0', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['cdrglyph']) && $_GET['cdrglyph']>=1){
-				$cdrglyph=$_GET['cdrglyph'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Glyph of Cooldown Reduction', '$cdrglyph', '0', '0', '0', '0',
-						'0', '0', '0', '0.83', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['armorquint']) && $_GET['armorquint']>=1){
-				$armorquint=$_GET['armorquint'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Quintessence of Armor', '$armorquint', '0', '4.26', '0', '0',
-						'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['%healthquint']) && $_GET['%healthquint']>=1){
-				$percenthealthquint=$_GET['%healthquint'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Quintessence of Percent Health', '$percenthealthquint', '0', '0', '0', '0',
-						'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1.5', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['attackspeedmark']) && $_GET['attackspeedmark']>=1){
-				$attackspeedmark=$_GET['attackspeedmark'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Mark of Attack Speed', '$attackspeedmark', '0', '0', '0', '0',
-						'0', '0', '1.7', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['healthseal']) && $_GET['healthseal']>=1){
-				$healthseal=$_GET['healthseal'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Seal of Health', '$healthseal', '0', '0', '0', '0',
-						'0', '0', '0', '0', '0', '0', '0', '0', '8', '0', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['energyglyph']) && $_GET['energyglyph']>=1){
-				$energyglyph=$_GET['energyglyph'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Glyph of Energy', '$energyglyph', '0', '0', '0', '0',
-						'0', '0', '0', '0', '0', '0', '2.2', '0', '0', '0', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['cdrquint']) && $_GET['cdrquint']>=1){
-				$cdrquint=$_GET['cdrquint'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Quintessence of Cooldown Reduction', '$cdrquint', '0', '0', '0', '0',
-						'0', '0', '0', '2.5', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['critchancemark']) && $_GET['critchancemark']>=1){
-				$critchancemark=$_GET['critchancemark'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Mark of Critical Chance', '$critchancemark', '0', '0', '0', '0',
-						'0', '0', '0', '0', '0.93', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['hregenseal']) && $_GET['hregenseal']>=1){
-				$hregenseal=$_GET['hregenseal'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Seal of Health Regeneration', '$hregenseal', '0', '0', '0', '0',
-						'0', '0', '0', '0', '0', '0', '0', '0', '0', '0.56', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['managlyph']) && $_GET['managlyph']>=1){
-				$managlyph=$_GET['managlyph'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Glyph of Mana', '$managlyph', '0', '0', '0', '0',
-						'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '11.25', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			//this is for the gold income quint, which we need to keep track of;
-			//however, rune_page_stats doesn't have a column for gold so I'll fix it later
-			//my bad
-			
-			/*if(isset($_GET['goldquint']) && $_GET['goldquint']>=1){
-				$goldquint=$_GET['goldquint'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Quintessence of Gold', '$goldquint', '0', '0', '0', '0',
-				'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}*/
-			
-			if(isset($_GET['lifestealquint']) && $_GET['lifestealquint']>=1){
-				$lifestealquint=$_GET['lifestealquint'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Quintessence of Lifesteal', '$lifestealquint', '0', '0', '0', '0',
-						'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1.5', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['critdamagemark']) && $_GET['critdamagemark']>=1){
-				$critdamagemark=$_GET['critdamagemark'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Mark of Critical Damage', '$critdamagemark', '0', '0', '0', '0',
-						'0', '0', '0', '0', '0', '2.23', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['mregenseal']) && $_GET['mregenseal']>=1){
-				$mregenseal=$_GET['mregenseal'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Seal of Mana Regeneration', '$mregenseal', '0', '0', '0', '0',
-						'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0.41', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['mrglyph']) && $_GET['mrglyph']>=1){
-				$mrglyph=$_GET['mrglyph'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Glyph of Magic Resist', '$mrglyph', '0', '0', '0', '1.34',
-						'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['healthquint']) && $_GET['healthquint']>=1){
-				$healthquint=$_GET['healthquint'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Quintessence of Health', '$healthquint', '0', '0', '0', '0',
-						'0', '0', '0', '0', '0', '0', '0', '0', '26', '0', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['movespeedquint']) && $_GET['movespeedquint']>=1){
-				$movespeedquint=$_GET['movespeedquint'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Quintessence of Movement Speed', '$movespeedquint', '0', '0', '0', '0',
-						'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '1.5')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['hpenmark']) && $_GET['hpenmark']>=1){
-				$hpenmark=$_GET['hpenmark'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Mark of Hybrid Penetration', '$hpenmark', '0', '0', '0.9', '0',
-				'0.62', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['%healthseal']) && $_GET['%healthseal']>=1){
-				$percenthealthseal=$_GET['%healthseal'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Seal of Percent Health', '$percenthealthseal', '0', '0', '0', '0',
-						'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0.5', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['hregenquint']) && $_GET['hregenquint']>=1){
-				$hregenquint=$_GET['hregenquint'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Quintessence of Health Regeneration', '$hregenquint', '0', '0', '0', '0',
-						'0', '0', '0', '0', '0', '0', '0', '0', '0', '2.7', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['mpenmark']) && $_GET['mpenmark']>=1){
-				$mpenmark=$_GET['mpenmark'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Mark of Magic Penetration', '$mpenmark', '0', '0', '0', '0',
-						'0.87', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			if(isset($_GET['manaquint']) && $_GET['manaquint']>=1){
-				$manaquint=$_GET['manaquint'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Quintessence of Mana', '$manaquint', '0', '0', '0', '0',
-						'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '37.5', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}
-			
-			//same situation as gold income quint
-			
-			/*if(isset($_GET['spellvampquint']) && $_GET['spellvampquint']>=1){
-				$spellvampquint=$_GET['spellvampquint'];
-					
-				$sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-													 armor_pen, magic_resist, magic_pen, attack_damage,
-													 attack_speed, cooldown_reduction, crit_chance,
-													 crit_damage, energy, energy_regen, health,
-													 health_regen, percent_health, mana, mana_regen,
-													 lifesteal, move_speed)
-				values ('Quintessence of Spell Vamp', '$spellvampquint', '0', '0', '0', '0',
-						'0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
-					
-				$connection->exec($sql);
-			}*/
-		?>
-		
-		<input type="submit" name="submit">
-		</form>
+		<!--<button style="margin-left: 30px;" type="button">Update Runes</button>-->
+		<input style="margin-left: 30px;" type="submit" name="submit">
 	</div>
+	</form>
 	
 	<div>
 		
-		<h2>Game Details</h2>
+		<form name="gamedetails" id="gamedetails" method="post">
+		<h2 class="section_headers">Game Details</h2>
 		<div class="gamedetails">
 			<ul class="gamedetails">
 				<li style="padding: 11px">Level </li>
-				<li style="padding: 11px">Ability Sequence</li>
 				<li style="padding: 11px">Kills</li>
 				<li style="padding: 11px">Assists</li>
 				<li style="padding: 11px">Creep Score</li>
@@ -1045,7 +1146,7 @@
 		<div class="gameinputs">
 			<ul class="gameinputs">
 				<li>
-					<select> 
+					<select name="level"> 
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
@@ -1066,17 +1167,15 @@
 					<option value="18">18</option>
 					</select>
 				</li>
-				<li><input style="width: 50px;" type="number"></li>
-				<li><input style="width: 50px;" type="number"></li>
-				<li><input style="width: 50px;" type="number"></li>
-				<li><input style="width: 50px;" type="number"></li>
+				<li><input style="width: 50px;" type="number" name ="kills"></li>				<li><input style="width: 50px;" type="number" name="assists"></li>
+				<li><input style="width: 50px;" type="number" name="cs"></li>
 			</ul>
 		</div>
 		<div class="gamedetails">
 			<ul class="gamedetails">
-				<li style="padding: 11px">Towers Taken</li>
-				<li style="padding: 11px">Dragon Kills</li>
-				<li style="padding: 11px">Baron Kills</li>
+				<li style="padding: 11px" name="towers">Towers Taken</li>
+				<li style="padding: 11px" name="dragons">Dragon Kills</li>
+				<li style="padding: 11px" name="barons">Baron Kills</li>
 				<li style="padding: 11px">Time</li>
 			</ul>
 		</div>
@@ -1088,12 +1187,16 @@
 				<li><input style="width: 75px;" type="time"></li>
 			</ul>
 		</div>
+		<!--<button style="margin-left: 30px;" type="button">Update Game Details</button> -->
+		<input style="margin-left: 30px;" type="submit" name="submit">
 	</div>
+	</form>
+	
 	<br>
 	<br>
 	<br>
 	<div style="padding: 10px;">
-		<h2>Shop</h2>
+		<h2 class="section_headers" style="position: relative; right: 10px;">Shop</h2>
 		
 		<div id="shopicons">
 			<!-- shows 80 item icons -->
@@ -1192,12 +1295,12 @@
 		</div>
 		<div id="inventory">
 			<h4>Inventory</h4>
-			<img src="images/Sorcerer's_Shoes_Item.png">
-			<img src="images/Athene's_Unholy_Grail_Item.png">
-			<img src="images/Zhonya's_Hourglass_Item.png">
-			<img src="images/Rabadon's_Deathcap_Item.png">
-			<img src="images/Luden's_Echo_Item.png">
-			<img src="images/Void_Staff_Item.png">
+			<img id="inventory_items" src="images/Sorcerer's_Shoes_Item.png">
+			<img id="inventory_items" src="images/Athene's_Unholy_Grail_Item.png">
+			<img id="inventory_items" src="images/Zhonya's_Hourglass_Item.png">
+			<img id="inventory_items" src="images/Rabadon's_Deathcap_Item.png">
+			<img id="inventory_items" src="images/Luden's_Echo_Item.png">
+			<img id="inventory_items" src="images/Void_Staff_Item.png">
 		</div>
 		
 		<div class="filterlist">
@@ -1236,10 +1339,12 @@
 		
 	</script>
 	
+	
 	<div>
 		<h2>End of Page</h2>
 	</div>
 
 </div>
+
 </body>
 </html>
