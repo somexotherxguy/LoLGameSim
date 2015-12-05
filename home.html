@@ -127,7 +127,7 @@
 					var passive = docuemnt.getElementByID('passive');
 					
 					document.getElementById("searchform").submit(function
-			</script>
+			</script> 
 			-->
 			<script type="text/javascript">
 				function on_search(){
@@ -169,30 +169,67 @@
 							},
 							success: function (json) {
 								var shop_array = [];
+								var item_info = [];
 								
 								for(var key in json.data){
 									if(json.data.hasOwnProperty(key)){	
-										j=0;
 										shop_array.push(key);
-										j++;
-				
-										
+										item_info.push(json.data[key]);
+									}
+									for(k=0; k < shop_array.length; k++){
+										if(item_info[k].maps["11"] == false){
+											shop_array.splice(k,1);
+											item_info.splice(k,1);
+										}
+									}
+									for(k=0; k < shop_array.length; k++){
+										if(item_info[k].consumed == true){
+											shop_array.splice(k,1);
+											item_info.splice(k,1);
+										}
+									}
+									for(k=0; k < shop_array.length; k++){
+										if(item_info[k].group == "BootsDistortion"){
+											shop_array.splice(k,1);
+											item_info.splice(k,1);
+										}
+									}
+									for(k=0; k < shop_array.length; k++){
+										if(item_info[k].group == "BootsCaptain"){
+											shop_array.splice(k,1);
+											item_info.splice(k,1);
+										}
+									}
+									for(k=0; k < shop_array.length; k++){
+										if(item_info[k].group == "BootsAlacrity"){
+											shop_array.splice(k,1);
+											item_info.splice(k,1);
+										}
+									}
+									for(k=0; k < shop_array.length; k++){
+										if(item_info[k].group == "BootsFuror"){
+											shop_array.splice(k,1);
+											item_info.splice(k,1);
+										}
 									}
 								}
+								j=0;
 								for(i=0; i<80; i++){
-									var num = i.toString();
-									var shop_icon_string = "shop_icon"
-									var shop_id = shop_icon_string.concat(num);
-									var item_url = "http://ddragon.leagueoflegends.com/cdn/5.23.1/img/item/";
-									var temp = shop_array[i];
-									
-									var mid_shop_array = temp.concat(".png");
-									
-									var shop_source = document.getElementById(shop_id);
-									shop_source.src = item_url.concat(mid_shop_array);
 
-									
+											var num = i.toString();
+											var shop_icon_string = "shop_icon"
+											var shop_id = shop_icon_string.concat(num);
+											var item_url = "http://ddragon.leagueoflegends.com/cdn/5.23.1/img/item/";
+											var temp = shop_array[j];
+											
+											var mid_shop_array = temp.concat(".png");
+											
+											var shop_source = document.getElementById(shop_id);
+											shop_source.src = item_url.concat(mid_shop_array);
+											j++;
+
 								}
+								
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
 								alert("error getting Summoner data!");
