@@ -5,7 +5,7 @@
 <head>
 <title>LoL Game Simulator</title>
 </head>
-<body onload="">
+<body >
 
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script>
@@ -159,11 +159,7 @@
 			
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 			<script>
-				function update_shop(){
-					var champ_name = "";
-					champ_name = $("#search").val();
-					if(champ_name !== ""){
-					
+				$(document).ready(function(){
 						$.ajax({
 							url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?itemListData=all&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
 							type: 'GET',
@@ -172,28 +168,38 @@
 
 							},
 							success: function (json) {
-								var champ_name_nospaces = champ_name.replace(" ", "");
-								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
-								
-								var shop_array = [""];
+								var shop_array = [];
 								
 								for(var key in json.data){
 									if(json.data.hasOwnProperty(key)){	
-										i=0;
-										shop_array[i] = key;
-										console.log(shop_array[i];
-										i++;
+										j=0;
+										shop_array.push(key);
+										j++;
+				
+										
 									}
 								}
-								
-								
+								for(i=0; i<80; i++){
+									var num = i.toString();
+									var shop_icon_string = "shop_icon"
+									var shop_id = shop_icon_string.concat(num);
+									var item_url = "http://ddragon.leagueoflegends.com/cdn/5.23.1/img/item/";
+									var temp = shop_array[i];
+									
+									var mid_shop_array = temp.concat(".png");
+									
+									var shop_source = document.getElementById(shop_id);
+									shop_source.src = item_url.concat(mid_shop_array);
+
+									
+								}
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
 								alert("error getting Summoner data!");
 							}
 						});
-					}
-				}
+					
+				});
 				function change_passive(){
 					var champ_name = "";
 					champ_name = $("#search").val();
@@ -1241,93 +1247,93 @@
 		
 		<div id="shopicons">
 			<!-- shows 80 item icons -->
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon0" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon1" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon2" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon3" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon4" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon5" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon6" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon7" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon8" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon9" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon10" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon11" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon12" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon13" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon14" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon15" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon16" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon17" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon18" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon19" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon20" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon21" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon22" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon23" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon24" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon25" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon26" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon27" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon28" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon29" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon30" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon31" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon32" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon33" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon34" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon35" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon36" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon37" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon38" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon39" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon40" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon41" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon42" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon43" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon44" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon45" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon46" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon47" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon48" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon49" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon50" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon51" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon52" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon53" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon54" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon55" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon56" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon57" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon58" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon59" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon60" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon61" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon62" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon63" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon64" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon65" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon66" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon67" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon68" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon69" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon70" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon71" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon72" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon73" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon74" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon75" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon76" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon77" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon78" src="images/EmptyIcon_Item.png">
+			<img class="shopicon" id="shop_icon79" src="images/EmptyIcon_Item.png">
 			
 		</div>
 	
