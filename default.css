@@ -205,4 +205,46 @@ li {
 	text-shadow: 0 0 4px #e600e5, 0 0 4px #e600e5, 0 0 4px #e600e5, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f, 0 0 4px #20603f;
 }	
 
+.temp {
+	text-align: left;
+	background:#86dfb6;
+	border: solid black;
+	color: black;
+	font-size: 16px;
+	height: auto;
+	width:710px;
+	position: absolute;
+	display:none;
+	left: 250px;
+	top: 740px;
+	font-weight: bold;
+	padding: 5px;
+
+}
+
+.temp2 {
+	padding: 5px;
+	text-align: left;
+	background:#86dfb6;
+	border: solid black;
+	color: black;
+	font-size: 16px;
+	height: auto;
+	width:710px;
+	position: absolute;
+	display:none;
+	right: 2px;
+	top: 555px;
+	font-weight: bold;
+}
+
+.hoverinfo{
+	cursor:pointer;
+}
+
+.hoverinfo:hover  p{
+  display: block;
+  z-index: 99;
+}
+
 
