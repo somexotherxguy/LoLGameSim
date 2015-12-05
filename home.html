@@ -237,6 +237,116 @@
 						});
 					
 				});
+				
+				function shop_filter(){
+					$.ajax({
+						url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?itemListData=all&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
+						type: 'GET',
+						dataType: 'json',
+						data: {
+
+						},
+						success: function (json) {
+							var shop_array = [];
+							var item_info = [];
+							var tag_info = [];
+							var shop_array_modified = [];
+							
+							for(var key in json.data){
+								if(json.data.hasOwnProperty(key)){	
+									shop_array.push(key);
+									item_info.push(json.data[key]);
+									tag_info.push(json.data[key].tags);
+								}
+								for(k=0; k < shop_array.length; k++){
+									if(item_info[k].maps["11"] == false){
+										shop_array.splice(k,1);
+										item_info.splice(k,1);
+									}
+								}
+								for(k=0; k < shop_array.length; k++){
+									if(item_info[k].consumed == true){
+										shop_array.splice(k,1);
+										item_info.splice(k,1);
+									}
+								}
+								for(k=0; k < shop_array.length; k++){
+									if(item_info[k].group == "BootsDistortion"){
+										shop_array.splice(k,1);
+										item_info.splice(k,1);
+									}
+								}
+								for(k=0; k < shop_array.length; k++){
+									if(item_info[k].group == "BootsCaptain"){
+										shop_array.splice(k,1);
+										item_info.splice(k,1);
+									}
+								}
+								for(k=0; k < shop_array.length; k++){
+									if(item_info[k].group == "BootsAlacrity"){
+										shop_array.splice(k,1);
+										item_info.splice(k,1);
+									}
+								}
+								for(k=0; k < shop_array.length; k++){
+									if(item_info[k].group == "BootsFuror"){
+										shop_array.splice(k,1);
+										item_info.splice(k,1);
+									}
+								}
+								
+								var check_health = document.getElementById('health_filter').checked;
+								var check_MR = document.getElementById('MR_filter').checked;
+								var check_armor = document.getElementById('armor_filter').checked;
+								var check_AD = document.getElementById('AD_filter').checked;
+								var check_AS = document.getElementById('AS_filter').checked;
+								var check_crit = document.getElementById('crit_filter').checked;
+								var check_lifesteal = document.getElementById('lifesteal_filter').checked;
+								var check_AP = document.getElementById('AP_filter').checked;
+								var check_CDR = document.getElementById('CDR_filter').checked;
+								var check_mana = document.getElementById('mana_filter').checked;
+								var check_mana_regen = document.getElementById('mana_regen_filter').checked;
+								var check_MS = document.getElementById('MS_filter').checked;
+								
+								
+								
+								for(k=0; k < shop_array.length; k++){
+									if(check_health == true){
+										for(var tem in tag_info[k]){
+											f=0;
+											if(tag_info[k][f] == 'Health'){
+												shop_array_modified.push(shop_array[k]);
+											}
+											f++;
+										}
+									}
+								}
+							}
+							j=0;
+							for(i=0; i<80; i++){
+
+										var num = i.toString();
+										var shop_icon_string = "shop_icon"
+										var shop_id = shop_icon_string.concat(num);
+										var item_url = "http://ddragon.leagueoflegends.com/cdn/5.23.1/img/item/";
+										var temp = shop_array_modified[j];
+										
+										var mid_shop_array = temp.concat(".png");
+										
+										var shop_source = document.getElementById(shop_id);
+										shop_source.src = item_url.concat(mid_shop_array);
+										j++;
+
+							}
+							
+						},
+						error: function (XMLHttpRequest, textStatus, errorThrown) {
+							alert("error getting Summoner data!");
+						}
+					});
+				}
+				
+				<!-- This function changes the passive -->
 				function change_passive(){
 					var champ_name = "";
 					champ_name = $("#search").val();
@@ -1391,27 +1501,27 @@
 			<h3>Filter</h3>
 			Defense
 			<ul class="filter">
-				<li><input type="checkbox">Health</li>
-				<li><input type="checkbox">Magic Resist</li>
-				<li><input type="checkbox">Armor</li>
+				<li><input onclick="shop_filter()" id="health_filter" type="checkbox">Health</li>
+				<li><input onclick="shop_filter()" id="MR_filter" type="checkbox">Magic Resist</li>
+				<li><input onclick="shop_filter()" id="armor_filter" type="checkbox">Armor</li>
 			</ul>	
 			Attack
 			<ul class="filter">
-				<li><input type="checkbox">Damage</li>
-				<li><input type="checkbox">Attack Speed</li>
-				<li><input type="checkbox">Critical Chance</li>
-				<li><input type="checkbox">Lifesteal</li>
+				<li><input onclick="shop_filter()" id="AD_filter" type="checkbox">Attack Damage</li>
+				<li><input onclick="shop_filter()" id="AS_filter" type="checkbox">Attack Speed</li>
+				<li><input onclick="shop_filter()" id="crit_filter" type="checkbox">Critical Chance</li>
+				<li><input onclick="shop_filter()" id="lifesteal_filter" type="checkbox">Lifesteal</li>
 			</ul>
 			Magic
 			<ul class="filter">
-				<li><input type="checkbox">Ability Power</li>
-				<li><input type="checkbox">Cooldown Reduction</li>
-				<li><input type="checkbox">Mana</li>
-				<li><input type="checkbox">Mana Regen</li>
+				<li><input onclick="shop_filter()" id="AP_filter" type="checkbox">Ability Power</li>
+				<li><input onclick="shop_filter()" id="CDR_filter" type="checkbox">Cooldown Reduction</li>
+				<li><input onclick="shop_filter()" id="mana_filter" type="checkbox">Mana</li>
+				<li><input onclick="shop_filter()" id="mana_regen_filter" type="checkbox">Mana Regen</li>
 			</ul>
 			Movement
 			<ul class="filter">
-				<li><input type="checkbox">Movespeed</li>
+				<li><input id="MS_filter"type="checkbox">Movespeed</li>
 			</ul>
 			
 		</div>
