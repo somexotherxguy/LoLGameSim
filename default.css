@@ -165,6 +165,7 @@ li {
 .filterlist{
 	position: relative;
 	bottom: 764px;
+	width: 250px;
 }
 
 .filter{

@@ -159,6 +159,7 @@
 			
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 			<script>
+				<!-- this function intializes the shop when the page loads-->
 				$(document).ready(function(){
 						$.ajax({
 							url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?itemListData=all&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
@@ -238,6 +239,7 @@
 					
 				});
 				
+				<!-- this function controls the shop filters -->
 				function shop_filter(){
 					$.ajax({
 						url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?itemListData=all&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
@@ -507,6 +509,8 @@
 						}
 					});
 				}
+				
+				
 				
 				<!-- This function changes the passive -->
 				function change_passive(){
@@ -1077,7 +1081,11 @@
 							}
 						});
 					}
+					
 			}
+			
+			
+			
 		</script>
 		
 	</div>
@@ -1556,94 +1564,93 @@
 		
 		<div id="shopicons">
 			<!-- shows 80 item icons -->
-			<img class="shopicon" id="shop_icon0" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon1" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon2" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon3" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon4" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon5" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon6" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon7" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon8" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon9" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon0" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon1" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon2" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon3" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon4" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon5" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon6" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon7" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon8" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon9" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon10" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon11" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon12" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon13" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon14" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon15" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon16" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon17" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon18" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon19" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon10" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon11" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon12" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon13" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon14" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon15" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon16" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon17" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon18" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon19" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon20" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon21" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon22" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon23" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon24" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon25" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon26" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon27" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon28" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon29" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon20" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon21" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon22" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon23" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon24" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon25" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon26" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon27" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon28" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon29" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon30" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon31" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon32" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon33" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon34" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon35" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon36" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon37" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon38" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon39" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon30" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon31" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon32" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon33" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon34" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon35" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon36" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon37" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon38" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon39" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon40" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon41" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon42" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon43" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon44" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon45" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon46" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon47" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon48" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon49" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon40" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon41" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon42" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon43" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon44" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon45" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon46" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon47" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon48" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon49" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon50" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon51" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon52" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon53" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon54" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon55" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon56" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon57" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon58" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon59" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon50" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon51" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon52" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon53" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon54" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon55" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon56" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon57" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon58" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon59" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon60" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon61" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon62" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon63" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon64" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon65" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon66" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon67" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon68" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon69" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon60" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon61" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon62" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon63" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon64" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon65" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon66" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon67" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon68" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon69" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon70" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon71" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon72" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon73" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon74" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon75" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon76" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon77" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon78" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon79" src="images/EmptyIcon_Item.png">
-			
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon70" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon71" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon72" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon73" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon74" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon75" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon76" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon77" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon78" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" class="shopicon" id="shop_icon79" src="images/EmptyIcon_Item.png">
 		</div>
 	
 		<div id="gold">
@@ -1651,12 +1658,12 @@
 		</div>
 		<div id="inventory">
 			<h4>Inventory</h4>
-			<img id="inventory_items" src="images/EmptyIcon_Item.png">
-			<img id="inventory_items" src="images/EmptyIcon_Item.png">
-			<img id="inventory_items" src="images/EmptyIcon_Item.png">
-			<img id="inventory_items" src="images/EmptyIcon_Item.png">
-			<img id="inventory_items" src="images/EmptyIcon_Item.png">
-			<img id="inventory_items" src="images/EmptyIcon_Item.png">
+			<img onclick="remove_item(this.id)" id="inventory_item0" src="images/EmptyIcon_Item.png">
+			<img onclick="remove_item(this.id)" id="inventory_item1" src="images/EmptyIcon_Item.png">
+			<img onclick="remove_item(this.id)" id="inventory_item2" src="images/EmptyIcon_Item.png">
+			<img onclick="remove_item(this.id)" id="inventory_item3" src="images/EmptyIcon_Item.png">
+			<img onclick="remove_item(this.id)" id="inventory_item4" src="images/EmptyIcon_Item.png">
+			<img onclick="remove_item(this.id)" id="inventory_item5" src="images/EmptyIcon_Item.png">
 		</div>
 		
 		<div class="filterlist">
@@ -1691,8 +1698,61 @@
 
 	
 
-	<script>
-		
+	<script type="text/javascript">
+		<!-- This function adds items to the inventory -->
+		function add_inventory(clicked_id){ 
+
+			var shop_image = document.getElementById(clicked_id);
+			var clicked_image = shop_image.src;
+			var iven_zero = document.getElementById('inventory_item0');
+			var iven_one = document.getElementById('inventory_item1');
+			var iven_two = document.getElementById('inventory_item2');
+			var iven_three = document.getElementById('inventory_item3');
+			var iven_four = document.getElementById('inventory_item4');
+			var iven_five = document.getElementById('inventory_item5');
+			
+			var zero_src = iven_zero.src;
+			var one_src = iven_one.src;
+			var two_src = iven_two.src;
+			var three_src = iven_three.src;
+			var four_src = iven_four.src;
+			var five_src = iven_five.src;
+			
+			var empty_item = "file:///C:/Users/Matt/Documents/Database%20Project/LeagueCalculator/images/EmptyIcon_Item.png";
+			
+			if(zero_src == empty_item){
+				iven_zero.src = clicked_image;
+			}else{
+				if(one_src == empty_item){
+					iven_one.src = clicked_image;
+				}else{
+					if(two_src == empty_item){
+						iven_two.src = clicked_image;
+					}else{
+						if(three_src == empty_item){
+							iven_three.src = clicked_image;
+						}else{
+							if(four_src == empty_item){
+								iven_four.src = clicked_image;
+							}else{
+								if(five_src == empty_item){
+									iven_five.src = clicked_image;
+								}
+							}
+						}
+					}
+				}	
+			}
+		}
+
+		<!-- This function will remove an item from the inventory if it is clicked on -->
+		function remove_item(clicked_id){
+			var inven_image = document.getElementById(clicked_id);
+			inven_image.src = "file:///C:/Users/Matt/Documents/Database%20Project/LeagueCalculator/images/EmptyIcon_Item.png";
+		}
+			
+			
+			
 	</script>
 	
 	
