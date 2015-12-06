@@ -7,6 +7,46 @@
 </head>
 <body>
 
+<script>
+function getstats() {
+	
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                
+                var responsearray=xmlhttp.responseText.split("|");
+                console.log(xmlhttp.responseText);
+                
+                document.getElementById("health").innerHTML = responsearray[0];
+                document.getElementById("mana").innerHTML = responsearray[1];
+                document.getElementById("attack damage").innerHTML = responsearray[2];
+                document.getElementById("health regen").innerHTML = responsearray[3];
+                document.getElementById("mana regen").innerHTML = responsearray[4];
+                document.getElementById("attack speed").innerHTML = responsearray[5];
+                document.getElementById("cooldown reduction").innerHTML = responsearray[6];
+                document.getElementById("magic pen").innerHTML = responsearray[7];
+                document.getElementById("percent magic pen").innerHTML = responsearray[8];
+                document.getElementById("critical chance").innerHTML = responsearray[9];
+                document.getElementById("move speed").innerHTML = responsearray[10];
+                document.getElementById("armor pen").innerHTML = responsearray[11];
+                document.getElementById("percent armor pen").innerHTML = responsearray[12];
+                document.getElementById("ability power").innerHTML = responsearray[13];
+                document.getElementById("magic res").innerHTML = responsearray[14];
+                document.getElementById("armor2").innerHTML = responsearray[15];
+            }
+        };
+        xmlhttp.open("GET","getstats.php?q=",true);
+        xmlhttp.send();
+}
+</script>
+
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script>
       $(function () {
@@ -33,6 +73,8 @@
                 alert('Runes and Game Details updated!');
               }
             });
+
+            setTimeout(getstats, 1000);
 
           });
 
@@ -66,7 +108,9 @@
 		
 	</div>
 	
-	<p id="test">Enter in game data and simulate league games to test builds quickly.</p>
+	<p style="text-align: center;" id="test">Welcome to Pix's League of Legends Simulator. Here you can test builds without having to even step foot on the Rift. 
+				Just Enter the champion you want calculate stats for and some details about the game then we will show exactly how much damage your champion 
+				will do with that build.</p>
 	
 	<ul class="navigationbar">
 		<li class="navigationbaritems" style="border-top: solid black; border-right: solid black; border-left: solid black; font-weight: bold;">Navigation Bar</li>
@@ -81,7 +125,7 @@
 		
 		<div class="icon">
 			<h2 class="section_headers" style="position: relative; right: 50px;" id="stats">Stats</h2>
-			<img id="champ_icon" src="images/Lulu_icon.jpg" alt="Champ Icon">
+			<img id="champ_icon" src="images/ChampionSquare.png" alt="Champ Icon">
 			
 			<!-- api testing 
 			<script type="text/javascript">
@@ -135,6 +179,7 @@
 						change_passive();
 						change_abilities();
 						get_base_stats();
+						setTimeout(getstats, 1000);
 					}
 
 					return false;
@@ -145,6 +190,7 @@
 			
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 			<script>
+				<!-- this function intializes the shop when the page loads-->
 				$(document).ready(function(){
 						$.ajax({
 							url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?itemListData=all&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
@@ -218,7 +264,7 @@
 								
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
-								alert("error getting Summoner data!");
+								
 							}
 						});
 					
@@ -275,13 +321,13 @@
 								document.getElementById("hpregenperlevel").value=stats.hpregenperlevel;
 								document.getElementById("armorperlevel").value=stats.armorperlevel;
 								document.getElementById("attackspeedoffset").value=stats.attackspeedoffset;
-
+								
 					            $.ajax({
 					                type: 'post',
 					                url: 'runesandgamedetails.php',
 					                data: $('form').serialize(),
 					                success: function () {
-					                  alert('Champion Data updated!');
+					                  alert('Runes and Game Details updated!');
 					                }
 					              });
 							}
@@ -289,6 +335,7 @@
 					}
 				}
 				
+				<!-- this function controls the shop filters -->
 				function shop_filter(){
 					$.ajax({
 						url:  'https://global.api.pvp.net/api/lol/static-data/na/v1.2/item?itemListData=all&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184',
@@ -309,93 +356,257 @@
 									item_info.push(json.data[key]);
 									tag_info.push(json.data[key].tags);
 								}
-								for(k=0; k < shop_array.length; k++){
-									if(item_info[k].maps["11"] == false){
-										shop_array.splice(k,1);
-										item_info.splice(k,1);
-									}
+							}	
+							for(k=0; k < shop_array.length; k++){
+								if(item_info[k].maps["11"] == false){
+									shop_array.splice(k,1);
+									item_info.splice(k,1);
+									tag_info.splice(k,1);
 								}
-								for(k=0; k < shop_array.length; k++){
-									if(item_info[k].consumed == true){
-										shop_array.splice(k,1);
-										item_info.splice(k,1);
-									}
+							}
+							for(k=0; k < shop_array.length; k++){
+								if(item_info[k].consumed == true){
+									shop_array.splice(k,1);
+									item_info.splice(k,1);
+									tag_info.splice(k,1);
 								}
-								for(k=0; k < shop_array.length; k++){
-									if(item_info[k].group == "BootsDistortion"){
-										shop_array.splice(k,1);
-										item_info.splice(k,1);
-									}
+							}
+							for(k=0; k < shop_array.length; k++){
+								if(item_info[k].group == "BootsDistortion"){
+									shop_array.splice(k,1);
+									item_info.splice(k,1);
+									tag_info.splice(k,1);
 								}
-								for(k=0; k < shop_array.length; k++){
-									if(item_info[k].group == "BootsCaptain"){
-										shop_array.splice(k,1);
-										item_info.splice(k,1);
-									}
+							}
+							for(k=0; k < shop_array.length; k++){
+								if(item_info[k].group == "BootsCaptain"){
+									shop_array.splice(k,1);
+									item_info.splice(k,1);
+									tag_info.splice(k,1);
 								}
-								for(k=0; k < shop_array.length; k++){
-									if(item_info[k].group == "BootsAlacrity"){
-										shop_array.splice(k,1);
-										item_info.splice(k,1);
-									}
+							}
+							for(k=0; k < shop_array.length; k++){
+								if(item_info[k].group == "BootsAlacrity"){
+									shop_array.splice(k,1);
+									item_info.splice(k,1);
+									tag_info.splice(k,1);
 								}
-								for(k=0; k < shop_array.length; k++){
-									if(item_info[k].group == "BootsFuror"){
-										shop_array.splice(k,1);
-										item_info.splice(k,1);
-									}
+							}
+							for(k=0; k < shop_array.length; k++){
+								if(item_info[k].group == "BootsFuror"){
+									shop_array.splice(k,1);
+									item_info.splice(k,1);
+									tag_info.splice(k,1);
 								}
-								
-								var check_health = document.getElementById('health_filter').checked;
-								var check_MR = document.getElementById('MR_filter').checked;
-								var check_armor = document.getElementById('armor_filter').checked;
-								var check_AD = document.getElementById('AD_filter').checked;
-								var check_AS = document.getElementById('AS_filter').checked;
-								var check_crit = document.getElementById('crit_filter').checked;
-								var check_lifesteal = document.getElementById('lifesteal_filter').checked;
-								var check_AP = document.getElementById('AP_filter').checked;
-								var check_CDR = document.getElementById('CDR_filter').checked;
-								var check_mana = document.getElementById('mana_filter').checked;
-								var check_mana_regen = document.getElementById('mana_regen_filter').checked;
-								var check_MS = document.getElementById('MS_filter').checked;
-								
-								
-								
-								for(k=0; k < shop_array.length; k++){
-									if(check_health == true){
-										for(var tem in tag_info[k]){
-											f=0;
-											if(tag_info[k][f] == 'Health'){
-												shop_array_modified.push(shop_array[k]);
-											}
-											f++;
+							}
+							
+							var check_health = document.getElementById('health_filter').checked;
+							var check_MR = document.getElementById('MR_filter').checked;
+							var check_armor = document.getElementById('armor_filter').checked;
+							var check_AD = document.getElementById('AD_filter').checked;
+							var check_AS = document.getElementById('AS_filter').checked;
+							var check_crit = document.getElementById('crit_filter').checked;
+							var check_lifesteal = document.getElementById('lifesteal_filter').checked;
+							var check_AP = document.getElementById('AP_filter').checked;
+							var check_CDR = document.getElementById('CDR_filter').checked;
+							var check_mana = document.getElementById('mana_filter').checked;
+							var check_mana_regen = document.getElementById('mana_regen_filter').checked;
+							var check_MS = document.getElementById('MS_filter').checked;
+							
+							
+							for(k=0; k < shop_array.length; k++){
+								if(check_health == true){
+									
+									for(var tem in tag_info[k]){
+										
+										if(tag_info[k][tem] == 'Health'){
+											shop_array_modified.push(shop_array[k]);
 										}
+										
 									}
 								}
 							}
+							
+							for(k=0; k < shop_array.length; k++){
+								if(check_MR == true){
+									
+									for(var tem in tag_info[k]){
+										
+										if(tag_info[k][tem] == 'SpellBlock'){
+											shop_array_modified.push(shop_array[k]);
+										}
+										
+									}
+								}
+							}
+							
+							for(k=0; k < shop_array.length; k++){
+								if(check_armor == true){
+									
+									for(var tem in tag_info[k]){
+										
+										if(tag_info[k][tem] == 'Armor'){
+											shop_array_modified.push(shop_array[k]);
+										}
+										
+									}
+								}
+							}
+							
+							for(k=0; k < shop_array.length; k++){
+								if(check_AD == true){
+									
+									for(var tem in tag_info[k]){
+										
+										if(tag_info[k][tem] == 'Damage'){
+											shop_array_modified.push(shop_array[k]);
+										}
+										
+									}
+								}
+							}
+
+							for(k=0; k < shop_array.length; k++){
+								if(check_AS == true){
+									
+									for(var tem in tag_info[k]){
+										
+										if(tag_info[k][tem] == 'AttackSpeed'){
+											shop_array_modified.push(shop_array[k]);
+										}
+										
+									}
+								}
+							}
+							
+							for(k=0; k < shop_array.length; k++){
+								if(check_crit == true){
+									
+									for(var tem in tag_info[k]){
+										
+										if(tag_info[k][tem] == 'CriticalStrike'){
+											shop_array_modified.push(shop_array[k]);
+										}
+										
+									}
+								}
+							}
+
+							for(k=0; k < shop_array.length; k++){
+								if(check_lifesteal == true){
+									
+									for(var tem in tag_info[k]){
+										
+										if(tag_info[k][tem] == 'LifeSteal'){
+											shop_array_modified.push(shop_array[k]);
+										}
+										
+									}
+								}
+							}
+
+							for(k=0; k < shop_array.length; k++){
+								if(check_AP == true){
+									
+									for(var tem in tag_info[k]){
+										
+										if(tag_info[k][tem] == 'SpellDamage'){
+											shop_array_modified.push(shop_array[k]);
+										}
+										
+									}
+								}
+							}
+							
+							for(k=0; k < shop_array.length; k++){
+								if(check_CDR == true){
+									
+									for(var tem in tag_info[k]){
+										
+										if(tag_info[k][tem] == 'CooldownReduction'){
+											shop_array_modified.push(shop_array[k]);
+										}
+										
+									}
+								}
+							}
+
+							for(k=0; k < shop_array.length; k++){
+								if(check_mana == true){
+									
+									for(var tem in tag_info[k]){
+										
+										if(tag_info[k][tem] == 'Mana'){
+											shop_array_modified.push(shop_array[k]);
+										}
+										
+									}
+								}
+							}
+							
+							for(k=0; k < shop_array.length; k++){
+								if(check_mana_regen == true){
+									
+									for(var tem in tag_info[k]){
+										
+										if(tag_info[k][tem] == 'ManaRegen'){
+											shop_array_modified.push(shop_array[k]);
+										}
+										
+									}
+								}
+							}
+							
+							for(k=0; k < shop_array.length; k++){
+								if(check_MS == true){
+									
+									for(var tem in tag_info[k]){
+										
+										if(tag_info[k][tem] == 'NonbootsMovement' || tag_info[k][tem] == 'Boots'){
+											shop_array_modified.push(shop_array[k]);
+										}
+										
+									}
+								}
+							}
+
+
+
+								
+							
 							j=0;
 							for(i=0; i<80; i++){
-
-										var num = i.toString();
-										var shop_icon_string = "shop_icon"
-										var shop_id = shop_icon_string.concat(num);
-										var item_url = "http://ddragon.leagueoflegends.com/cdn/5.23.1/img/item/";
-										var temp = shop_array_modified[j];
-										
-										var mid_shop_array = temp.concat(".png");
-										
-										var shop_source = document.getElementById(shop_id);
-										shop_source.src = item_url.concat(mid_shop_array);
-										j++;
+								if(shop_array_modified[j] != undefined){
+									var num = i.toString();
+									var shop_icon_string = "shop_icon"
+									var shop_id = shop_icon_string.concat(num);
+									var item_url = "http://ddragon.leagueoflegends.com/cdn/5.23.1/img/item/";
+									var temp = shop_array_modified[j];
+									var mid_shop_array = temp.concat(".png");
+									
+									var shop_source = document.getElementById(shop_id);
+									shop_source.src = item_url.concat(mid_shop_array);
+									j++;
+								}else{
+									var num = i.toString();
+									var shop_icon_string = "shop_icon"
+									var shop_id = shop_icon_string.concat(num);
+									
+									var shop_source = document.getElementById(shop_id);
+									shop_source.src = "images/EmptyIcon_Item.png";
+									j++;
+								}	
 
 							}
 							
 						},
 						error: function (XMLHttpRequest, textStatus, errorThrown) {
-							alert("error getting Summoner data!");
+							alert("error filtering the shop");
 						}
 					});
 				}
+				
+				
 				
 				<!-- This function changes the passive -->
 				function change_passive(){
@@ -432,7 +643,7 @@
 								pass_title.innerHTML = json.data[champ_name].passive.name;
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
-								alert("error getting Summoner data!");
+								
 							}
 						});
 					}
@@ -487,7 +698,7 @@
 								}
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
-								alert("error getting Summoner data!");
+								
 							}
 						});
 					}
@@ -497,38 +708,43 @@
 		</div>
 		<div>
 			<h3 style="text-align: center;" id="championname">Champ Name</h3>
-			
 		<table id="statstable">
 			<!-- stats -->
-			<tr>
+			
+			<tr >
 				<td></td>
-				<td>Health</td>
-				<td>Mana</td>	
-				<td>Ability Power</td>
-				<td>Magic Res</td>
+				<td>Health - <span id="health">0000</span></td>
+				<td>Mana - <span id="mana">0000</span></td>	
+				<td>Attack Damage - <span id="attack damage">0000</span></td>
+				
+				
 			
 			</tr>
 			<tr>
 				<td></td>
-				<td>Health Regen</td>
-				<td>Mana Regen</td>
-				<td>Cooldown Reduction</td>	
-				<td>Armor</td>
+				<td>Health Regen - <span id="health regen">0000</span></td>
+				<td>Mana Regen - <span id="mana regen">0000</span></td>
+				<td>Attack Speed - <span id="attack speed">0000</span></td>
+			</tr>
+			<tr>
+				<td>Cooldown Reduction - <span id="cooldown reduction">0000</span></td>
+				<td>Magic Pen - <span id="magic pen">0000</span></td>
+				<td>% Magic Pen - <span id="percent magic pen">0000</span></td>
+				<td>Critical Chance - <span id="critical chance">0000</span></td>
+		
+			</tr>
+			<tr>
+				<td>Move Speed - <span id="move speed">0000</span></td>
+				<td>Armor Pen - <span id="armor pen">0000</span></td>
+				<td>% Armor pen - <span id="percent armor pen">0000</span></td>
+				<td>Attack Range - <span id="attack range">0000</span></td>
 				
 			</tr>
 			<tr>
-				<td>Attack Damage</td>
-				<td>Attack Speed</td>
-				<td>Critical Chance</td>
-				<td>Magic Pen</td>
-				<td>Attack Range</td>
+				<td>Ability Power - <span id="ability power">0000</span></td>
+				<td>Magic Res - <span id="magic res">0000</span></td>
+				<td>Armor - <span id="armor2">0000</span></td>
 				
-			</tr>
-			<tr>
-				<td>Move Speed</td>
-				<td>Armor Pen</td>
-				<td>% Armor pen</td>
-				<td>% Magic Pen</td>
 			</tr>
 		</table>
 		</div>
@@ -538,11 +754,11 @@
 		<h2 class="section_headers" id="abilities">Abilities</h2>
 		<table id="abilitytable">
 			<tr> 
-				<td><img onclick="changePassive()" src="images/Pix_Faerie_Companion.png" id="passive" width="64" height="64"></td>
-				<td><img onclick="changeAbilityOne()" src="images/Glitterlance.png" id="abilityone"></td>
-				<td><img onclick="changeAbilityTwo()" src="images/Whimsy.png" id="abilitytwo"></td>
-				<td><img onclick="changeAbilityThree()" src="images/Help_Pix!.png" id="abilitythree"></td>
-				<td><img onclick="changeAbilityFour()" src="images/Wild_Growth.png" id="abilityfour"></td>
+				<td><img onclick="changePassive()" src="images/square-64.png" id="passive" width="64" height="64"></td>
+				<td><img onclick="changeAbilityOne()" src="images/square-64.png" id="abilityone"></td>
+				<td><img onclick="changeAbilityTwo()" src="images/square-64.png" id="abilitytwo"></td>
+				<td><img onclick="changeAbilityThree()" src="images/square-64.png" id="abilitythree"></td>
+				<td><img onclick="changeAbilityFour()" src="images/square-64.png" id="abilityfour"></td>
 			</tr>
 		</table>
 		
@@ -576,7 +792,7 @@
 								pass_title.innerHTML = json.data[champ_name].passive.name;
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
-								alert("error getting Summoner data!");
+								
 							}
 						});
 					}
@@ -657,7 +873,7 @@
 								}
 								
 
-								
+								//ability power
 								if(a_array != null){
 									
 									for(k=0; k < a_array.length; k++){
@@ -665,7 +881,14 @@
 											console.log(varslength);
 											if(json.data[champ_name].spells[0].vars[g] != undefined){
 												if(json.data[champ_name].spells[0].vars[g].key == a_array[k]){
-													str = str.replace(a_array[k] , json.data[champ_name].spells[0].vars[g].coeff);
+													//str = str.replace(a_array[k] , json.data[champ_name].spells[0].vars[g].coeff);
+
+													setTimeout(getstats, 1000);
+													var scaling=document.getElementById("ability power").innerHTML;
+													scaling=scaling*json.data[champ_name].spells[0].vars[g].coeff;
+													console.log(scaling);
+
+													str = str.replace(a_array[k], scaling);
 												}
 											}
 										}
@@ -676,7 +899,7 @@
 								
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
-								alert("error getting Summoner data!");
+							
 							}
 						});
 					}
@@ -757,7 +980,14 @@
 										for(g=0; g < varslength; g++){
 											if(json.data[champ_name].spells[1].vars[g] != undefined){
 												if(json.data[champ_name].spells[1].vars[g].key == a_array[k]){
-													str = str.replace(a_array[k] , json.data[champ_name].spells[1].vars[g].coeff);
+													//str = str.replace(a_array[k] , json.data[champ_name].spells[1].vars[g].coeff);
+
+													setTimeout(getstats, 1000);
+													var scaling=document.getElementById("ability power").innerHTML;
+													scaling=scaling*json.data[champ_name].spells[1].vars[g].coeff;
+													console.log(scaling);
+
+													str = str.replace(a_array[k], scaling);
 												}
 											}
 										}
@@ -769,7 +999,7 @@
 								
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
-								alert("error getting Summoner data!");
+						
 							}
 						});
 					}
@@ -850,7 +1080,14 @@
 											console.log(json.data[champ_name].spells[2].vars[g].key);
 											if(json.data[champ_name].spells[2].vars[g] != undefined){
 												if(json.data[champ_name].spells[2].vars[g].key == a_array[k]){
-													str = str.replace(a_array[k] , json.data[champ_name].spells[2].vars[g].coeff);
+													//str = str.replace(a_array[k] , json.data[champ_name].spells[2].vars[g].coeff);
+
+													setTimeout(getstats, 1000);
+													var scaling=document.getElementById("ability power").innerHTML;
+													scaling=scaling*json.data[champ_name].spells[2].vars[g].coeff;
+													console.log(scaling);
+
+													str = str.replace(a_array[k], scaling);
 												}
 											}
 										}
@@ -862,7 +1099,7 @@
 								
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
-								alert("error getting Summoner data!");
+							
 							}
 						});
 					}
@@ -942,7 +1179,14 @@
 										for(g=0; g < varslength; g++){
 											if(json.data[champ_name].spells[3].vars[g] != undefined){
 												if(json.data[champ_name].spells[3].vars[g].key == a_array[k]){
-													str = str.replace(a_array[k] , json.data[champ_name].spells[3].vars[g].coeff);
+													//str = str.replace(a_array[k] , json.data[champ_name].spells[3].vars[g].coeff);
+
+													setTimeout(getstats, 1000);
+													var scaling=document.getElementById("ability power").innerHTML;
+													scaling=scaling*json.data[champ_name].spells[3].vars[g].coeff;
+													console.log(scaling);
+
+													str = str.replace(a_array[k], scaling);
 												}
 											}
 										}
@@ -954,11 +1198,15 @@
 								
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
-								alert("error getting Summoner data!");
+								
 							}
 						});
 					}
+					
 			}
+			
+			
+			
 		</script>
 		
 	</div>
@@ -1367,7 +1615,7 @@
 		</table>
 		<!--<button style="margin-left: 30px;" type="button">Update Runes</button>-->
 	</div>
-
+	
 	<input id="mpperlevel" name="mpperlevel" type="hidden"></input>
 	<input id="mp" name="mp" type="hidden"></input>
 	<input id="attackdamage" name="attackdamage" type="hidden"></input>
@@ -1387,7 +1635,7 @@
 	<input id="hpregenperlevel" name="hpregenperlevel" type="hidden"></input>
 	<input id="armorperlevel" name="armorperlevel" type="hidden"></input>
 	<input id="attackspeedoffset" name="attackspeedoffset" type="hidden"></input>
-	
+
 	<div>
 		
 
@@ -1424,8 +1672,8 @@
 					<option value="18">18</option>
 					</select>
 				</li>
-				<li><input style="width: 50px;" type="number" name ="kills" value ="0"></li>				<li><input style="width: 50px;" type="number" name="assists" value ="0"></li>
-				<li><input style="width: 50px;" type="number" name="cs" value ="0"></li>
+				<li><input style="width: 50px;" type="number" name ="kills" value="0"></li>				<li><input style="width: 50px;" type="number" name="assists" value="0"></li>
+				<li><input style="width: 50px;" type="number" name="cs" value="0"></li>
 			</ul>
 		</div>
 		<div class="gamedetails">
@@ -1438,9 +1686,9 @@
 		</div>
 		<div class="gameinputsnot">
 			<ul class="gameinputsnot">
-				<li><input style="width: 50px;" type="number" value ="0" name="towers"></li>
-				<li><input style="width: 50px;" type="number" value ="0" name="dragons"></li>
-				<li><input style="width: 50px;" type="number" value ="0" name="barons"></li>
+				<li><input style="width: 50px;" type="number" value="0" name="towers"></li>
+				<li><input style="width: 50px;" type="number" value="0" name="dragons"></li>
+				<li><input style="width: 50px;" type="number" value="0" name="barons"></li>
 				<li><input style="width: 75px;" type="time"></li>
 			</ul>
 		</div>
@@ -1457,94 +1705,95 @@
 		
 		<div id="shopicons">
 			<!-- shows 80 item icons -->
-			<img class="shopicon" id="shop_icon0" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon1" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon2" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon3" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon4" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon5" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon6" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon7" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon8" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon9" src="images/EmptyIcon_Item.png">
+			<div class="hoverinfo">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon0" src="images/EmptyIcon_Item.png"><p id="temp2" class="temp2">Empty Item Slot</p>
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon1" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon2" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon3" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon4" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon5" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon6" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon7" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon8" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon9" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon10" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon11" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon12" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon13" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon14" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon15" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon16" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon17" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon18" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon19" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon10" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon11" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon12" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon13" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon14" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon15" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon16" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon17" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon18" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon19" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon20" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon21" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon22" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon23" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon24" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon25" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon26" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon27" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon28" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon29" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon20" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon21" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon22" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon23" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon24" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon25" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon26" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon27" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon28" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon29" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon30" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon31" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon32" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon33" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon34" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon35" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon36" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon37" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon38" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon39" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon30" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon31" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon32" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon33" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon34" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon35" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon36" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon37" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon38" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon39" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon40" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon41" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon42" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon43" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon44" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon45" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon46" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon47" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon48" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon49" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon40" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon41" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon42" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon43" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon44" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon45" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon46" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon47" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon48" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon49" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon50" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon51" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon52" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon53" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon54" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon55" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon56" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon57" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon58" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon59" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon50" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon51" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon52" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon53" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon54" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon55" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon56" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon57" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon58" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon59" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon60" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon61" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon62" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon63" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon64" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon65" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon66" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon67" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon68" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon69" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon60" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon61" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon62" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon63" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon64" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon65" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon66" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon67" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon68" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon69" src="images/EmptyIcon_Item.png">
 			
-			<img class="shopicon" id="shop_icon70" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon71" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon72" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon73" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon74" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon75" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon76" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon77" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon78" src="images/EmptyIcon_Item.png">
-			<img class="shopicon" id="shop_icon79" src="images/EmptyIcon_Item.png">
-			
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon70" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon71" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon72" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon73" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon74" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon75" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon76" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon77" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon78" src="images/EmptyIcon_Item.png">
+			<img onclick="add_inventory(this.id)" onmouseover="item_stats(this.id)" class="shopicon" id="shop_icon79" src="images/EmptyIcon_Item.png">
+			</div>
 		</div>
 	
 		<div id="gold">
@@ -1552,12 +1801,14 @@
 		</div>
 		<div id="inventory">
 			<h4>Inventory</h4>
-			<img id="inventory_items" src="images/EmptyIcon_Item.png">
-			<img id="inventory_items" src="images/EmptyIcon_Item.png">
-			<img id="inventory_items" src="images/EmptyIcon_Item.png">
-			<img id="inventory_items" src="images/EmptyIcon_Item.png">
-			<img id="inventory_items" src="images/EmptyIcon_Item.png">
-			<img id="inventory_items" src="images/EmptyIcon_Item.png">
+			<div class="hoverinfo">
+			<img onclick="remove_item(this.id)" onmouseover="item_stats(this.id)" id="inventory_item0" src="images/EmptyIcon_Item.png"><p id="temp" class="temp">Empty Item Slot</p>
+			<img onclick="remove_item(this.id)" onmouseover="item_stats(this.id)" id="inventory_item1" src="images/EmptyIcon_Item.png">
+			<img onclick="remove_item(this.id)" onmouseover="item_stats(this.id)" id="inventory_item2" src="images/EmptyIcon_Item.png">
+			<img onclick="remove_item(this.id)" onmouseover="item_stats(this.id)" id="inventory_item3" src="images/EmptyIcon_Item.png">
+			<img onclick="remove_item(this.id)" onmouseover="item_stats(this.id)" id="inventory_item4" src="images/EmptyIcon_Item.png">
+			<img onclick="remove_item(this.id)" onmouseover="item_stats(this.id)" id="inventory_item5" src="images/EmptyIcon_Item.png">
+			</div>
 		</div>
 		
 		<div class="filterlist">
@@ -1584,7 +1835,7 @@
 			</ul>
 			Movement
 			<ul class="filter">
-				<li><input id="MS_filter"type="checkbox">Movespeed</li>
+				<li><input onclick="shop_filter()" id="MS_filter"type="checkbox">Movespeed</li>
 			</ul>
 			
 		</div>
@@ -1593,7 +1844,185 @@
 	
 
 	<script>
+		<!-- This function adds items to the inventory -->
+		function add_inventory(clicked_id){ 
+
+			var shop_image = document.getElementById(clicked_id);
+			var clicked_image = shop_image.src;
+			var iven_zero = document.getElementById('inventory_item0');
+			var iven_one = document.getElementById('inventory_item1');
+			var iven_two = document.getElementById('inventory_item2');
+			var iven_three = document.getElementById('inventory_item3');
+			var iven_four = document.getElementById('inventory_item4');
+			var iven_five = document.getElementById('inventory_item5');
+			
+			var zero_src = iven_zero.src;
+			var one_src = iven_one.src;
+			var two_src = iven_two.src;
+			var three_src = iven_three.src;
+			var four_src = iven_four.src;
+			var five_src = iven_five.src;
+			
+			var empty_item = "file:///C:/Users/Matt/Documents/Database%20Project/LeagueCalculator/images/EmptyIcon_Item.png";
+			if(zero_src == empty_item){
+				iven_zero.src = clicked_image;
+			}else{
+				if(one_src == empty_item){
+					iven_one.src = clicked_image;
+				}else{
+					if(two_src == empty_item){
+						iven_two.src = clicked_image;
+					}else{
+						if(three_src == empty_item){
+							iven_three.src = clicked_image;
+						}else{
+							if(four_src == empty_item){
+								iven_four.src = clicked_image;
+							}else{
+								if(five_src == empty_item){
+									iven_five.src = clicked_image;
+								}
+							}
+						}
+					}
+				}	
+			}
+
+			var item_id = clicked_image;
+			item_id = item_id.substr(item_id.length - 8);
+			item_id = item_id.slice(0,4);
+			
+			item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + item_id + "?itemData=all&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184";
+
+			<!-- will be used to send item information to the database -->
+			$.ajax({
+				url:  item_url,
+				type: 'GET',
+				dataType: 'json',
+				data: {
+
+				},
+				success: function (json) {
+					/*console.log(json.stats);
+
+					pass = json.data[champ_name].stats;
+					console.log(pass);
+
+					var stats = {attackrange:"0",mpperlevel:"0",mp:"0",attackdamage:"0",hp:"0",hpperlevel:"0",attackdamageperlevel:"0",armor:"0",mpregenperlevel:"0",
+								 hpregen:"0",critperlevel:"0",spellblockperlevel:"0",mpregen:"0",
+								 attackspeedperlevel:"0",spellblock:"0",movespeed:"0",attackspeedoffset:"0",crit:"0",hpregenperlevel:"0",armorperlevel:"0"};
+
+					for(var property in stats)
+					{
+						if(stats.hasOwnProperty(property))
+						{
+							stats[property]=json.data[champ_name].stats[property];
+						}
+					}
+
+					//i know this looks janky, and it is, so i have no excuse
+					document.getElementById("mpperlevel").value=stats.mpperlevel;
+					document.getElementById("mp").value=stats.mp;
+					document.getElementById("attackdamage").value=stats.attackdamage;
+					document.getElementById("hp").value=stats.hp;
+					document.getElementById("hpperlevel").value=stats.hpperlevel;
+					document.getElementById("attackdamageperlevel").value=stats.attackdamageperlevel;
+					document.getElementById("armor").value=stats.armor;
+					document.getElementById("mpregenperlevel").value=stats.mpregenperlevel;
+					document.getElementById("hpregen").value=stats.hpregen;
+					document.getElementById("critperlevel").value=stats.critperlevel;
+					document.getElementById("mrperlevel").value=stats.spellblockperlevel;
+					document.getElementById("mpregen").value=stats.mpregen;
+					document.getElementById("attackspeedperlevel").value=stats.attackspeedperlevel;
+					document.getElementById("mr").value=stats.spellblock;
+					document.getElementById("movespeed").value=stats.movespeed;
+					document.getElementById("crit").value=stats.crit;
+					document.getElementById("hpregenperlevel").value=stats.hpregenperlevel;
+					document.getElementById("armorperlevel").value=stats.armorperlevel;
+					document.getElementById("attackspeedoffset").value=stats.attackspeedoffset; 
+					
+		            $.ajax({
+		                type: 'post',
+		                url: 'runesandgamedetails.php',
+		                data: $('form').serialize(),
+		                success: function () {
+		                  alert('Runes and Game Details updated!');
+		                }
+		              }); */
+				},
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+					alert("Empty Item Slot!");
+				}
+			});
+		}
+
+		<!-- This function will remove an item from the inventory if it is clicked on -->
+		function remove_item(clicked_id){
+			var inven_image = document.getElementById(clicked_id);
+			var image_source = inven_image.src;
+			inven_image.src = "file:///C:/Users/Matt/Documents/Database%20Project/LeagueCalculator/images/EmptyIcon_Item.png";
+			
+			var remove_id = image_source;
+			remove_id = remove_id.substr(remove_id.length - 8);
+			remove_id = remove_id.slice(0,4);
+			
+			item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + remove_id + "?itemData=all&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184";
+
+			<!-- will be used to send item information to the database -->
+			$.ajax({
+				url:  item_url,
+				type: 'GET',
+				dataType: 'json',
+				data: {
+
+				},
+				success: function (json) {	
+					console.log(json.stats); <!-- you can post the stats and gold, and they should have everything we need besides unique passive stats, but screw those-->
+				},
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+					alert("error getting Summoner data!");
+				}
+			});
+		}
 		
+		function item_stats(hovered_id){
+			var inven_image = document.getElementById(hovered_id);
+			var image_source = inven_image.src;
+			
+			var stats = document.getElementById('temp');
+			var stats2 = document.getElementById('temp2');
+				
+			var item_id = image_source;
+			item_id = item_id.substr(item_id.length - 8);
+			item_id = item_id.slice(0,4);
+			
+			item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + item_id + "?itemData=all&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184";
+				
+			
+			if(image_source != "file:///C:/Users/Matt/Documents/Database%20Project/LeagueCalculator/images/EmptyIcon_Item.png"){
+				$.ajax({
+					url:  item_url,
+					type: 'GET',
+					dataType: 'json',
+					data: {
+
+					},
+					success: function (json) {	
+						console.log(json.gold.total);
+						stats.innerHTML = "Gold: " + json.gold.total + "      |      " + json.sanitizedDescription;
+						stats2.innerHTML = "Gold: " + json.gold.total + "      |      " + json.sanitizedDescription;
+					},
+					error: function (XMLHttpRequest, textStatus, errorThrown) {
+						alert("error getting Summoner data!");
+					}
+				});
+			}else{
+				stats.innerHTML = "Empty Item Slot"
+			}
+		}
+			
+			
+			
 	</script>
 	
 	

@@ -3,7 +3,7 @@
 	
 	//this looks safe
 	$username="root";
-	$password="";
+	$password="woot";
 	$databasename="lolgamesimulator";
 		
 	$connection=new PDO("mysql:host=$servername;dbname=$databasename", $username, $password);
@@ -106,7 +106,7 @@
 	$connection->exec($sql);
 	
 	$sql = "update Current_Stats
-			set health = $health, health_regen = $health_regen, mana = $mana, mana_regen = $mana_regen, armor = $armor,
+			set health = $health, health_regen = $health_regen, mana = $mana, mana_regen = $mana_regen, armor=$armor,
 						  magic_resist = $magic_resist, attack_damage = $attack_damage, attack_speed = $attack_speed, flat_move_speed = $movespeed";
 	$connection->exec($sql);
 		
