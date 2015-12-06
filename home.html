@@ -241,6 +241,7 @@
 					
 				});
 				
+				
 				<!-- this function controls the shop filters -->
 				function shop_filter(){
 					$.ajax({
@@ -1794,7 +1795,7 @@
 					console.log(json.stats); <!-- you can post the stats and gold, and they should have everything we need besides unique passive stats, but screw those-->
 				},
 				error: function (XMLHttpRequest, textStatus, errorThrown) {
-					alert("error getting Summoner data!");
+					alert("Remove Item Error");
 				}
 			});
 		}
@@ -1827,7 +1828,6 @@
 						stats2.innerHTML = "Gold: " + json.gold.total + "      |      " + json.sanitizedDescription;
 					},
 					error: function (XMLHttpRequest, textStatus, errorThrown) {
-						alert("error getting Summoner data!");
 					}
 				});
 			}else{
