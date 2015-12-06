@@ -81,7 +81,9 @@
 		
 	</div>
 	
-	<p id="test">Enter in game data and simulate league games to test builds quickly.</p>
+	<p style="text-align: center;" id="test">Welcome to Pix's League of Legends Simulator. Here you can test builds without having to even step foot on the Rift. 
+				Just Enter the champion you want calculate stats for and some details about the game then we will show exactly how much damage your champion 
+				will do with that build.</p>
 	
 	<ul class="navigationbar">
 		<li class="navigationbaritems" style="border-top: solid black; border-right: solid black; border-left: solid black; font-weight: bold;">Navigation Bar</li>
@@ -233,7 +235,7 @@
 								
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
-								alert("error getting Summoner data!");
+								
 							}
 						});
 					
@@ -505,7 +507,7 @@
 							
 						},
 						error: function (XMLHttpRequest, textStatus, errorThrown) {
-							alert("error getting Summoner data!");
+							alert("error filtering the shop");
 						}
 					});
 				}
@@ -547,7 +549,7 @@
 								pass_title.innerHTML = json.data[champ_name].passive.name;
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
-								alert("error getting Summoner data!");
+								
 							}
 						});
 					}
@@ -602,7 +604,7 @@
 								}
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
-								alert("error getting Summoner data!");
+								
 							}
 						});
 					}
@@ -617,41 +619,38 @@
 			
 			<tr >
 				<td></td>
-				<td>Health</td>
-				<td>Mana</td>	
-				<td>Ability Power</td>
-				<td>Magic Res</td>
+				<td>Health - <span name="health">0000</span></td>
+				<td>Mana - <span name="mana">0000</span></td>	
+				<td>Attack Damage - <span name="attack damage">0000</span></td>
+				
+				
 			
 			</tr>
 			<tr>
 				<td></td>
-				<td>Health Regen</td>
-				<td>Mana Regen</td>
-				<td>Cooldown Reduction</td>
-				
-				<td>Armor</td>
-				
-			
+				<td>Health Regen - <span name="health regen">0000</span></td>
+				<td>Mana Regen - <span name="mana regem">0000</span></td>
+				<td>Attack Speed - <span name="attack speed">0000</span></td>
 			</tr>
 			<tr>
-				<td>Attack Damage</td>
-				
-				
-				<td>Attack Speed</td>
-				<td>Critical Chance</td>
-				<td>Magic Pen</td>
-				<td>Attack Range</td>
-				
+				<td>Cooldown Reduction - <span name="cooldown reduction">0000</span></td>
+				<td>Magic Pen - <span name="magic pen">0000</span></td>
+				<td>% Magic Pen - <span name="percent magic pen">0000</span></td>
+				<td>Critical Chance - <span name="critical chance">0000</span></td>
 		
 			</tr>
 			<tr>
-				<td>Move Speed</td>
+				<td>Move Speed - <span name="move speed">0000</span></td>
+				<td>Armor Pen - <span name="armor pen">0000</span></td>
+				<td>% Armor pen - <span name="percent armor pen">0000</span></td>
+				<td>Attack Range - <span name="attack range">0000</span></td>
 				
+			</tr>
+			<tr>
+				<td>Ability Power - <span name="ability power">0000</span></td>
+				<td>Magic Res - <span name="magic res">0000</span></td>
+				<td>Armor - <span name="armor">0000</span></td>
 				
-				<td>Armor Pen</td>
-				
-				<td>% Armor pen</td>
-				<td>% Magic Pen</td>
 			</tr>
 		</table>
 		</div>
@@ -699,7 +698,7 @@
 								pass_title.innerHTML = json.data[champ_name].passive.name;
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
-								alert("error getting Summoner data!");
+								
 							}
 						});
 					}
@@ -799,7 +798,7 @@
 								
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
-								alert("error getting Summoner data!");
+							
 							}
 						});
 					}
@@ -892,7 +891,7 @@
 								
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
-								alert("error getting Summoner data!");
+						
 							}
 						});
 					}
@@ -985,7 +984,7 @@
 								
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
-								alert("error getting Summoner data!");
+							
 							}
 						});
 					}
@@ -1077,7 +1076,7 @@
 								
 							},
 							error: function (XMLHttpRequest, textStatus, errorThrown) {
-								alert("error getting Summoner data!");
+								
 							}
 						});
 					}
@@ -1766,7 +1765,7 @@
 					console.log(json.stats); <!-- you can post the stats and gold, and they should have everything we need besides unique passive stats, but screw those-->
 				},
 				error: function (XMLHttpRequest, textStatus, errorThrown) {
-					alert("error getting Summoner data!");
+					alert("Empty Item Slot!");
 				}
 			});
 		}

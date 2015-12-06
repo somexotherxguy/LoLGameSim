@@ -99,9 +99,13 @@ th, td {
 
 #statstable{
 	text-align: right;
-	margin-left: 50px;
+	margin-left: 0px;
 	border-spacing:5px;
 	color: black;
+}
+
+#statstable td{
+	white-space: nowrap;
 }
 
 .icon{
