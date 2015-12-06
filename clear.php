@@ -2,7 +2,7 @@
 
 	$servername="localhost";
 	$username="root";
-	$password="";
+	$password="woot";
 	$databasename="lolgamesimulator";
 	
 	$connection=new PDO("mysql:host=$servername;dbname=$databasename", $username, $password);
