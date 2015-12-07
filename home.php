@@ -1863,23 +1863,32 @@ function getstats() {
 			var four_src = iven_four.src;
 			var five_src = iven_five.src;
 			
-			var empty_item = "file:///C:/Users/Matt/Documents/Database%20Project/LeagueCalculator/images/EmptyIcon_Item.png";
-			if(zero_src == empty_item){
+			console.log(zero_src);
+			
+			var src_temp_zero = zero_src.substr(zero_src.length - 25, zero_src.length);
+			var src_temp_one = one_src.substr(one_src.length - 25, one_src.length);
+			var src_temp_two = two_src.substr(two_src.length - 25, two_src.length);
+			var src_temp_three = three_src.substr(three_src.length - 25, three_src.length);
+			var src_temp_four = four_src.substr(four_src.length - 25, four_src.length);
+			var src_temp_five = five_src.substr(five_src.length - 25, five_src.length);
+			
+			var empty_item = "images/EmptyIcon_Item.png";
+			if(src_temp_zero == empty_item){
 				iven_zero.src = clicked_image;
 			}else{
-				if(one_src == empty_item){
+				if(src_temp_one == empty_item){
 					iven_one.src = clicked_image;
 				}else{
-					if(two_src == empty_item){
+					if(src_temp_two == empty_item){
 						iven_two.src = clicked_image;
 					}else{
-						if(three_src == empty_item){
+						if(src_temp_three == empty_item){
 							iven_three.src = clicked_image;
 						}else{
-							if(four_src == empty_item){
+							if(src_temp_four == empty_item){
 								iven_four.src = clicked_image;
 							}else{
-								if(five_src == empty_item){
+								if(src_temp_five == empty_item){
 									iven_five.src = clicked_image;
 								}
 							}
@@ -1960,7 +1969,7 @@ function getstats() {
 		function remove_item(clicked_id){
 			var inven_image = document.getElementById(clicked_id);
 			var image_source = inven_image.src;
-			inven_image.src = "file:///C:/Users/Matt/Documents/Database%20Project/LeagueCalculator/images/EmptyIcon_Item.png";
+			inven_image.src = "images/EmptyIcon_Item.png";
 			
 			var remove_id = image_source;
 			remove_id = remove_id.substr(remove_id.length - 8);
@@ -1997,9 +2006,13 @@ function getstats() {
 			item_id = item_id.slice(0,4);
 			
 			item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + item_id + "?itemData=all&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184";
+			
+			
+			var src_temp = image_source.substr(image_source.length - 25, image_source.length);
+
 				
 			
-			if(image_source != "file:///C:/Users/Matt/Documents/Database%20Project/LeagueCalculator/images/EmptyIcon_Item.png"){
+			if(src_temp != "images/EmptyIcon_Item.png"){
 				$.ajax({
 					url:  item_url,
 					type: 'GET',

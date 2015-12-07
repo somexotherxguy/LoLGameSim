@@ -1813,8 +1813,11 @@
 			
 			item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + item_id + "?itemData=all&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184";
 				
+			image_source = "file:///C:/Users/Matt/Documents/Database%20Project/LeagueCalculator/images/EmptyIcon_Item.png"
+			var src_temp = image_source.substr(image_source.length - 25, image_source.length);
+			console.log(source_temp);
 			
-			if(image_source != "file:///C:/Users/Matt/Documents/Database%20Project/LeagueCalculator/images/EmptyIcon_Item.png"){
+			if(src_temp != "images/EmptyIcon_Item.png"){
 				$.ajax({
 					url:  item_url,
 					type: 'GET',
