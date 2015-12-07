@@ -5,7 +5,47 @@
 <head>
 <title>LoL Game Simulator</title>
 </head>
-<body >
+<body>
+
+<script>
+function getstats() {
+	
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                
+                var responsearray=xmlhttp.responseText.split("|");
+                console.log(xmlhttp.responseText);
+                
+                document.getElementById("health").innerHTML = responsearray[0];
+                document.getElementById("mana").innerHTML = responsearray[1];
+                document.getElementById("attack damage").innerHTML = responsearray[2];
+                document.getElementById("health regen").innerHTML = responsearray[3];
+                document.getElementById("mana regen").innerHTML = responsearray[4];
+                document.getElementById("attack speed").innerHTML = responsearray[5];
+                document.getElementById("cooldown reduction").innerHTML = responsearray[6];
+                document.getElementById("magic pen").innerHTML = responsearray[7];
+                document.getElementById("percent magic pen").innerHTML = responsearray[8];
+                document.getElementById("critical chance").innerHTML = responsearray[9];
+                document.getElementById("move speed").innerHTML = responsearray[10];
+                document.getElementById("armor pen").innerHTML = responsearray[11];
+                document.getElementById("percent armor pen").innerHTML = responsearray[12];
+                document.getElementById("ability power").innerHTML = responsearray[13];
+                document.getElementById("magic res").innerHTML = responsearray[14];
+                document.getElementById("armor2").innerHTML = responsearray[15];
+            }
+        };
+        xmlhttp.open("GET","getstats.php?q=",true);
+        xmlhttp.send();
+}
+</script>
 
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script>
@@ -21,33 +61,20 @@
         	});
     	});
 
-        $('#runetable').on('submit', function (e) {
-
-          e.preventDefault();
-
-          $.ajax({
-            type: 'post',
-            url: 'runepage.php',
-            data: $('form').serialize(),
-            success: function () {
-              alert('Rune Page updated!');
-            }
-          });
-
-        });
-
         $('#gamedetails').on('submit', function (e) {
 
             e.preventDefault();
 
             $.ajax({
               type: 'post',
-              url: 'gamedetails.php',
+              url: 'runesandgamedetails.php',
               data: $('form').serialize(),
               success: function () {
-                alert('Game Details updated!');
+                alert('Runes and Game Details updated!');
               }
             });
+
+            setTimeout(getstats, 1000);
 
           });
 
@@ -74,7 +101,7 @@
 			<div class="bar">
 				
 					<input id="search" type="text" placeholder="Search for a Champion..." name="champ_name" onkeypress="on_search_two(event)"/>
-					<button onclick="on_search(), change_passive(), change_abilities()" type="button">Search</button>
+					<button onclick="on_search(), change_passive(), change_abilities(), get_base_stats()" type="button">Search</button>
 				
 			</div>
 		</div>
@@ -151,6 +178,8 @@
 						on_search();
 						change_passive();
 						change_abilities();
+						get_base_stats();
+						setTimeout(getstats, 1000);
 					}
 
 					return false;
@@ -240,7 +269,71 @@
 						});
 					
 				});
-				
+
+				function get_base_stats(){
+					var champ_name = "";
+					champ_name = $("#search").val();
+					if(champ_name !== ""){
+
+						$.ajax({
+							url: 'https://global.api.pvp.net/api/lol/static-data/na/v1.2/champion?champData=stats&api_key=59080bd8-1d31-44be-8a1e-3ecd9a372501',
+							type: 'GET',
+							dataType: 'json',
+							data:{
+
+							},
+							success: function (json) {
+								var champ_name_nospaces = champ_name.replace(" ", "");
+								champ_name_nospaces = champ_name_nospaces.toLowerCase().trim();
+
+								pass = json.data[champ_name].stats;
+								console.log(pass);
+
+								var stats = {attackrange:"0",mpperlevel:"0",mp:"0",attackdamage:"0",hp:"0",hpperlevel:"0",attackdamageperlevel:"0",armor:"0",mpregenperlevel:"0",
+											 hpregen:"0",critperlevel:"0",spellblockperlevel:"0",mpregen:"0",
+											 attackspeedperlevel:"0",spellblock:"0",movespeed:"0",attackspeedoffset:"0",crit:"0",hpregenperlevel:"0",armorperlevel:"0"};
+
+								for(var property in stats)
+								{
+									if(stats.hasOwnProperty(property))
+									{
+										stats[property]=json.data[champ_name].stats[property];
+									}
+								}
+
+								//i know this looks janky, and it is, so i have no excuse
+								document.getElementById("mpperlevel").value=stats.mpperlevel;
+								document.getElementById("mp").value=stats.mp;
+								document.getElementById("attackdamage").value=stats.attackdamage;
+								document.getElementById("hp").value=stats.hp;
+								document.getElementById("hpperlevel").value=stats.hpperlevel;
+								document.getElementById("attackdamageperlevel").value=stats.attackdamageperlevel;
+								document.getElementById("armor").value=stats.armor;
+								document.getElementById("mpregenperlevel").value=stats.mpregenperlevel;
+								document.getElementById("hpregen").value=stats.hpregen;
+								document.getElementById("critperlevel").value=stats.critperlevel;
+								document.getElementById("mrperlevel").value=stats.spellblockperlevel;
+								document.getElementById("mpregen").value=stats.mpregen;
+								document.getElementById("attackspeedperlevel").value=stats.attackspeedperlevel;
+								document.getElementById("mr").value=stats.spellblock;
+								document.getElementById("movespeed").value=stats.movespeed;
+								document.getElementById("crit").value=stats.crit;
+								document.getElementById("hpregenperlevel").value=stats.hpregenperlevel;
+								document.getElementById("armorperlevel").value=stats.armorperlevel;
+								document.getElementById("attackspeedoffset").value=stats.attackspeedoffset;
+								
+					            $.ajax({
+					                type: 'post',
+					                url: 'runesandgamedetails.php',
+					                data: $('form').serialize(),
+					                success: function () {
+					                  alert('Runes and Game Details updated!');
+					                }
+					              });
+							}
+						})
+					}
+				}
 				
 				<!-- this function controls the shop filters -->
 				function shop_filter(){
@@ -620,37 +713,37 @@
 			
 			<tr >
 				<td></td>
-				<td>Health - <span name="health">0000</span></td>
-				<td>Mana - <span name="mana">0000</span></td>	
-				<td>Attack Damage - <span name="attack damage">0000</span></td>
+				<td>Health - <span id="health">0000</span></td>
+				<td>Mana - <span id="mana">0000</span></td>	
+				<td>Attack Damage - <span id="attack damage">0000</span></td>
 				
 				
 			
 			</tr>
 			<tr>
 				<td></td>
-				<td>Health Regen - <span name="health regen">0000</span></td>
-				<td>Mana Regen - <span name="mana regem">0000</span></td>
-				<td>Attack Speed - <span name="attack speed">0000</span></td>
+				<td>Health Regen - <span id="health regen">0000</span></td>
+				<td>Mana Regen - <span id="mana regen">0000</span></td>
+				<td>Attack Speed - <span id="attack speed">0000</span></td>
 			</tr>
 			<tr>
-				<td>Cooldown Reduction - <span name="cooldown reduction">0000</span></td>
-				<td>Magic Pen - <span name="magic pen">0000</span></td>
-				<td>% Magic Pen - <span name="percent magic pen">0000</span></td>
-				<td>Critical Chance - <span name="critical chance">0000</span></td>
+				<td>Cooldown Reduction - <span id="cooldown reduction">0000</span></td>
+				<td>Magic Pen - <span id="magic pen">0000</span></td>
+				<td>% Magic Pen - <span id="percent magic pen">0000</span></td>
+				<td>Critical Chance - <span id="critical chance">0000</span></td>
 		
 			</tr>
 			<tr>
-				<td>Move Speed - <span name="move speed">0000</span></td>
-				<td>Armor Pen - <span name="armor pen">0000</span></td>
-				<td>% Armor pen - <span name="percent armor pen">0000</span></td>
-				<td>Attack Range - <span name="attack range">0000</span></td>
+				<td>Move Speed - <span id="move speed">0000</span></td>
+				<td>Armor Pen - <span id="armor pen">0000</span></td>
+				<td>% Armor pen - <span id="percent armor pen">0000</span></td>
+				<td>Attack Range - <span id="attack range">0000</span></td>
 				
 			</tr>
 			<tr>
-				<td>Ability Power - <span name="ability power">0000</span></td>
-				<td>Magic Res - <span name="magic res">0000</span></td>
-				<td>Armor - <span name="armor">0000</span></td>
+				<td>Ability Power - <span id="ability power">0000</span></td>
+				<td>Magic Res - <span id="magic res">0000</span></td>
+				<td>Armor - <span id="armor2">0000</span></td>
 				
 			</tr>
 		</table>
@@ -780,7 +873,7 @@
 								}
 								
 
-								
+								//ability power
 								if(a_array != null){
 									
 									for(k=0; k < a_array.length; k++){
@@ -788,7 +881,14 @@
 											console.log(varslength);
 											if(json.data[champ_name].spells[0].vars[g] != undefined){
 												if(json.data[champ_name].spells[0].vars[g].key == a_array[k]){
-													str = str.replace(a_array[k] , json.data[champ_name].spells[0].vars[g].coeff);
+													//str = str.replace(a_array[k] , json.data[champ_name].spells[0].vars[g].coeff);
+
+													setTimeout(getstats, 1000);
+													var scaling=document.getElementById("ability power").innerHTML;
+													scaling=scaling*json.data[champ_name].spells[0].vars[g].coeff;
+													console.log(scaling);
+
+													str = str.replace(a_array[k], scaling);
 												}
 											}
 										}
@@ -880,7 +980,14 @@
 										for(g=0; g < varslength; g++){
 											if(json.data[champ_name].spells[1].vars[g] != undefined){
 												if(json.data[champ_name].spells[1].vars[g].key == a_array[k]){
-													str = str.replace(a_array[k] , json.data[champ_name].spells[1].vars[g].coeff);
+													//str = str.replace(a_array[k] , json.data[champ_name].spells[1].vars[g].coeff);
+
+													setTimeout(getstats, 1000);
+													var scaling=document.getElementById("ability power").innerHTML;
+													scaling=scaling*json.data[champ_name].spells[1].vars[g].coeff;
+													console.log(scaling);
+
+													str = str.replace(a_array[k], scaling);
 												}
 											}
 										}
@@ -973,7 +1080,14 @@
 											console.log(json.data[champ_name].spells[2].vars[g].key);
 											if(json.data[champ_name].spells[2].vars[g] != undefined){
 												if(json.data[champ_name].spells[2].vars[g].key == a_array[k]){
-													str = str.replace(a_array[k] , json.data[champ_name].spells[2].vars[g].coeff);
+													//str = str.replace(a_array[k] , json.data[champ_name].spells[2].vars[g].coeff);
+
+													setTimeout(getstats, 1000);
+													var scaling=document.getElementById("ability power").innerHTML;
+													scaling=scaling*json.data[champ_name].spells[2].vars[g].coeff;
+													console.log(scaling);
+
+													str = str.replace(a_array[k], scaling);
 												}
 											}
 										}
@@ -1065,7 +1179,14 @@
 										for(g=0; g < varslength; g++){
 											if(json.data[champ_name].spells[3].vars[g] != undefined){
 												if(json.data[champ_name].spells[3].vars[g].key == a_array[k]){
-													str = str.replace(a_array[k] , json.data[champ_name].spells[3].vars[g].coeff);
+													//str = str.replace(a_array[k] , json.data[champ_name].spells[3].vars[g].coeff);
+
+													setTimeout(getstats, 1000);
+													var scaling=document.getElementById("ability power").innerHTML;
+													scaling=scaling*json.data[champ_name].spells[3].vars[g].coeff;
+													console.log(scaling);
+
+													str = str.replace(a_array[k], scaling);
 												}
 											}
 										}
@@ -1494,6 +1615,26 @@
 		</table>
 		<!--<button style="margin-left: 30px;" type="button">Update Runes</button>-->
 	</div>
+	
+	<input id="mpperlevel" name="mpperlevel" type="hidden"></input>
+	<input id="mp" name="mp" type="hidden"></input>
+	<input id="attackdamage" name="attackdamage" type="hidden"></input>
+	<input id="hp" name="hp" type="hidden"></input>
+	<input id="hpperlevel" name="hpperlevel" type="hidden"></input>
+	<input id="attackdamageperlevel" name="attackdamageperlevel" type="hidden"></input>
+	<input id="armor" name="armor" type="hidden"></input>
+	<input id="mpregenperlevel" name="mpregenperlevel" type="hidden"></input>
+	<input id="hpregen" name="hpregen" type="hidden"></input>
+	<input id="critperlevel" name="critperlevel" type="hidden"></input>
+	<input id="mrperlevel" name="mrperlevel" type="hidden"></input>
+	<input id="mpregen" name="mpregen" type="hidden"></input>
+	<input id="attackspeedperlevel" name="attackspeedperlevel" type="hidden"></input>
+	<input id="mr" name="mr" type="hidden"></input>
+	<input id="movespeed" name="movespeed" type="hidden"></input>
+	<input id="crit" name="crit" type="hidden"></input>
+	<input id="hpregenperlevel" name="hpregenperlevel" type="hidden"></input>
+	<input id="armorperlevel" name="armorperlevel" type="hidden"></input>
+	<input id="attackspeedoffset" name="attackspeedoffset" type="hidden"></input>
 
 	<div>
 		
@@ -1531,8 +1672,8 @@
 					<option value="18">18</option>
 					</select>
 				</li>
-				<li><input style="width: 50px;" type="number" name ="kills"></li>				<li><input style="width: 50px;" type="number" name="assists"></li>
-				<li><input style="width: 50px;" type="number" name="cs"></li>
+				<li><input style="width: 50px;" type="number" name ="kills" value="0"></li>				<li><input style="width: 50px;" type="number" name="assists" value="0"></li>
+				<li><input style="width: 50px;" type="number" name="cs" value="0"></li>
 			</ul>
 		</div>
 		<div class="gamedetails">
@@ -1545,9 +1686,9 @@
 		</div>
 		<div class="gameinputsnot">
 			<ul class="gameinputsnot">
-				<li><input style="width: 50px;" type="number"></li>
-				<li><input style="width: 50px;" type="number"></li>
-				<li><input style="width: 50px;" type="number"></li>
+				<li><input style="width: 50px;" type="number" value="0" name="towers"></li>
+				<li><input style="width: 50px;" type="number" value="0" name="dragons"></li>
+				<li><input style="width: 50px;" type="number" value="0" name="barons"></li>
 				<li><input style="width: 75px;" type="time"></li>
 			</ul>
 		</div>
@@ -1722,24 +1863,32 @@
 			var four_src = iven_four.src;
 			var five_src = iven_five.src;
 			
-			var empty_item = "file:///C:/Users/Matt/Documents/Database%20Project/LeagueCalculator/images/EmptyIcon_Item.png";
+			console.log(zero_src);
 			
-			if(zero_src == empty_item){
+			var src_temp_zero = zero_src.substr(zero_src.length - 25, zero_src.length);
+			var src_temp_one = one_src.substr(one_src.length - 25, one_src.length);
+			var src_temp_two = two_src.substr(two_src.length - 25, two_src.length);
+			var src_temp_three = three_src.substr(three_src.length - 25, three_src.length);
+			var src_temp_four = four_src.substr(four_src.length - 25, four_src.length);
+			var src_temp_five = five_src.substr(five_src.length - 25, five_src.length);
+			
+			var empty_item = "images/EmptyIcon_Item.png";
+			if(src_temp_zero == empty_item){
 				iven_zero.src = clicked_image;
 			}else{
-				if(one_src == empty_item){
+				if(src_temp_one == empty_item){
 					iven_one.src = clicked_image;
 				}else{
-					if(two_src == empty_item){
+					if(src_temp_two == empty_item){
 						iven_two.src = clicked_image;
 					}else{
-						if(three_src == empty_item){
+						if(src_temp_three == empty_item){
 							iven_three.src = clicked_image;
 						}else{
-							if(four_src == empty_item){
+							if(src_temp_four == empty_item){
 								iven_four.src = clicked_image;
 							}else{
-								if(five_src == empty_item){
+								if(src_temp_five == empty_item){
 									iven_five.src = clicked_image;
 								}
 							}
@@ -1762,8 +1911,53 @@
 				data: {
 
 				},
-				success: function (json) {	
-					console.log(json.stats); <!-- you can post the stats and gold, and they should have everything we need besides unique passive stats, but screw those-->
+				success: function (json) {
+					/*console.log(json.stats);
+
+					pass = json.data[champ_name].stats;
+					console.log(pass);
+
+					var stats = {attackrange:"0",mpperlevel:"0",mp:"0",attackdamage:"0",hp:"0",hpperlevel:"0",attackdamageperlevel:"0",armor:"0",mpregenperlevel:"0",
+								 hpregen:"0",critperlevel:"0",spellblockperlevel:"0",mpregen:"0",
+								 attackspeedperlevel:"0",spellblock:"0",movespeed:"0",attackspeedoffset:"0",crit:"0",hpregenperlevel:"0",armorperlevel:"0"};
+
+					for(var property in stats)
+					{
+						if(stats.hasOwnProperty(property))
+						{
+							stats[property]=json.data[champ_name].stats[property];
+						}
+					}
+
+					//i know this looks janky, and it is, so i have no excuse
+					document.getElementById("mpperlevel").value=stats.mpperlevel;
+					document.getElementById("mp").value=stats.mp;
+					document.getElementById("attackdamage").value=stats.attackdamage;
+					document.getElementById("hp").value=stats.hp;
+					document.getElementById("hpperlevel").value=stats.hpperlevel;
+					document.getElementById("attackdamageperlevel").value=stats.attackdamageperlevel;
+					document.getElementById("armor").value=stats.armor;
+					document.getElementById("mpregenperlevel").value=stats.mpregenperlevel;
+					document.getElementById("hpregen").value=stats.hpregen;
+					document.getElementById("critperlevel").value=stats.critperlevel;
+					document.getElementById("mrperlevel").value=stats.spellblockperlevel;
+					document.getElementById("mpregen").value=stats.mpregen;
+					document.getElementById("attackspeedperlevel").value=stats.attackspeedperlevel;
+					document.getElementById("mr").value=stats.spellblock;
+					document.getElementById("movespeed").value=stats.movespeed;
+					document.getElementById("crit").value=stats.crit;
+					document.getElementById("hpregenperlevel").value=stats.hpregenperlevel;
+					document.getElementById("armorperlevel").value=stats.armorperlevel;
+					document.getElementById("attackspeedoffset").value=stats.attackspeedoffset; 
+					
+		            $.ajax({
+		                type: 'post',
+		                url: 'runesandgamedetails.php',
+		                data: $('form').serialize(),
+		                success: function () {
+		                  alert('Runes and Game Details updated!');
+		                }
+		              }); */
 				},
 				error: function (XMLHttpRequest, textStatus, errorThrown) {
 					alert("Empty Item Slot!");
@@ -1775,7 +1969,7 @@
 		function remove_item(clicked_id){
 			var inven_image = document.getElementById(clicked_id);
 			var image_source = inven_image.src;
-			inven_image.src = "file:///C:/Users/Matt/Documents/Database%20Project/LeagueCalculator/images/EmptyIcon_Item.png";
+			inven_image.src = "images/EmptyIcon_Item.png";
 			
 			var remove_id = image_source;
 			remove_id = remove_id.substr(remove_id.length - 8);
@@ -1795,7 +1989,7 @@
 					console.log(json.stats); <!-- you can post the stats and gold, and they should have everything we need besides unique passive stats, but screw those-->
 				},
 				error: function (XMLHttpRequest, textStatus, errorThrown) {
-					alert("Remove Item Error");
+					alert("error getting Summoner data!");
 				}
 			});
 		}
@@ -1812,10 +2006,11 @@
 			item_id = item_id.slice(0,4);
 			
 			item_url = "https://global.api.pvp.net/api/lol/static-data/na/v1.2/item/" + item_id + "?itemData=all&api_key=3f6239b0-97b4-42fa-8d52-63aabb176184";
-				
-			image_source = "file:///C:/Users/Matt/Documents/Database%20Project/LeagueCalculator/images/EmptyIcon_Item.png"
+			
+			
 			var src_temp = image_source.substr(image_source.length - 25, image_source.length);
-			console.log(source_temp);
+
+				
 			
 			if(src_temp != "images/EmptyIcon_Item.png"){
 				$.ajax({
@@ -1831,6 +2026,7 @@
 						stats2.innerHTML = "Gold: " + json.gold.total + "      |      " + json.sanitizedDescription;
 					},
 					error: function (XMLHttpRequest, textStatus, errorThrown) {
+						alert("error getting Summoner data!");
 					}
 				});
 			}else{
