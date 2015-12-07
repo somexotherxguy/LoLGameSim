@@ -23,23 +23,24 @@ function getstats() {
                 
                 var responsearray=xmlhttp.responseText.split("|");
                 console.log(xmlhttp.responseText);
-                
-                document.getElementById("health").innerHTML = responsearray[0];
-                document.getElementById("mana").innerHTML = responsearray[1];
-                document.getElementById("attack damage").innerHTML = responsearray[2];
-                document.getElementById("health regen").innerHTML = responsearray[3];
-                document.getElementById("mana regen").innerHTML = responsearray[4];
-                document.getElementById("attack speed").innerHTML = responsearray[5];
-                document.getElementById("cooldown reduction").innerHTML = responsearray[6];
-                document.getElementById("magic pen").innerHTML = responsearray[7];
-                document.getElementById("percent magic pen").innerHTML = responsearray[8];
-                document.getElementById("critical chance").innerHTML = responsearray[9];
-                document.getElementById("move speed").innerHTML = responsearray[10];
-                document.getElementById("armor pen").innerHTML = responsearray[11];
-                document.getElementById("percent armor pen").innerHTML = responsearray[12];
-                document.getElementById("ability power").innerHTML = responsearray[13];
-                document.getElementById("magic res").innerHTML = responsearray[14];
-                document.getElementById("armor2").innerHTML = responsearray[15];
+
+                document.getElementById("gold2").innerHTML = responsearray[0];
+                document.getElementById("health").innerHTML = responsearray[1];
+                document.getElementById("mana").innerHTML = responsearray[2];
+                document.getElementById("attack damage").innerHTML = responsearray[3];
+                document.getElementById("health regen").innerHTML = responsearray[4];
+                document.getElementById("mana regen").innerHTML = responsearray[5];
+                document.getElementById("attack speed").innerHTML = responsearray[6];
+                document.getElementById("cooldown reduction").innerHTML = responsearray[7];
+                document.getElementById("magic pen").innerHTML = responsearray[8];
+                document.getElementById("percent magic pen").innerHTML = responsearray[9];
+                document.getElementById("critical chance").innerHTML = responsearray[10];
+                document.getElementById("move speed").innerHTML = responsearray[11];
+                document.getElementById("armor pen").innerHTML = responsearray[12];
+                document.getElementById("percent armor pen").innerHTML = responsearray[13];
+                document.getElementById("ability power").innerHTML = responsearray[14];
+                document.getElementById("magic res").innerHTML = responsearray[15];
+                document.getElementById("armor2").innerHTML = responsearray[16];
             }
         };
         xmlhttp.open("GET","getstats.php?q=",true);
@@ -1635,6 +1636,29 @@ function getstats() {
 	<input id="hpregenperlevel" name="hpregenperlevel" type="hidden"></input>
 	<input id="armorperlevel" name="armorperlevel" type="hidden"></input>
 	<input id="attackspeedoffset" name="attackspeedoffset" type="hidden"></input>
+	<input id="flatarmormod" name="flatarmormod" type="hidden"></input>
+	<input id="flatattackspeedmod" name="flatattackspeedmod" type="hidden"></input>
+	<input id="flatcritchancemod" name="flatcritchancemod" type="hidden"></input>
+	<input id="flathppoolmod" name="flathppoolmod" type="hidden"></input>
+	<input id="flathpregenmod" name="flathpregenmod" type="hidden"></input>
+	<input id="flatmppoolmod" name="flatmppoolmod" type="hidden"></input>
+	<input id="flatmpregenmod" name="flatmpregenmod" type="hidden"></input>
+	<input id="flatmagicdamagemod" name="flatmagicdamagemod" type="hidden"></input>
+	<input id="flatmovementspeedmod" name="flatmovementspeedmod" type="hidden"></input>
+	<input id="flatphysicaldamagemod" name="flatphysicaldamagemod" type="hidden"></input>
+	<input id="flatspellblockmod" name="flatspellblockmod" type="hidden"></input>
+	<input id="percentarmormod" name="percentarmormod" type="hidden"></input>
+	<input id="percentattackspeedmod" name="percentattackspeedmod" type="hidden"></input>
+	<input id="percentcritchancemod" name="percentcritchancemod" type="hidden"></input>
+	<input id="percenthppoolmod" name="percenthppoolmod" type="hidden"></input>
+	<input id="percenthpregenmod" name="percenthpregenmod" type="hidden"></input>
+	<input id="percentmppoolmod" name="percentmppoolmod" type="hidden"></input>
+	<input id="percentmpregenmod" name="percentmpregenmod" type="hidden"></input>
+	<input id="percentmagicdamagemod" name="percentmagicdamagemod" type="hidden"></input>
+	<input id="percentmovementspeedmod" name="percentmovementspeedmod" type="hidden"></input>
+	<input id="percentphysicaldamagemod" name="percentphysicaldamagemod" type="hidden"></input>
+	<input id="percentspellblockmod" name="percentspellblockmod" type="hidden"></input>
+	<input id="gold3" name="gold3" type="hidden"></input>
 
 	<div>
 		
@@ -1797,7 +1821,7 @@ function getstats() {
 		</div>
 	
 		<div id="gold">
-			<h4>Gold: Insert Number Here</h4>
+			<h4>Gold: <span id="gold2">0000</span></h4>
 		</div>
 		<div id="inventory">
 			<h4>Inventory</h4>
@@ -1845,7 +1869,10 @@ function getstats() {
 
 	<script>
 		<!-- This function adds items to the inventory -->
-		function add_inventory(clicked_id){ 
+		function add_inventory(clicked_id){
+
+			//if(document.getElementById("gold2")>=json.gold.total)
+			//{ 
 
 			var shop_image = document.getElementById(clicked_id);
 			var clicked_image = shop_image.src;
@@ -1873,6 +1900,9 @@ function getstats() {
 			var src_temp_five = five_src.substr(five_src.length - 25, five_src.length);
 			
 			var empty_item = "images/EmptyIcon_Item.png";
+
+			console.log(iven_zero.src);
+			
 			if(src_temp_zero == empty_item){
 				iven_zero.src = clicked_image;
 			}else{
@@ -1896,6 +1926,7 @@ function getstats() {
 					}
 				}	
 			}
+			//}
 
 			var item_id = clicked_image;
 			item_id = item_id.substr(item_id.length - 8);
@@ -1912,57 +1943,57 @@ function getstats() {
 
 				},
 				success: function (json) {
-					/*console.log(json.stats);
 
-					pass = json.data[champ_name].stats;
-					console.log(pass);
+					var item_stats = {FlatArmorMod:"0",FlatAttackSpeedMod:"0",FlatCritChanceMod:"0",FlatHPPoolMod:"0",FlatHPRegenMod:"0",FlatMPPoolMod:"0",FlatMPRegenMod:"0",
+									  FlatMagicDamageMod:"0",FlatMovementSpeedMod:"0",FlatPhysicalDamageMod:"0",FlatSpellBlockMod:"0",PercentArmorMod:"0",PercentAttackSpeedMod:"0",
+									  PercentCritChanceMod:"0",PercentHPPoolMod:"0",PercentMPRegenMod:"0",PercentMagicDamageMod:"0",PercentMovementSpeedMod:"0",PercentPhysicalDamageMod:"0",
+									  PercentSpellBlockMod:"0"};
 
-					var stats = {attackrange:"0",mpperlevel:"0",mp:"0",attackdamage:"0",hp:"0",hpperlevel:"0",attackdamageperlevel:"0",armor:"0",mpregenperlevel:"0",
-								 hpregen:"0",critperlevel:"0",spellblockperlevel:"0",mpregen:"0",
-								 attackspeedperlevel:"0",spellblock:"0",movespeed:"0",attackspeedoffset:"0",crit:"0",hpregenperlevel:"0",armorperlevel:"0"};
-
-					for(var property in stats)
+					for(var property in item_stats)
 					{
-						if(stats.hasOwnProperty(property))
+						if(json.stats.hasOwnProperty(property))
 						{
-							stats[property]=json.data[champ_name].stats[property];
+							item_stats[property]=json.stats[property];
 						}
 					}
 
-					//i know this looks janky, and it is, so i have no excuse
-					document.getElementById("mpperlevel").value=stats.mpperlevel;
-					document.getElementById("mp").value=stats.mp;
-					document.getElementById("attackdamage").value=stats.attackdamage;
-					document.getElementById("hp").value=stats.hp;
-					document.getElementById("hpperlevel").value=stats.hpperlevel;
-					document.getElementById("attackdamageperlevel").value=stats.attackdamageperlevel;
-					document.getElementById("armor").value=stats.armor;
-					document.getElementById("mpregenperlevel").value=stats.mpregenperlevel;
-					document.getElementById("hpregen").value=stats.hpregen;
-					document.getElementById("critperlevel").value=stats.critperlevel;
-					document.getElementById("mrperlevel").value=stats.spellblockperlevel;
-					document.getElementById("mpregen").value=stats.mpregen;
-					document.getElementById("attackspeedperlevel").value=stats.attackspeedperlevel;
-					document.getElementById("mr").value=stats.spellblock;
-					document.getElementById("movespeed").value=stats.movespeed;
-					document.getElementById("crit").value=stats.crit;
-					document.getElementById("hpregenperlevel").value=stats.hpregenperlevel;
-					document.getElementById("armorperlevel").value=stats.armorperlevel;
-					document.getElementById("attackspeedoffset").value=stats.attackspeedoffset; 
-					
-		            $.ajax({
+					document.getElementById("flatarmormod").value=item_stats.FlatArmorMod;
+					document.getElementById("flatattackspeedmod").value=item_stats.FlatAttackSpeedMod;
+					document.getElementById("flatcritchancemod").value=item_stats.FlatCritChanceMod;
+					document.getElementById("flathppoolmod").value=item_stats.FlatHPPoolMod;
+					document.getElementById("flathpregenmod").value=item_stats.FlatHPRegenMod;
+					document.getElementById("flatmppoolmod").value=item_stats.FlatMPPoolMod;
+					document.getElementById("flatmpregenmod").value=item_stats.FlatMPRegenMod;
+					document.getElementById("flatmagicdamagemod").value=item_stats.FlatMagicDamageMod;
+					document.getElementById("flatmovementspeedmod").value=item_stats.FlatMovementSpeedMod;
+					document.getElementById("flatphysicaldamagemod").value=item_stats.FlatPhysicalDamageMod;
+					document.getElementById("flatspellblockmod").value=item_stats.FlatSpellBlockMod;
+					document.getElementById("percentarmormod").value=item_stats.PercentArmorMod;
+					document.getElementById("percentattackspeedmod").value=item_stats.PercentAttackSpeedMod;
+					document.getElementById("percentcritchancemod").value=item_stats.PercentCritChanceMod;
+					document.getElementById("percenthppoolmod").value=item_stats.PercentHPPoolMod;
+					document.getElementById("percentmpregenmod").value=item_stats.PercentMPRegenMod;
+					document.getElementById("percentmagicdamagemod").value=item_stats.PercentMagicDamageMod;
+					document.getElementById("percentmovementspeedmod").value=item_stats.PercentMovementSpeedMod;
+					document.getElementById("percentphysicaldamagemod").value=item_stats.PercentPhysicalDamageMod;
+					document.getElementById("percentspellblockmod").value=item_stats.PercentSpellBlockMod;
+					document.getElementById("gold3").value=json.gold.total;
+
+					$.ajax({
 		                type: 'post',
-		                url: 'runesandgamedetails.php',
+		                url: 'additem.php',
 		                data: $('form').serialize(),
 		                success: function () {
-		                  alert('Runes and Game Details updated!');
+		                  alert('Stats updated!');
 		                }
-		              }); */
+		            });
+
+					setTimeout(getstats, 1000);
 				},
 				error: function (XMLHttpRequest, textStatus, errorThrown) {
 					alert("Empty Item Slot!");
 				}
-			});
+			}); 
 		}
 
 		<!-- This function will remove an item from the inventory if it is clicked on -->
@@ -1985,8 +2016,53 @@ function getstats() {
 				data: {
 
 				},
-				success: function (json) {	
-					console.log(json.stats); <!-- you can post the stats and gold, and they should have everything we need besides unique passive stats, but screw those-->
+				success: function (json) {
+					
+					var item_stats = {FlatArmorMod:"0",FlatAttackSpeedMod:"0",FlatCritChanceMod:"0",FlatHPPoolMod:"0",FlatHPRegenMod:"0",FlatMPPoolMod:"0",FlatMPRegenMod:"0",
+									  FlatMagicDamageMod:"0",FlatMovementSpeedMod:"0",FlatPhysicalDamageMod:"0",FlatSpellBlockMod:"0",PercentArmorMod:"0",PercentAttackSpeedMod:"0",
+									  PercentCritChanceMod:"0",PercentHPPoolMod:"0",PercentMPRegenMod:"0",PercentMagicDamageMod:"0",PercentMovementSpeedMod:"0",PercentPhysicalDamageMod:"0",
+									  PercentSpellBlockMod:"0"};
+		
+					for(var property in item_stats)
+					{
+						if(json.stats.hasOwnProperty(property))
+						{
+							item_stats[property]=json.stats[property];
+						}
+					}
+		
+					document.getElementById("flatarmormod").value=item_stats.FlatArmorMod;
+					document.getElementById("flatattackspeedmod").value=item_stats.FlatAttackSpeedMod;
+					document.getElementById("flatcritchancemod").value=item_stats.FlatCritChanceMod;
+					document.getElementById("flathppoolmod").value=item_stats.FlatHPPoolMod;
+					document.getElementById("flathpregenmod").value=item_stats.FlatHPRegenMod;
+					document.getElementById("flatmppoolmod").value=item_stats.FlatMPPoolMod;
+					document.getElementById("flatmpregenmod").value=item_stats.FlatMPRegenMod;
+					document.getElementById("flatmagicdamagemod").value=item_stats.FlatMagicDamageMod;
+					document.getElementById("flatmovementspeedmod").value=item_stats.FlatMovementSpeedMod;
+					document.getElementById("flatphysicaldamagemod").value=item_stats.FlatPhysicalDamageMod;
+					document.getElementById("flatspellblockmod").value=item_stats.FlatSpellBlockMod;
+					document.getElementById("percentarmormod").value=item_stats.PercentArmorMod;
+					document.getElementById("percentattackspeedmod").value=item_stats.PercentAttackSpeedMod;
+					document.getElementById("percentcritchancemod").value=item_stats.PercentCritChanceMod;
+					document.getElementById("percenthppoolmod").value=item_stats.PercentHPPoolMod;
+					document.getElementById("percentmpregenmod").value=item_stats.PercentMPRegenMod;
+					document.getElementById("percentmagicdamagemod").value=item_stats.PercentMagicDamageMod;
+					document.getElementById("percentmovementspeedmod").value=item_stats.PercentMovementSpeedMod;
+					document.getElementById("percentphysicaldamagemod").value=item_stats.PercentPhysicalDamageMod;
+					document.getElementById("percentspellblockmod").value=item_stats.PercentSpellBlockMod;
+					document.getElementById("gold3").value=json.gold.total;
+		
+					$.ajax({
+		              type: 'post',
+		              url: 'removeitem.php',
+		              data: $('form').serialize(),
+		              success: function () {
+		                alert('Stats updated!');
+		              }
+		          });
+		
+					setTimeout(getstats, 1000);
 				},
 				error: function (XMLHttpRequest, textStatus, errorThrown) {
 					alert("error getting Summoner data!");

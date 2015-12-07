@@ -416,25 +416,6 @@
 		$connection->exec($sql);
 	}
 		
-	//this is for the gold income quint, which we need to keep track of;
-	//however, rune_page_stats doesn't have a column for gold so I'll fix it later
-	//my bad
-		
-	/*if(isset($_POST['goldquint']) && $_POST['goldquint']>=1){
-	 $goldquint=$_POST['goldquint'];
-	 	
-	 $sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-	 armor_pen, magic_resist, magic_pen, attack_damage,
-	 attack_speed, cooldown_reduction, crit_chance,
-	 crit_damage, energy, energy_regen, health,
-	 health_regen, percent_health, mana, mana_regen,
-	 lifesteal, move_speed)
-	 values ('Quintessence of Gold', '$goldquint', '0', '0', '0', '0',
-	 '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
-	 	
-	 $connection->exec($sql);
-	 }*/
-		
 	if(isset($_POST['lifestealquint']) && $_POST['lifestealquint']>=1){
 		$lifestealquint=$_POST['lifestealquint'];
 			
@@ -675,23 +656,6 @@
 				set health = (health + ($result*health))";
 		$connection->exec($sql);
 	}
-		
-	//same situation as gold income quint
-		
-	/*if(isset($_POST['spellvampquint']) && $_POST['spellvampquint']>=1){
-	 $spellvampquint=$_POST['spellvampquint'];
-	 	
-	 $sql = "insert into Rune_Page_Stats (rune_id, quantity, ability_power, armor,
-	 armor_pen, magic_resist, magic_pen, attack_damage,
-	 attack_speed, cooldown_reduction, crit_chance,
-	 crit_damage, energy, energy_regen, health,
-	 health_regen, percent_health, mana, mana_regen,
-	 lifesteal, move_speed)
-	 values ('Quintessence of Spell Vamp', '$spellvampquint', '0', '0', '0', '0',
-	 '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
-	 	
-	 $connection->exec($sql);
-	 }*/
 	
 	//$sql = "insert into Game_Instance (lvl, towers_killed, creep_score, kills, deaths,
 	//assists, game_time, barons, dragons, clears,
