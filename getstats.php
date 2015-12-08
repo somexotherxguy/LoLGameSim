@@ -49,6 +49,8 @@
 			echo "|";
 			echo $row["armor"];
 			echo "|";
+			echo $row['attackrange'];
+			echo "|";
 		}
 	} else {
 		echo "0 results";

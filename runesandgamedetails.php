@@ -87,6 +87,9 @@
 	//movespeed
 	$movespeed=$_POST['movespeed'];
 	
+	//attackrange
+	$attackrange=$_POST['attackrange'];
+	
 	//make sure the user starts with an empty page;
 	//every time the submit button is pressed, the table is cleared and then
 	//we take in the new values
@@ -102,12 +105,12 @@
 	$connection->exec($sql);
 	
 	$sql = "insert into Current_Stats
-			values ('0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
+			values ('0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0')";
 	$connection->exec($sql);
 	
 	$sql = "update Current_Stats
 			set health = $health, health_regen = $health_regen, mana = $mana, mana_regen = $mana_regen, armor=$armor,
-						  magic_resist = $magic_resist, attack_damage = $attack_damage, attack_speed = $attack_speed, flat_move_speed = $movespeed";
+						  magic_resist = $magic_resist, attack_damage = $attack_damage, attack_speed = $attack_speed, flat_move_speed = $movespeed, attackrange = $attackrange";
 	$connection->exec($sql);
 		
 	//aaaaahhhhhhhhHHHHHHHHHHHHHHHHHH

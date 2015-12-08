@@ -41,6 +41,7 @@ function getstats() {
                 document.getElementById("ability power").innerHTML = responsearray[14];
                 document.getElementById("magic res").innerHTML = responsearray[15];
                 document.getElementById("armor2").innerHTML = responsearray[16];
+                document.getElementById("attackrange2").innerHTML = responsearray[17];
             }
         };
         xmlhttp.open("GET","getstats.php?q=",true);
@@ -303,6 +304,7 @@ function getstats() {
 								}
 
 								//i know this looks janky, and it is, so i have no excuse
+								document.getElementById("attackrange").value=stats.attackrange;
 								document.getElementById("mpperlevel").value=stats.mpperlevel;
 								document.getElementById("mp").value=stats.mp;
 								document.getElementById("attackdamage").value=stats.attackdamage;
@@ -738,7 +740,7 @@ function getstats() {
 				<td>Move Speed - <span id="move speed">0000</span></td>
 				<td>Armor Pen - <span id="armor pen">0000</span></td>
 				<td>% Armor pen - <span id="percent armor pen">0000</span></td>
-				<td>Attack Range - <span id="attack range">0000</span></td>
+				<td>Attack Range - <span id="attackrange2">0000</span></td>
 				
 			</tr>
 			<tr>
@@ -1617,6 +1619,7 @@ function getstats() {
 		<!--<button style="margin-left: 30px;" type="button">Update Runes</button>-->
 	</div>
 	
+	<input id="attackrange" name="attackrange" type="hidden"></input>
 	<input id="mpperlevel" name="mpperlevel" type="hidden"></input>
 	<input id="mp" name="mp" type="hidden"></input>
 	<input id="attackdamage" name="attackdamage" type="hidden"></input>
